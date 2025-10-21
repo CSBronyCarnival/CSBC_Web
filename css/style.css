@@ -119,13 +119,11 @@ body {
 .hero-content h1 {
     font-size: 3.5rem;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content p {
     font-size: 1.3rem;
     margin-bottom: 30px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .about-section {
@@ -141,7 +139,7 @@ body {
 }
 
 .about-content {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     font-size: 1.1rem;
     line-height: 1.8;
@@ -153,30 +151,105 @@ body {
     text-align: center;
 }
 
+.venue-section {
+    padding: 100px 0;
+    background: white;
+}
+
+.venue-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #2c3e50;
+}
+
+.venue-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.venue-image {
+    flex: 1;
+    max-width: 500px;
+}
+
+.venue-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.venue-description {
+    flex: 1;
+}
+
+.venue-description span {
+    display: block;
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.venue-description h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.venue-description h4 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #696969;
+    font-weight: 400;
+}
+
+.venue-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .venue-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .venue-image {
+        max-width: 100%;
+        order: -1;
+    }
+    
+    .venue-description {
+        text-align: center;
+    }
+    
+    .venue-section h2 {
+        font-size: 2rem;
+    }
+    
+    .venue-description h3 {
+        font-size: 1.5rem;
+    }
+    
+    .venue-description h4 {
+        font-size: 1rem;
+    }
+}
+
 .footer {
-    background: #1088ff;
+    background: #42a1ff;
     color: white;
     padding: 60px 0;
     position: relative;
     overflow: visible;
-}
-
-.footer-top-text {
-    position: absolute;
-    top: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: 100%;
-    color: #ffffff;
-}
-
-.footer-top-text p {
-    margin: 0;
-    font-weight: bold;
-    font-size: 4rem;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .footer-container {
