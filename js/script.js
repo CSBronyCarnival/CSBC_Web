@@ -21,11 +21,11 @@ function handleMouseMove(e) {
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
 
-    const bgMoveX = (mouseX - 0.5) * 30;
-    const bgMoveY = (mouseY - 0.5) * 30;
+    const bgMoveX = (mouseX - 0.5) * 10;
+    const bgMoveY = (mouseY - 0.5) * 10;
 
-    const titleMoveX = (mouseX - 0.5) * 10;
-    const titleMoveY = (mouseY - 0.5) * 10;
+    const titleMoveX = (mouseX - 0.5) * 30;
+    const titleMoveY = (mouseY - 0.5) * 30;
 
     heroBg.style.transform = `translate(calc(-5% + ${bgMoveX}px), calc(-5% + ${bgMoveY}px))`;
 

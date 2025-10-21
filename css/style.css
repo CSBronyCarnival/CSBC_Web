@@ -154,9 +154,29 @@ body {
 }
 
 .footer {
-    background: #2f97ff;
+    background: #1088ff;
     color: white;
-    padding: 30px 0;
+    padding: 60px 0;
+    position: relative;
+    overflow: visible;
+}
+
+.footer-top-text {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+}
+
+.footer-top-text p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 4rem;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .footer-container {
@@ -237,6 +257,10 @@ body {
     .footer-links {
         flex-direction: column;
         gap: 15px;
+    }
+    
+    .footer-top-text p {
+        font-size: 0.9rem;
     }
 }
 
