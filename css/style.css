@@ -165,10 +165,10 @@ body {
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease-out;
     z-index: 0;
-    width: 850px;
+    width: 900px;
     height: auto;
     text-align: center;
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 .hero-image img {
@@ -670,7 +670,23 @@ body {
     background: #e2f1ff;
     padding: 60px 0;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
+}
+
+.footer-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.footer-image img {
+    width: 100%;
+    height: auto;
+    transform: translateY(30%);
+    transition: transform 0.2s ease-out;
 }
 
 .footer-container {
@@ -680,6 +696,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .footer-left {
