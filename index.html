@@ -10,6 +10,9 @@
 </head>
 
 <body>
+    <div class="loading-screen">
+        <img src="img/logo.png">
+    </div>
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -19,15 +22,31 @@
                 <li><a href="#home">首页</a></li>
                 <li><a href="#about">关于</a></li>
                 <li><a href="#venue">场地</a></li>
+                <li><a href="#ticket">票价</a></li>
+                <li><a href="#team">团队</a></li>
+                <li><a href="#qa">问题</a></li>
             </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
     </nav>
 
     <header class="hero" id="home">
         <div class="hero-bg">
-            <img src="img/hero-bg.jpg" alt="背景图片">
+            <img src="img/hero-bg.jpg">
+        </div>
+        <div class="hero-image">
+            <img src="img/stickshort.png">
         </div>
         <div class="hero-content">
+            <div class="hero-subtitle">
+                <span class="line-left"></span>
+                <span class="subtitle-text">GuangZhou China</span>
+                <span class="line-right"></span>
+            </div>
             <h1>华南马聚CSBC2026</h1>
             <p>2026.7.18-7.19 我在广州等你</p>
         </div>
@@ -35,26 +54,223 @@
 
     <section class="about-section" id="about">
         <div class="container">
+            <p class="section-subtitle">About</p>
             <h2>关于</h2>
+            <div class="section-divider">
+                <span class="divider-line"></span>
+                <span class="divider-dot"></span>
+                <span class="divider-line"></span>
+            </div>
             <div class="about-content">
                 <p>我们是华南马聚CSBC 始于广州 2022年以来已在华南地区成功举办多场展会 <br>
-                    我们致力于与各位马迷朋友们共同思考 共同创新 在发展的过程中与各位一同进步 为各位带来更加良好的参展体验
-                </p>
+                    我们致力于与各位马迷朋友们共同思考 共同创新 在发展的过程中与各位一同进步 为各位带来更加良好的参展体验</p>
             </div>
         </div>
     </section>
 
     <section class="venue-section" id="venue">
         <div class="container">
+            <p class="section-subtitle">Venue</p>
             <h2>场地</h2>
+            <div class="section-divider">
+                <span class="divider-line"></span>
+                <span class="divider-dot"></span>
+                <span class="divider-line"></span>
+            </div>
             <div class="venue-content">
                 <div class="venue-image">
                     <img src="img/venue.jpg">
                 </div>
                 <div class="venue-description">
                     <h3>广州瑞士酒店 <span>Swissôtel Guangzhou</span></h3>
+                    <div class="venue-title-underline"></div>
                     <h4>地址：广州市天河区华观路1961号</h4>
-                    <p>广州瑞士酒店位于广州市天河区东北部天河智慧城（IBD）的核心区--天河软件园内。酒店共拥有364间具有现代东方格调的客房及套房。酒店拥有3个风格各异的餐厅为宾客带来多元化的美食体验此外，酒店还配有户外泳池，功能齐全、设施完备的健身中心，15000平方米的户外花园为宾客打造活力惬意的度假时光。时间与旅行是生活的美妙馈赠，希望入住的您也能感受到来自瑞士的健康活力与高品质生活体验。</p>
+                    <p>广州瑞士酒店位于广州市天河区东北部天河智慧城（IBD）的核心区--天河软件园内。酒店共拥有364间具有现代东方格调的客房及套房。酒店拥有3个风格各异的餐厅为宾客带来多元化的美食体验此外，酒店还配有户外泳池，功能齐全、设施完备的健身中心，15000平方米的户外花园为宾客打造活力惬意的度假时光。时间与旅行是生活的美妙馈赠，希望入住的您也能感受到来自瑞士的健康活力与高品质生活体验。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="ticket">
+        <div class="container">
+            <p class="section-subtitle">Tickets</p>
+            <h2>票价</h2>
+            <div class="section-divider">
+                <span class="divider-line"></span>
+                <span class="divider-dot"></span>
+                <span class="divider-line"></span>
+            </div>
+            <div class="pricing-content">
+                <div class="pricing-tier">
+                    <h3>单人通票</h3>
+                    <div class="price">¥168<span>/人</span></div>
+                    <ul>
+                        <li>19-20日无限制进场</li>
+                        <li>包含夜场活动</li>
+                        <li>标准众筹回馈</li>
+                    </ul>
+                    <button class="pricing-btn">立即购买</button>
+                </div>
+
+                <div class="pricing-tier featured">
+                    <h3>酒店套票</h3>
+                    <div class="price">¥1888<span>/人</span></div>
+                    <ul>
+                        <li>17-20日3晚酒店</li>
+                        <li>单人通票众筹回馈1份</li>
+                        <li>特别回馈1份</li>
+                        <li>同享单购酒店房间相关权益</li>
+                    </ul>
+                    <button class="pricing-btn">立即购买</button>
+                </div>
+
+                <div class="pricing-tier">
+                    <h3>SUPPORTER</h3>
+                    <div class="price">¥888<span>/人</span></div>
+                    <ul>
+                        <li>19-20日无限制进场（包含夜场）</li>
+                        <li>场刊内致谢</li>
+                        <li>单人通票众筹回馈+特殊回馈1份</li>
+                    </ul>
+                    <button class="pricing-btn">立即购买</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section" id="team">
+        <div class="container">
+            <p class="section-subtitle">Team</p>
+            <h2>团队</h2>
+            <div class="section-divider">
+                <span class="divider-line"></span>
+                <span class="divider-dot"></span>
+                <span class="divider-line"></span>
+            </div>
+            <div class="team-content">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="img/team/光翼.jpg">
+                    </div>
+                    <h3>光翼</h3>
+                    <p class="member-description">主办</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="img/team/Ladetaw.png">
+                    </div>
+                    <h3>Ladetaw</h3>
+                    <p class="member-description">主办</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="img/team/Stevenife.png">
+                    </div>
+                    <h3>Stevenife</h3>
+                    <p class="member-description">Office.exe</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="img/team/牛奶.png">
+                    </div>
+                    <h3>牛奶</h3>
+                    <p class="member-description">画师</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="qa-section" id="qa">
+        <div class="container">
+            <p class="section-subtitle">Q&A</p>
+            <h2>问题</h2>
+            <div class="section-divider">
+                <span class="divider-line"></span>
+                <span class="divider-dot"></span>
+                <span class="divider-line"></span>
+            </div>
+            <div class="qa-content">
+                <div class="qa-column">
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <h3>19/20号的活动有差异吗？</h3>
+                            <span class="qa-toggle">+</span>
+                        </div>
+                        <div class="qa-answer">
+                            <p>今年的展会回归2天模式<br>
+                                展会将于2025年7月19日至20日举行<br>
+                                两天的活动均不相同</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <h3>如何领取众筹回馈？</h3>
+                            <span class="qa-toggle">+</span>
+                        </div>
+                        <div class="qa-answer">
+                            <p>我们的众筹回馈于展会现场发放<br>
+                                届时您可向检票人员出示淘宝订单页面<br>
+                                并领取您的门票和众筹回馈</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <h3>在非展会举行期间如果需要加房怎么办？</h3>
+                            <span class="qa-toggle">+</span>
+                        </div>
+                        <div class="qa-answer">
+                            <p>请在群内联系管理员进行登记<br>
+                                我们会为您处理相关事宜</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="qa-column">
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <h3>展会有单独的官方酒店可以定吗？</h3>
+                            <span class="qa-toggle">+</span>
+                        </div>
+                        <div class="qa-answer">
+                            <p>官方酒店不仅在酒店套票里提供 您也可以单独预定酒店房间<br>
+                                具体方法如下：<br>
+                                在官方淘宝店的主页找到7月18-21日酒店房间的预定<br>
+                                选择房型并下单 并备注您入住的日期<br>
+                                如不会操作欢迎在群内问询</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <h3>展会的票数量有限制吗?</h3>
+                            <span class="qa-toggle">+</span>
+                        </div>
+                        <div class="qa-answer">
+                            <p>暂定所有票的综合为380张<br>
+                                其中酒店套票仅限15张 售完即止<br>
+                                详情请关注淘宝店</p>
+                        </div>
+                    </div>
+
+                    <div class="qa-item">
+                        <div class="qa-question">
+                            <h3>展会有单独的官方酒店可以定吗？</h3>
+                            <span class="qa-toggle">+</span>
+                        </div>
+                        <div class="qa-answer">
+                            <p>官方酒店不仅在酒店套票里提供 您也可以单独预定酒店房间<br>
+                                具体方法如下：<br>
+                                在官方淘宝店的主页找到7月18-21日酒店房间的预定<br>
+                                选择房型并下单 并备注您入住的日期<br>
+                                如不会操作欢迎在群内问询</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,15 +283,14 @@
                     <img src="img/logo.png">
                 </div>
                 <div class="footer-copyright">
-                    <p>&copy; 2022-2025 CSBronyCarnival<br>
-                    保留所有权利</p>
+                    <p><a href="https://github.com/CSBronyCarnival/CSBC_Web">&copy; 2022-2025 CSBronyCarnival</a><br>
+                        该网站的源代码已使用 MIT 许可证开放</p>
                 </div>
             </div>
             <div class="footer-right">
                 <ul class="footer-links">
-                    <li><a href="#">友情链接1</a></li>
-                    <li><a href="#">友情链接2</a></li>
-                    <li><a href="#">友情链接3</a></li>
+                    <li><a target="_blank" href="https://ncbronyconvention.top/">DLC(NCBC)逐梦之地</a></li>
+                    <li><a target="_blank" href="https://www.equestriacn.com/">EQCN小马中国</a></li>
                 </ul>
             </div>
         </div>
