@@ -165,9 +165,10 @@ body {
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease-out;
     z-index: 0;
-    max-width: 80%;
-    max-height: 80%;
+    width: 850px;
+    height: auto;
     text-align: center;
+    opacity: 0.2;
 }
 
 .hero-image img {
@@ -412,6 +413,7 @@ body {
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s ease;
+    text-decoration: none;
     margin-top: auto;
 }
 
