@@ -155,4 +155,33 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+
+    function updateCountdown() {
+        const targetDate = new Date('2026-07-18T00:00:00').getTime();
+        const now = new Date().getTime();
+        const timeRemaining = targetDate - now;
+
+        if (timeRemaining <= 0) {
+            document.querySelector('.countdown-timer').innerHTML = '<div class="countdown-item">活动已开始</div>';
+            return;
+        }
+
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        const countdownTimer = document.querySelector('.countdown-timer');
+        if (countdownTimer) {
+            countdownTimer.innerHTML = `
+                <div class="countdown-item">${days}天</div>
+                <div class="countdown-item">${hours}小时</div>
+                <div class="countdown-item">${minutes}分钟</div>
+                <div class="countdown-item">${seconds}秒</div>
+            `;
+        }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 });

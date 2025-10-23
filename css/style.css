@@ -271,6 +271,37 @@ body {
     margin-bottom: 30px;
 }
 
+.countdown-section {
+    padding: 20px 0;
+    background: #f0f0f0;
+    border-top: 1px solid #eee;
+}
+
+.countdown-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.countdown-title h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.countdown-timer {
+    display: flex;
+    gap: 20px;
+}
+
+.countdown-item {
+    font-size: 1.5rem;
+    color: #3498db;
+    font-weight: 500;
+}
+
 .about-section {
     padding: 100px 0;
     background: #f8f9fa;
@@ -766,6 +797,26 @@ body {
     margin-bottom: 10px;
 }
 
+.footer-social {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.social-link img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
 .footer-copyright a,
 .footer-copyright p {
     margin: 0;
@@ -861,6 +912,28 @@ body {
     .section-subtitle {
         font-size: 1rem;
     }
+    
+    .countdown-section {
+        padding: 30px 0;
+    }
+    
+    .countdown-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .countdown-title h3 {
+        font-size: 1.3rem;
+    }
+    
+    .countdown-timer {
+        gap: 15px;
+    }
+    
+    .countdown-item {
+        font-size: 1rem;
+    }
 
     .footer-container {
         flex-direction: column;
@@ -900,6 +973,24 @@ body {
     .team-member {
         max-width: 100%;
         width: 100%;
+    }
+    
+    .countdown-section {
+        padding: 20px 0;
+    }
+    
+    .countdown-title h3 {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-timer {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .countdown-item {
+        font-size: 0.9rem;
     }
 }
 
