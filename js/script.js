@@ -27,6 +27,10 @@ function handleScroll() {
 }
 
 function highlightCurrentSection() {
+    const isDisabledNav = window.isDisabledNav === true;
+
+    if (isDisabledNav) return;
+
     const sections = document.querySelectorAll('section[id], header[id]');
     const scrollPosition = window.scrollY + 150;
 
@@ -136,4 +140,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     highlightCurrentSection();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const scrollRows = document.querySelectorAll('.dj-scroll-row');
+
+    scrollRows.forEach(row => {
+        const items = row.querySelectorAll('.dj-item');
+
+        for (let i = 0; i < 8; i++) {
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                row.appendChild(clone);
+            });
+        }
+    });
 });
