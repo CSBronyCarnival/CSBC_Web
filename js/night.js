@@ -108,9 +108,7 @@ handleScroll();
 
 window.addEventListener('scroll', handleScroll);
 
-// 为所有页面添加鼠标移动事件监听，确保页脚景深效果正常工作
 document.addEventListener('mousemove', handleMouseMove);
-
 document.addEventListener('DOMContentLoaded', function () {
     const qaQuestions = document.querySelectorAll('.qa-question');
 
