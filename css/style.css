@@ -99,13 +99,18 @@ body {
     color: #2c3e50;
 }
 
+.nav-menu.black a {
+    color: #2c3e50;
+}
+
 .nav-menu a.active,
 .nav-menu a:hover {
     color: #7ccbff;
 }
 
 .nav-menu.scrolled a.active,
-.nav-menu.scrolled a:hover {
+.nav-menu.scrolled a:hover,
+.nav-menu.black a:hover {
     color: #3498db;
 }
 
@@ -125,6 +130,10 @@ body {
 }
 
 .navbar.scrolled .bar {
+    background-color: #2c3e50;
+}
+
+.bar.black {
     background-color: #2c3e50;
 }
 
@@ -192,6 +201,47 @@ body {
     align-items: center;
     justify-content: center;
     margin-bottom: 16px;
+}
+
+.subpage-hero {
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    background-color: #e2f1ff;
+}
+
+.subpage-hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgb(59, 59, 59);
+    z-index: 1;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.subpage-hero h1 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.subpage-hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .subpage-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .subpage-hero p {
+        font-size: 1rem;
+    }
 }
 
 .line-left,
@@ -663,6 +713,10 @@ body {
 
     .member-description {
         font-size: 0.9rem;
+    }
+
+    .footer-image {
+        display: none;
     }
 }
 
