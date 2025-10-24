@@ -184,4 +184,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const scheduleContents = document.querySelectorAll('[data-content]');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            scheduleContents.forEach(content => {
+                if (content.getAttribute('data-content') === targetTab) {
+                    content.style.display = 'block';
+                } else {
+                    content.style.display = 'none';
+                }
+            });
+        });
+    });
 });

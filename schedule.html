@@ -44,59 +44,140 @@
     <section class="schedule-section" id="schedule">
         <div class="container">
             <div class="schedule-container">
-                <div class="schedule-day">
+                <div class="schedule-tabs">
+                    <button class="tab-button active" data-tab="main">主会场</button>
+                    <button class="tab-button" data-tab="panel">Panel</button>
+                </div>
+                <div class="schedule-day" data-content="main">
                     <h3>Day 1</h3>
                     <h4>7月18日</h4>
-                    <div class="schedule-table">
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <!--可按此格式继续扩展，Day2同理-->
-                    </div>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th class="schedule-time-header">时间</th>
+                                <th class="schedule-event-header">活动</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 
-                <div class="schedule-day">
+                <div class="schedule-day" data-content="main">
                     <h3>Day 2</h3>
                     <h4>7月19日</h4>
-                    <div class="schedule-table">
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                        <div class="schedule-item">
-                            <div class="schedule-time">11:45 - 14:00</div>
-                            <div class="schedule-event">活动</div>
-                            <div class="schedule-location">地点</div>
-                        </div>
-                    </div>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th class="schedule-time-header">时间</th>
+                                <th class="schedule-event-header">活动</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="schedule-day" data-content="panel" style="display: none;">
+                    <h3>Day 1</h3>
+                    <h4>7月18日</h4>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th class="schedule-time-header">时间</th>
+                                <th class="schedule-event-header">活动</th>
+                                <th class="schedule-preside-header">主持</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                                <td class="schedule-preside">主持</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                                <td class="schedule-preside">主持</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                                <td class="schedule-preside">主持</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="schedule-day" data-content="panel" style="display: none;">
+                    <h3>Day 2</h3>
+                    <h4>7月19日</h4>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th class="schedule-time-header">时间</th>
+                                <th class="schedule-event-header">活动</th>
+                                <th class="schedule-preside-header">主持</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                                <td class="schedule-preside">主持</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                                <td class="schedule-preside">主持</td>
+                            </tr>
+                            <tr class="schedule-item">
+                                <td class="schedule-time">00:00 - 00:00</td>
+                                <td class="schedule-event">活动</td>
+                                <td class="schedule-preside">主持</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
