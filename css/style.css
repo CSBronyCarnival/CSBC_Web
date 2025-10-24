@@ -35,6 +35,10 @@ body {
     color: #333;
 }
 
+a {
+    color: #252525;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -225,7 +229,7 @@ body {
 
 .subpage-hero h1 {
     font-size: 2.4rem;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     margin-top: 50px;
 }
 
@@ -281,14 +285,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 480px;
+    max-width: 520px;
     margin: 0 auto;
 }
 
 .countdown-title h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #2c3e50;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .countdown-timer {
@@ -357,6 +361,85 @@ body {
 .about-content p {
     margin-bottom: 25px;
     text-align: center;
+}
+
+.schedule-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+}
+
+.schedule-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.schedule-day {
+    margin-bottom: 50px;
+}
+
+.schedule-day:last-child {
+    margin-bottom: 0;
+}
+
+.schedule-day h3 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.schedule-day h4 {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.schedule-table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.schedule-item {
+    display: flex;
+    border-bottom: 1px solid #eee;
+}
+
+.schedule-item:last-child {
+    border-bottom: none;
+}
+
+.schedule-time {
+    flex: 0 0 150px;
+    padding: 20px;
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.schedule-event {
+    flex: 1;
+    padding: 20px;
+    font-weight: 500;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+}
+
+.schedule-location {
+    flex: 0 0 150px;
+    padding: 20px;
+    color: #7f8c8d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-style: italic;
 }
 
 .team-section {
@@ -949,6 +1032,41 @@ body {
     .footer-top-text p {
         font-size: 0.9rem;
     }
+
+    .schedule-section {
+        padding: 60px 0;
+    }
+
+    .schedule-day h3 {
+        font-size: 1.5rem;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+    }
+
+    .schedule-time,
+    .schedule-location {
+        flex: none;
+        width: 100%;
+        padding: 15px 20px;
+        text-align: left;
+        justify-content: flex-start;
+    }
+
+    .schedule-time {
+        background: #f1f2f6;
+        font-weight: 600;
+    }
+
+    .schedule-event {
+        padding: 15px 20px;
+    }
+
+    .schedule-location {
+        border-top: 1px dashed #eee;
+        font-style: italic;
+    }
 }
 
 @media (max-width: 480px) {
@@ -990,6 +1108,26 @@ body {
     }
     
     .countdown-item {
+        font-size: 0.9rem;
+    }
+
+    .schedule-section {
+        padding: 40px 0;
+    }
+
+    .schedule-day {
+        margin-bottom: 30px;
+    }
+
+    .schedule-day h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .schedule-time,
+    .schedule-event,
+    .schedule-location {
+        padding: 12px 15px;
         font-size: 0.9rem;
     }
 }

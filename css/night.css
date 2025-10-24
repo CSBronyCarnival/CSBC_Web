@@ -36,6 +36,10 @@ body {
     background-color: #121212;
 }
 
+a {
+    color: #f5f5f5;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -383,13 +387,13 @@ body {
     }
 
     100% {
-        transform: translateX(-80%);
+        transform: translateX(-100%);
     }
 }
 
 @keyframes scrollRight {
     0% {
-        transform: translateX(-80%);
+        transform: translateX(-100%);
     }
 
     100% {
