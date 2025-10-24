@@ -316,6 +316,80 @@ a {
     }
 }
 
+.advantages-section {
+    padding: 80px 0;
+    background: #1e1e1e;
+}
+
+.advantages-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.advantage-item {
+    text-align: center;
+    padding: 30px 20px;
+    background: #252525;
+    border-radius: 0;
+    border: 1px solid #333;
+}
+
+.advantage-icon {
+    margin-bottom: 20px;
+    display: block;
+}
+
+.advantage-icon img {
+    width: 50px;
+    height: auto;
+}
+
+.advantage-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+
+.advantage-item p {
+    font-size: 1rem;
+    color: #b0b0b0;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .advantages-section h2 {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .advantage-item {
+        padding: 25px 15px;
+    }
+}
+
 .dj-section {
     background-color: #121212;
     padding: 60px 0;
@@ -383,7 +457,7 @@ a {
 
 @keyframes scrollLeft {
     0% {
-        transform: translateX(0);
+        transform: translateX(1);
     }
 
     100% {
@@ -397,7 +471,7 @@ a {
     }
 
     100% {
-        transform: translateX(0);
+        transform: translateX(1);
     }
 }
 
