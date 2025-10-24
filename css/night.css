@@ -781,8 +781,26 @@ a {
 }
 
 .footer-copyright a:hover,
-.footer-links a:hover {
+.footer-links a:hover,
+.footer-record a:hover {
     color: #7ccbff;
+}
+
+.footer-record {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.footer-record p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #909090;
+}
+
+.footer-record a {
+    text-decoration: none;
+    color: #909090;
+    transition: color 0.3s ease;
 }
 
 @media (max-width: 768px) {

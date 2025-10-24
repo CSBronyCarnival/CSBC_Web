@@ -290,6 +290,19 @@ a {
     width: 60px;
     background: rgb(255, 255, 255);
     margin: 0 15px;
+    animation: titleLineAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
+}
+
+@keyframes titleLineAnimation {
+    0% {
+        width: 20px;
+    }
+    30% {
+        width: 40px;
+    }
+    100% {
+        width: 60px;
+    }
 }
 
 .subtitle-text {
@@ -1030,8 +1043,26 @@ a {
 }
 
 .footer-copyright a:hover,
-.footer-links a:hover {
+.footer-links a:hover,
+.footer-record a:hover {
     color: #0085b6;
+}
+
+.footer-record {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.footer-record p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgb(32, 32, 32);
+}
+
+.footer-record a {
+    text-decoration: none;
+    color: rgb(32, 32, 32);
+    transition: color 0.3s ease;
 }
 
 @media (max-width: 768px) {
