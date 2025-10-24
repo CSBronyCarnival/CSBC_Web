@@ -109,15 +109,12 @@ a {
 }
 
 .nav-menu a.active,
-.nav-menu a:hover {
-    color: #3498db;
-}
-
+.nav-menu a:hover,
 .nav-menu.scrolled a.active,
 .nav-menu.light a.active,
 .nav-menu.scrolled a:hover,
 .nav-menu.light a:hover {
-    color: #7ccbff;
+    color: #3498db;
 }
 
 .hamburger {
@@ -178,6 +175,20 @@ a {
     font-size: 1.2rem;
     max-width: 800px;
     margin: 0 auto;
+}
+
+@keyframes rgbColorShift {
+    0% { color: #ff0000; }
+    16.66% { color: #ff8800; }
+    33.33% { color: #ffff00; }
+    50% { color: #00ff00; }
+    66.66% { color: #0088ff; }
+    83.33% { color: #8800ff; }
+    100% { color: #ff0000; }
+}
+
+.rainbow {
+    animation: rgbColorShift 3s infinite;
 }
 
 @media (max-width: 768px) {
@@ -457,7 +468,7 @@ a {
 
 @keyframes scrollLeft {
     0% {
-        transform: translateX(1);
+        transform: translateX(0);
     }
 
     100% {
@@ -471,7 +482,7 @@ a {
     }
 
     100% {
-        transform: translateX(1);
+        transform: translateX(0);
     }
 }
 
