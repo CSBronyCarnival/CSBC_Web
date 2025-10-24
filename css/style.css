@@ -1337,6 +1337,238 @@ a {
     }
 }
 
+.gallery-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+    line-height: 0;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fff;
+    line-height: 0;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-author {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-author {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.pagination-btn {
+    padding: 10px 20px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background: #2980b9;
+}
+
+.pagination-btn:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.pagination-numbers {
+    display: flex;
+    gap: 10px;
+}
+
+.pagination-number {
+    padding: 8px 12px;
+    background: #ecf0f1;
+    color: #2c3e50;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.pagination-number.active {
+    background: #3498db;
+    color: white;
+}
+
+.pagination-number:hover {
+    background: #bdc3c7;
+}
+
+.gallery-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.308);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    cursor: pointer;
+}
+
+.gallery-lightbox.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content {
+    position: relative;
+    width: 1200px;
+    height: 800px;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.lightbox-author {
+    position: absolute;
+    bottom: -32px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.534);
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px;
+    z-index: -1;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.lightbox-prev {
+    left: -60px;
+}
+
+.lightbox-next {
+    right: -60px;
+}
+
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .gallery-item img {
+        height: 200px;
+        display: block;
+    }
+    
+    .gallery-author {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .gallery-pagination {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .lightbox-nav {
+        font-size: 1.5rem;
+        padding: 10px 15px;
+    }
+    
+    .lightbox-prev {
+        left: 10px;
+    }
+    
+    .lightbox-next {
+        right: 10px;
+    }
+    
+    .lightbox-content {
+        width: 800px;
+        height: 600px;
+        max-width: 95vw;
+        max-height: 70vh;
+    }
+    
+    .lightbox-author {
+        font-size: 0.9rem;
+        bottom: -35px;
+    }
+}
+
 @media (max-width: 480px) {
     .hero-content h1 {
         font-size: 2rem;
@@ -1401,6 +1633,24 @@ a {
     .schedule-table td {
         padding: 12px 10px;
         font-size: 0.9rem;
+    }
+    
+    .lightbox-content {
+        width: 500px;
+        height: 400px;
+        max-width: 98vw;
+        max-height: 60vh;
+    }
+    
+    .lightbox-author {
+        font-size: 0.8rem;
+        bottom: -30px;
+        padding: 8px;
+    }
+    
+    .gallery-author {
+        font-size: 0.75rem;
+        padding: 6px 10px;
     }
 }
 

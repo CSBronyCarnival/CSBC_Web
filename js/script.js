@@ -13,7 +13,7 @@ const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelectorAll('.nav-menu a');
 
 function handleScroll() {
-    if (window.scrollY > 100) {
+    if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
         navmenu.classList.add('scrolled');
         navcontainer.classList.add('scrolled');

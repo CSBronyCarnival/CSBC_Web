@@ -23,7 +23,9 @@
                 <li><a href="index.html#venue">场地</a></li>
                 <li><a href="index.html#ticket">票价</a></li>
                 <li><a href="index.html#qa">问题</a></li>
+                <li><a href="#" class="active">画廊</a></li>
                 <li><a href="schedule.html">时间表</a></li>
+                <li><a href="news/index.html">展会消息</a></li>
                 <li><a href="night.html">夜下扬蹄</a></li>
             </ul>
             <div class="hamburger">
@@ -41,14 +43,75 @@
         </div>
     </header>
 
-    <section class="about-section" id="about">
+    <section class="gallery-section">
         <div class="container">
-            <div class="about-content">
-                <p>1234567890<br>
-                    1145141919810</p>
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item" data-src="img/gallery/1.webp" data-author="马迷巴士">
+                    <img src="img/gallery/1.webp">
+                    <div class="gallery-author">马迷巴士</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/2.webp" data-author="机械甜贝儿">
+                    <img src="img/gallery/2.webp">
+                    <div class="gallery-author">机械甜贝儿</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/3.webp" data-author="夜下扬蹄">
+                    <img src="img/gallery/3.webp">
+                    <div class="gallery-author">夜下扬蹄</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/4.webp" data-author="大合唱">
+                    <img src="img/gallery/4.webp">
+                    <div class="gallery-author">大合唱</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/5.webp" data-author="2025签名墙">
+                    <img src="img/gallery/5.webp">
+                    <div class="gallery-author">2025签名墙</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/6.webp" data-author="彩币拍卖">
+                    <img src="img/gallery/6.webp">
+                    <div class="gallery-author">彩币拍卖</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/7.webp" data-author="2025Panel">
+                    <img src="img/gallery/7.webp">
+                    <div class="gallery-author">2025Panel</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/8.webp" data-author="摊位与签绘">
+                    <img src="img/gallery/8.webp">
+                    <div class="gallery-author">摊位与签绘</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/9.webp" data-author="舞台活动">
+                    <img src="img/gallery/9.webp">
+                    <div class="gallery-author">舞台活动</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/10.webp" data-author="游客互动">
+                    <img src="img/gallery/10.webp">
+                    <div class="gallery-author">游客互动</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/11.webp" data-author="游客互动">
+                    <img src="img/gallery/11.webp">
+                    <div class="gallery-author">游客互动</div>
+                </div>
+                <div class="gallery-item" data-src="img/gallery/12.webp" data-author="2024签名墙">
+                    <img src="img/gallery/12.webp">
+                    <div class="gallery-author">2024签名墙</div>
+                </div>
+            </div>
+            <div class="gallery-pagination" id="galleryPagination">
+                <button class="pagination-btn prev-btn" id="prevBtn">上一页</button>
+                <div class="pagination-numbers" id="paginationNumbers"></div>
+                <button class="pagination-btn next-btn" id="nextBtn">下一页</button>
             </div>
         </div>
     </section>
+    
+    <div class="gallery-lightbox" id="galleryLightbox">
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-author" id="lightboxAuthor"></div>
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-image">
@@ -80,6 +143,7 @@
     
     <script>window.isDisabledNav = true;</script>
     <script src="js/script.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 
 </html>
