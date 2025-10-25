@@ -232,15 +232,6 @@ a {
     background: #1e1e1e;
 }
 
-.section-subtitle {
-    text-align: center;
-    font-size: 1rem;
-    color: #3498db;
-    margin-bottom: -6px;
-    font-weight: 540;
-    letter-spacing: 1px;
-}
-
 .section-divider {
     display: flex;
     align-items: center;
