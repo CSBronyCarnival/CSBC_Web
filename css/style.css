@@ -347,7 +347,7 @@ a {
     font-size: 1.5rem;
     color: #2c3e50;
     font-weight: bold;
-    margin-right: 20px;
+    margin-right: 25px;
 }
 
 .countdown-timer {
@@ -1357,7 +1357,7 @@ a {
     font-weight: 600;
 }
 
-.news-image {
+.news-article-image {
     width: 100%;
     max-width: 800px;
     margin: 30px auto;
@@ -1367,7 +1367,7 @@ a {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.news-image img {
+.news-article-image img {
     width: 100%;
     height: auto;
     max-height: 500px;
