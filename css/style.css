@@ -211,10 +211,12 @@ a {
         opacity: 0;
         transform: scale(0.95);
     }
+
     15% {
         opacity: 0;
         transform: scale(0.95);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -226,10 +228,12 @@ a {
         transform: scale(1.2);
         opacity: 0;
     }
+
     30% {
         transform: scale(1.2);
         opacity: 0;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -297,9 +301,11 @@ a {
     0% {
         width: 0px;
     }
+
     30% {
         width: 0px;
     }
+
     100% {
         width: 60px;
     }
@@ -932,7 +938,7 @@ a {
     .member-description {
         font-size: 0.9rem;
     }
-    
+
     .qa-content {
         flex-direction: column;
         gap: 20px;
@@ -1110,6 +1116,10 @@ a {
         transform: translateY(-8px) rotate(-45deg);
     }
 
+    .countdown-title h3 {
+        margin-right: 0px;
+    }
+
     .hero-content h1 {
         font-size: 2.5rem;
     }
@@ -1129,25 +1139,25 @@ a {
     .section-subtitle {
         font-size: 1rem;
     }
-    
+
     .countdown-section {
         padding: 30px 0;
     }
-    
+
     .countdown-content {
         flex-direction: column;
         gap: 20px;
         text-align: center;
     }
-    
+
     .countdown-title h3 {
         font-size: 1.3rem;
     }
-    
+
     .countdown-timer {
         gap: 15px;
     }
-    
+
     .countdown-item {
         font-size: 1rem;
     }
@@ -1254,12 +1264,12 @@ a {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
+
     .news-section h2 {
         font-size: 2rem;
         margin-bottom: 40px;
     }
-    
+
     .news-image-link {
         height: 250px;
     }
@@ -1347,20 +1357,38 @@ a {
     font-weight: 600;
 }
 
+.news-image {
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+    text-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.news-image img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
 @media (max-width: 768px) {
     .news-hero-image img {
         height: 250px;
     }
-    
+
     .news-main-title {
         font-size: 2rem;
     }
-    
+
     .news-content {
         font-size: 1rem;
         padding: 0 20px;
     }
-    
+
     .news-header {
         padding: 0 20px;
     }
@@ -1400,23 +1428,33 @@ a {
     transform: scale(1.05);
 }
 
-.gallery-author {
+.gallery-info {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px 15px;
-    font-size: 0.9rem;
-    text-align: center;
-    opacity: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), transparent);
+    padding: 15px 10px 10px;
     transform: translateY(100%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
-.gallery-item:hover .gallery-author {
-    opacity: 1;
+.gallery-name {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 0 0 5px 0;
+    font-weight: 600;
+}
+
+.gallery-author {
+    color: #b0b0b0;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+
+.gallery-item:hover .gallery-info {
     transform: translateY(0);
 }
 
@@ -1505,7 +1543,7 @@ a {
     object-fit: contain;
 }
 
-.lightbox-author {
+.lightbox-name {
     position: absolute;
     bottom: -32px;
     left: 0;
@@ -1513,9 +1551,21 @@ a {
     text-align: center;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.534);
     color: white;
-    font-size: 0.8rem;
+    font-size: 14px;
     padding: 2px;
     z-index: -1;
+}
+
+.lightbox-author {
+    position: absolute;
+    bottom: -52px;
+    left: 0;
+    right: 0;
+    color: #ccc;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.534);
+    padding: 8px 15px;
+    font-size: 10px;
+    text-align: center;
 }
 
 .lightbox-close {
@@ -1556,43 +1606,43 @@ a {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
-    
+
     .gallery-item img {
         height: 200px;
         display: block;
     }
-    
-    .gallery-author {
+
+    .gallery-name {
         font-size: 0.8rem;
         padding: 8px 12px;
     }
-    
+
     .gallery-pagination {
         flex-wrap: wrap;
         gap: 15px;
     }
-    
+
     .lightbox-nav {
         font-size: 1.5rem;
         padding: 10px 15px;
     }
-    
+
     .lightbox-prev {
         left: 10px;
     }
-    
+
     .lightbox-next {
         right: 10px;
     }
-    
+
     .lightbox-content {
         width: 800px;
         height: 600px;
         max-width: 95vw;
         max-height: 70vh;
     }
-    
-    .lightbox-author {
+
+    .lightbox-name {
         font-size: 0.9rem;
         bottom: -35px;
     }
@@ -1621,21 +1671,21 @@ a {
         max-width: 100%;
         width: 100%;
     }
-    
+
     .countdown-section {
         padding: 20px 0;
     }
-    
+
     .countdown-title h3 {
         font-size: 1.2rem;
     }
-    
+
     .countdown-timer {
         gap: 10px;
         flex-wrap: wrap;
         justify-content: center;
     }
-    
+
     .countdown-item {
         font-size: 0.9rem;
     }
@@ -1663,21 +1713,21 @@ a {
         padding: 12px 10px;
         font-size: 0.9rem;
     }
-    
+
     .lightbox-content {
         width: 500px;
         height: 400px;
         max-width: 98vw;
         max-height: 60vh;
     }
-    
-    .lightbox-author {
+
+    .lightbox-name {
         font-size: 0.8rem;
         bottom: -30px;
         padding: 8px;
     }
-    
-    .gallery-author {
+
+    .gallery-name {
         font-size: 0.75rem;
         padding: 6px 10px;
     }

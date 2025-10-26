@@ -1,7 +1,7 @@
 const galleryItems = document.querySelectorAll('.gallery-item');
 const lightbox = document.getElementById('galleryLightbox');
 const lightboxImg = document.getElementById('lightboxImage');
-const lightboxAuthor = document.getElementById('lightboxAuthor');
+const lightboxName = document.getElementById('lightboxName');
 const lightboxClose = document.getElementById('lightboxClose');
 const lightboxPrev = document.getElementById('lightboxPrev');
 const lightboxNext = document.getElementById('lightboxNext');
@@ -53,7 +53,17 @@ function updatePagination() {
 function openLightbox(index) {
     currentImageIndex = index;
     lightboxImg.src = galleryItems[index].dataset.src;
-    lightboxAuthor.textContent = galleryItems[index].dataset.author || '未知作者';
+    lightboxName.textContent = galleryItems[index].dataset.name || '未知作者';
+    
+    const imgAuthor = galleryItems[index].dataset.author;
+    let authorElement = lightbox.querySelector('.lightbox-author');
+    if (!authorElement) {
+        authorElement = document.createElement('div');
+        authorElement.className = 'lightbox-author';
+        lightboxName.parentNode.insertBefore(authorElement, lightboxName.nextSibling);
+    }
+    authorElement.textContent = imgAuthor || '';
+    
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -66,13 +76,23 @@ function closeLightbox() {
 function showPrevImage() {
     currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
     lightboxImg.src = galleryItems[currentImageIndex].dataset.src;
-    lightboxAuthor.textContent = galleryItems[currentImageIndex].dataset.author || '未知作者';
+    lightboxName.textContent = galleryItems[currentImageIndex].dataset.name || '未知作者';
+    
+    const authorElement = lightbox.querySelector('.lightbox-author');
+    if (authorElement) {
+        authorElement.textContent = galleryItems[currentImageIndex].dataset.author || '';
+    }
 }
 
 function showNextImage() {
     currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
     lightboxImg.src = galleryItems[currentImageIndex].dataset.src;
-    lightboxAuthor.textContent = galleryItems[currentImageIndex].dataset.author || '未知作者';
+    lightboxName.textContent = galleryItems[currentImageIndex].dataset.name || '未知作者';
+    
+    const authorElement = lightbox.querySelector('.lightbox-author');
+    if (authorElement) {
+        authorElement.textContent = galleryItems[currentImageIndex].dataset.author || '';
+    }
 }
 
 galleryItems.forEach((item, index) => {
