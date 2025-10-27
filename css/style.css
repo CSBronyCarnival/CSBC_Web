@@ -287,7 +287,7 @@ a {
     .subpage-hero p {
         font-size: 1rem;
     }
-    
+
     .hero-button {
         padding: 10px 25px;
         font-size: 1rem;
@@ -481,11 +481,11 @@ a {
         flex-direction: column;
         gap: 20px;
     }
-    
+
     .about-image {
         width: 250px;
     }
-    
+
     .about-text p {
         text-align: left;
     }
@@ -976,6 +976,19 @@ a {
 
     .venue-description h4 {
         font-size: 1rem;
+    }
+
+    .about-text p,
+    .about-content-wrapper {
+        text-align: center;
+    }
+
+    .about-content-wrapper h3 {
+        font-size: 1.5rem;
+    }
+
+    .title-underline {
+        margin: 0 auto 20px;
     }
 
     .team-section {
