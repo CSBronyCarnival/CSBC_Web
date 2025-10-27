@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/logo.png" type="image/png">
-    <title>CSBronyCarnival - 场地相关及交通指引</title>
+    <title>CSBronyCarnival - 场地与交通</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -38,7 +38,7 @@
 
     <header class="subpage-hero">
         <div class="subpage-hero-content">
-            <h1>场地相关及交通指引</h1>
+            <h1>场地与交通</h1>
             <p>Navigation</p>
         </div>
     </header>
@@ -90,6 +90,16 @@
         </div>
     </section>
 
+    <section class="transportation-section">
+        <div class="container">
+            <h2>交通指引</h2>
+            
+            <div class="map-container">
+                <div id="amap-container"></div>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="footer-image">
             <img src="img/csbc-line-w.svg">
@@ -124,9 +134,33 @@
         </div>
     </footer>
 
-    <!--如果想给导航栏某个按钮加上active类，请务必添加此脚本禁用导航栏行为-->
     <script>window.isDisabledNav = true;</script>
     <script src="js/script.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15"></script>
+    <script>
+        window.onload = function() {
+            var map = new AMap.Map('amap-container', {
+                zoom: 15,
+                center: [113.414024, 23.168896],
+                mapStyle: 'amap://styles/normal'
+            });
+            
+            var marker = new AMap.Marker({
+                position: [113.411103, 23.168096],
+                title: '广州瑞士酒店'
+            });
+            map.add(marker);
+            
+            var infoWindow = new AMap.InfoWindow({
+                content: '<div style="padding:10px;">广州瑞士酒店<br>曾用名：广州日航酒店<br>地址：广州市天河区华观路1961号</div>',
+                offset: new AMap.Pixel(0, -30)
+            });
+            
+            marker.on('click', function() {
+                infoWindow.open(map, marker.getPosition());
+            });
+        };
+    </script>
 </body>
 
 </html>
