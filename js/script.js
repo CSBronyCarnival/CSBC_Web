@@ -161,8 +161,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const now = new Date().getTime();
         const timeRemaining = targetDate - now;
 
+        const isEnglishPage = window.location.pathname.includes('index-eng.html');
+
         if (timeRemaining <= 0) {
-            document.querySelector('.countdown-timer').innerHTML = '<div class="countdown-item">活动已开始</div>';
+            const message = isEnglishPage ? 'Event Started' : '活动已开始';
+            document.querySelector('.countdown-timer').innerHTML = `<div class="countdown-item">${message}</div>`;
             return;
         }
 
@@ -173,12 +176,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const countdownTimer = document.querySelector('.countdown-timer');
         if (countdownTimer) {
-            countdownTimer.innerHTML = `
-                <div class="countdown-item">${days}天</div>
-                <div class="countdown-item">${hours}小时</div>
-                <div class="countdown-item">${minutes}分钟</div>
-                <div class="countdown-item">${seconds}秒</div>
-            `;
+            if (isEnglishPage) {
+                countdownTimer.innerHTML = `
+                    <div class="countdown-item">${days} Days</div>
+                    <div class="countdown-item">${hours} Hours</div>
+                    <div class="countdown-item">${minutes} Minutes</div>
+                    <div class="countdown-item">${seconds} Seconds</div>
+                `;
+            } else {
+                countdownTimer.innerHTML = `
+                    <div class="countdown-item">${days}天</div>
+                    <div class="countdown-item">${hours}时</div>
+                    <div class="countdown-item">${minutes}分</div>
+                    <div class="countdown-item">${seconds}秒</div>
+                `;
+            }
         }
     }
 
