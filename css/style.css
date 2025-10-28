@@ -207,13 +207,22 @@ body.loaded .hero-else-in {
     animation: titleAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 
+body.loaded .line-left,
+body.loaded .line-right {
+    height: 2px;
+    width: 60px;
+    background: rgb(255, 255, 255);
+    margin: 0 15px;
+    animation: titleLineAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
+}
+
 @keyframes imageAnimation {
     0% {
         opacity: 0;
         transform: scale(0.95);
     }
 
-    10% {
+    15% {
         opacity: 0;
         transform: scale(0.95);
     }
@@ -230,7 +239,7 @@ body.loaded .hero-else-in {
         opacity: 0;
     }
 
-    20% {
+    15% {
         transform: scale(1.2);
         opacity: 0;
     }
@@ -238,6 +247,20 @@ body.loaded .hero-else-in {
     100% {
         transform: scale(1);
         opacity: 1;
+    }
+}
+
+@keyframes titleLineAnimation {
+    0% {
+        width: 0px;
+    }
+
+    15% {
+        width: 0px;
+    }
+
+    100% {
+        width: 60px;
     }
 }
 
@@ -449,29 +472,6 @@ body.loaded .hero-else-in {
     .hero-button {
         padding: 10px 25px;
         font-size: 1rem;
-    }
-}
-
-body.loaded .line-left,
-body.loaded .line-right {
-    height: 2px;
-    width: 60px;
-    background: rgb(255, 255, 255);
-    margin: 0 15px;
-    animation: titleLineAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
-}
-
-@keyframes titleLineAnimation {
-    0% {
-        width: 0px;
-    }
-
-    20% {
-        width: 0px;
-    }
-
-    100% {
-        width: 60px;
     }
 }
 
@@ -1311,7 +1311,16 @@ body.loaded .line-right {
 
 .transportation-section {
     padding: 80px 0;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
+}
+
+.transportation-intro {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    text-align: center;
 }
 
 .map-container {
@@ -1325,9 +1334,77 @@ body.loaded .line-right {
     height: 400px;
 }
 
+.transportation-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.transportation-item {
+    padding: 30px;
+}
+
+.transportation-info h3 {
+    font-size: 1.4rem;
+    color: #3d3d3d;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.transportation-divider {
+    border: none;
+    height: 1px;
+    background: #d8d8d8;
+    margin: 10px 0 20px 0;
+    width: 150px;
+}
+
+.transportation-info h4 {
+    font-size: 1.1rem;
+    color: #696969;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.transportation-info p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.transportation-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.transportation-info li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+.transportation-info li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #4fa7ff;
+    font-weight: bold;
+}
+
 @media (max-width: 768px) {
     .transportation-section {
         padding: 60px 0;
+    }
+    
+    .transportation-intro {
+        font-size: 1rem;
+        margin-bottom: 25px;
     }
     
     #amap-container {
@@ -1337,10 +1414,26 @@ body.loaded .line-right {
     .transportation-content {
         grid-template-columns: 1fr;
         gap: 20px;
+        margin-top: 30px;
     }
     
-    .transportation-method {
+    .transportation-item {
         padding: 20px;
+    }
+    
+    .transportation-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 15px;
+    }
+    
+    .transportation-icon img {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .transportation-info h3 {
+        font-size: 1.2rem;
     }
 }
 
@@ -1744,22 +1837,11 @@ body.loaded .line-right {
     font-weight: 600;
 }
 
-.news-article-image {
-    width: 100%;
-    max-width: 800px;
-    margin: 30px auto;
-    text-align: center;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
 .news-article-image img {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    display: block;
+    border-radius: 8px;
+    width: auto;
+    height: 100%;
+    max-width: 600px;
 }
 
 @media (max-width: 768px) {
