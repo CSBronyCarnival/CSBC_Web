@@ -593,7 +593,6 @@ body.loaded .line-right {
 }
 
 .feature-item {
-    background-color: white;
     padding: 20px;
     text-align: center;
 }
@@ -1453,7 +1452,6 @@ body.loaded .line-right {
 
 .contact-section {
     padding: 80px 0;
-    background-color: #f8f9fa;
 }
 
 .contact-section .container {
@@ -1471,8 +1469,6 @@ body.loaded .line-right {
 }
 
 .contact-item {
-    background-color: #fff;
-    border-radius: 15px;
     padding: 40px 30px;
     text-align: center;
 }
