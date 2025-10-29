@@ -141,7 +141,7 @@ a {
 }
 
 .subpage-hero {
-    height: 280px;
+    height: 750px;
     position: relative;
     overflow: hidden;
     background-color: #1b1b1b;
@@ -162,13 +162,19 @@ a {
 .subpage-hero-content img {
     width: 350px;
     height: auto;
-    margin-top: 80px;
 }
 
 .subpage-hero h1 {
     font-size: 2.4rem;
     margin-bottom: 20px;
     margin-top: 50px;
+}
+
+.subpage-hero .hero-subtitle {
+    font-size: 0.9rem;
+    color: #888888;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 .subpage-hero p {
