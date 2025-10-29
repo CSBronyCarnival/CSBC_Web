@@ -24,6 +24,10 @@
     height: auto;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body.loaded .loading-screen {
     opacity: 0;
     pointer-events: none;
@@ -2316,8 +2320,4 @@ body.loaded .line-right {
         font-size: 0.75rem;
         padding: 6px 10px;
     }
-}
-
-html {
-    scroll-behavior: smooth;
 }
