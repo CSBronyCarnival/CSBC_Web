@@ -94,6 +94,7 @@ a {
     display: flex;
     list-style: none;
     gap: 30px;
+    align-items: center;
 }
 
 .nav-menu a {
@@ -102,6 +103,18 @@ a {
     font-weight: 500;
     transition: 0.3s ease;
     position: relative;
+}
+
+.nav-divider {
+    width: 1px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: 0.3s ease;
+}
+
+.nav-menu.scrolled .nav-divider,
+.nav-menu.black .nav-divider {
+    background-color: rgba(44, 62, 80, 0.3);
 }
 
 .nav-menu.scrolled a {
@@ -663,10 +676,10 @@ body.loaded .line-right {
     width: 200px;
 }
 
-.section-btn {
+.section-button {
     display: inline-block;
-    color: #5c5c5c;
-    background-color: #c4c4c43a;
+    color: #ffffff;
+    background-color: #4fa7ff;
     padding: 12px 25px;
     border-radius: 10px;
     text-decoration: none;
@@ -676,9 +689,9 @@ body.loaded .line-right {
     margin-top: 10px;
 }
 
-.section-btn:hover {
-    background-color: #4fa7ff;
-    color: #ffffff;
+.section-button:hover {
+    color: #5c5c5c;
+    background-color: #c4c4c43a;
 }
 
 .divider-line {
@@ -1034,21 +1047,23 @@ body.loaded .line-right {
     border-bottom: none;
 }
 
-.pricing-btn {
-    background: #3498db;
-    color: white;
+.pricing-button {
+    color: #ffffff;
+    background-color: #4fa7ff;
     border: none;
     padding: 12px 30px;
     border-radius: 30px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
     text-decoration: none;
     margin-top: auto;
+    font-weight: bold;
 }
 
-.pricing-btn:hover {
-    background: #2980b9;
+.pricing-button:hover {
+    color: #5c5c5c;
+    background-color: #c4c4c43a;
 }
 
 .pricing-tier.featured {
@@ -1152,14 +1167,15 @@ body.loaded .line-right {
     border-bottom: none;
 }
 
-.pricing-tier.featured .pricing-btn {
+.pricing-tier.featured .pricing-button {
     background: white;
     color: #3498db;
     margin-top: auto;
 }
 
-.pricing-tier.featured .pricing-btn:hover {
-    background: #f0f0f0;
+.pricing-tier.featured .pricing-button:hover {
+    color: #ffffff;
+    background-color: #3498db;
 }
 
 .venue-section {
@@ -1509,8 +1525,8 @@ body.loaded .line-right {
 
 .contact-button {
     display: inline-block;
-    color: #5c5c5c;
-    background-color: #c4c4c43a;
+    color: #ffffff;
+    background-color: #4fa7ff;
     font-size: 0.9rem;
     font-weight: 600;
     padding: 12px 25px;
@@ -1520,8 +1536,8 @@ body.loaded .line-right {
 }
 
 .contact-button:hover {
-    background-color: #4fa7ff;
-    color: #ffffff;
+    color: #5c5c5c;
+    background-color: #c4c4c43a;
 }
 
 @media (max-width: 768px) {
@@ -1690,6 +1706,10 @@ body.loaded .line-right {
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
         padding: 20px 0;
         gap: 20px;
+    }
+
+    .nav-divider {
+        display: none;
     }
 
     .nav-menu.active {
@@ -2055,7 +2075,7 @@ body.loaded .line-right {
     margin-top: 40px;
 }
 
-.pagination-btn {
+.pagination-button {
     padding: 10px 20px;
     background: #3498db;
     color: white;
@@ -2066,11 +2086,11 @@ body.loaded .line-right {
     transition: background 0.3s ease;
 }
 
-.pagination-btn:hover {
+.pagination-button:hover {
     background: #2980b9;
 }
 
-.pagination-btn:disabled {
+.pagination-button:disabled {
     background: #bdc3c7;
     cursor: not-allowed;
 }
