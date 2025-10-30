@@ -220,7 +220,7 @@ body.loaded .hero-image img {
     will-change: transform;
 }
 
-body.loaded .hero-else-in {
+body.loaded .hero-animation {
     animation: titleAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 
