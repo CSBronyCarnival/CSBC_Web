@@ -744,7 +744,7 @@ a {
     justify-content: center;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    margin-right: 4px;
 }
 
 .social-link img {

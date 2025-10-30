@@ -1630,6 +1630,7 @@ body.loaded .line-right {
     justify-content: center;
     width: 36px;
     height: 36px;
+    margin-right: 4px;
 }
 
 .social-link img {
