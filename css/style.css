@@ -1052,7 +1052,7 @@ body.loaded .line-right {
     background-color: #4fa7ff;
     border: none;
     padding: 12px 30px;
-    border-radius: 30px;
+    border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
