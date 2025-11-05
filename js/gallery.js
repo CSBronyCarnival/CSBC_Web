@@ -13,6 +13,34 @@ let currentPage = 1;
 const itemsPerPage = 6;
 let currentImageIndex = 0;
 
+function setupLazyLoading() {
+    const lazyImages = document.querySelectorAll('.lazy-load');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const src = img.getAttribute('data-src');
+                
+                if (src) {
+                    img.src = src;
+                    img.onload = () => {
+                        img.classList.add('loaded');
+                    };
+                    observer.unobserve(img);
+                }
+            }
+        });
+    }, {
+        rootMargin: '200px 0px',
+        threshold: 0.01
+    });
+    
+    lazyImages.forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
 function showPage(page) {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
@@ -24,6 +52,8 @@ function showPage(page) {
             item.style.display = 'none';
         }
     });
+
+    setupLazyLoading();
 
     updatePagination();
 }
