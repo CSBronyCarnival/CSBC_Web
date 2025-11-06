@@ -147,6 +147,30 @@ a {
     background-color: #1b1b1b;
 }
 
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    opacity: 0;
+}
+
+.hero-bg-image.active {
+    opacity: 0.1;
+}
+
 .subpage-hero-content {
     position: absolute;
     top: 50%;

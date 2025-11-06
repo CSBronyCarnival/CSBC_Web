@@ -217,3 +217,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const bgImages = document.querySelectorAll('.hero-bg-image');
+    let currentIndex = 0;
+    
+    function switchBackground() {
+        bgImages[currentIndex].classList.remove('active');
+        
+        currentIndex = (currentIndex + 1) % bgImages.length;
+        
+        bgImages[currentIndex].classList.add('active');
+    }
+    
+    setInterval(switchBackground, 500);
+});
