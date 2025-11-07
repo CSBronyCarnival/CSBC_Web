@@ -429,6 +429,30 @@ a {
     overflow: hidden;
 }
 
+.dj-hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.dj-hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    opacity: 0;
+}
+
+.dj-hero-bg-image.active {
+    opacity: 0.04;
+}
+
 .dj-section .container {
     position: relative;
     z-index: 1;

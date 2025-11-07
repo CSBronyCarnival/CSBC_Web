@@ -231,4 +231,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     setInterval(switchBackground, 500);
+    
+    const djBgImages = document.querySelectorAll('.dj-hero-bg-image');
+    let djCurrentIndex = 0;
+    
+    function switchDjBackground() {
+        djBgImages[djCurrentIndex].classList.remove('active');
+        
+        djCurrentIndex = (djCurrentIndex + 1) % djBgImages.length;
+        
+        djBgImages[djCurrentIndex].classList.add('active');
+    }
+    
+    setInterval(switchDjBackground, 500);
 });
