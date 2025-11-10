@@ -2053,18 +2053,17 @@ body.loaded .line-right {
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s ease;
-    z-index: 2;
     opacity: 1;
 }
 
 .gallery-item .loading-spinner::after {
     content: "";
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     border: 3px solid rgba(0, 0, 0, 0.05);
     border-top: 3px solid rgba(0, 0, 0, 0.2);
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
 
 .gallery-item img.loaded + .loading-spinner {
