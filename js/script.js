@@ -156,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    let previousValues = { days: null, hours: null, minutes: null, seconds: null };
+    
     function updateCountdown() {
         const targetDate = new Date('2026-07-18T00:00:00').getTime();
         const now = new Date().getTime();
@@ -176,21 +178,67 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const countdownTimer = document.querySelector('.countdown-timer');
         if (countdownTimer) {
-            if (isEnglishPage) {
-                countdownTimer.innerHTML = `
-                    <div class="countdown-item">${days} Days</div>
-                    <div class="countdown-item">${hours} Hours</div>
-                    <div class="countdown-item">${minutes} Minutes</div>
-                    <div class="countdown-item">${seconds} Seconds</div>
-                `;
+            if (previousValues.days === null) {
+                if (isEnglishPage) {
+                    countdownTimer.innerHTML = `
+                        <div class="countdown-item">
+                            <span class="countdown-number">${days}</span> Days
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${hours}</span> Hours
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${minutes}</span> Minutes
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${seconds}</span> Seconds
+                        </div>
+                    `;
+                } else {
+                    countdownTimer.innerHTML = `
+                        <div class="countdown-item">
+                            <span class="countdown-number">${days}</span> 天
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${hours}</span> 时
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${minutes}</span> 分
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${seconds}</span> 秒
+                        </div>
+                    `;
+                }
             } else {
-                countdownTimer.innerHTML = `
-                    <div class="countdown-item">${days}天</div>
-                    <div class="countdown-item">${hours}时</div>
-                    <div class="countdown-item">${minutes}分</div>
-                    <div class="countdown-item">${seconds}秒</div>
-                `;
+                const items = countdownTimer.querySelectorAll('.countdown-item');
+                const currentValues = [days, hours, minutes, seconds];
+                const previousKeys = ['days', 'hours', 'minutes', 'seconds'];
+                
+                for (let i = 0; i < items.length; i++) {
+                    const current = currentValues[i];
+                    const previous = previousValues[previousKeys[i]];
+                    
+                    if (current !== previous) {
+                        const numberElement = items[i].querySelector('.countdown-number');
+                        if (numberElement) {
+                            numberElement.classList.add('fade-out');
+                            
+                            setTimeout(() => {
+                                numberElement.textContent = current;
+                                numberElement.classList.remove('fade-out');
+                                numberElement.classList.add('fade-in');
+                                
+                                setTimeout(() => {
+                                    numberElement.classList.remove('fade-in');
+                                }, 300);
+                            }, 300);
+                        }
+                    }
+                }
             }
+            
+            previousValues = { days, hours, minutes, seconds };
         }
     }
 

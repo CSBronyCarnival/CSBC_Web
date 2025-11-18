@@ -295,6 +295,32 @@ body.loaded .line-right {
     background-color: #e2f1ff;
 }
 
+.subpage-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 5px;
+    background: repeating-linear-gradient(
+        90deg,
+        white,
+        white 10px,
+        transparent 10px,
+        transparent 20px
+    );
+    animation: dashLineMove 60s linear infinite;
+}
+
+@keyframes dashLineMove {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
 .subpage-hero-content {
     position: absolute;
     top: 50%;
@@ -558,6 +584,34 @@ body.loaded .line-right {
     font-size: 1.5rem;
     color: #3498db;
     font-weight: 500;
+    position: relative;
+}
+
+.countdown-number {
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.countdown-number.fade-out {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.countdown-number.fade-in {
+    opacity: 1;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .title-underline {
@@ -781,7 +835,6 @@ body.loaded .line-right {
 
 .schedule-section {
     padding: 100px 0;
-    background: #f8f9fa;
 }
 
 .schedule-container {
@@ -1180,7 +1233,6 @@ body.loaded .line-right {
 
 .venue-section {
     padding: 100px 0;
-    background: white;
 }
 
 .venue-section h2 {
@@ -1337,7 +1389,6 @@ body.loaded .line-right {
 
 .transportation-section {
     padding: 80px 0;
-    background-color: #ffffff;
 }
 
 .transportation-intro {
@@ -1827,7 +1878,6 @@ body.loaded .line-right {
 
 .news-section {
     padding: 80px 0;
-    background: #f8f9fa;
 }
 
 .news-grid {
@@ -2006,7 +2056,6 @@ body.loaded .line-right {
 
 .gallery-section {
     padding: 80px 0;
-    background: #f8f9fa;
 }
 
 .gallery-grid {
