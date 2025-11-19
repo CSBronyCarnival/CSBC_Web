@@ -16,12 +16,13 @@
     align-items: center;
     z-index: 9999;
     opacity: 1;
-    transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease;
 }
 
 .loading-screen img {
     width: 100px;
     height: auto;
+    transition: transform 0.3s ease;
 }
 
 html {
@@ -31,6 +32,10 @@ html {
 body.loaded .loading-screen {
     opacity: 0;
     pointer-events: none;
+}
+
+body.loaded .loading-screen img {
+    transform: scale(0.8);
 }
 
 body {
@@ -302,13 +307,11 @@ body.loaded .line-right {
     left: 0;
     width: 200%;
     height: 5px;
-    background: repeating-linear-gradient(
-        90deg,
-        white,
-        white 10px,
-        transparent 10px,
-        transparent 20px
-    );
+    background: repeating-linear-gradient(90deg,
+            white,
+            white 10px,
+            transparent 10px,
+            transparent 20px);
     animation: dashLineMove 60s linear infinite;
 }
 
@@ -316,6 +319,7 @@ body.loaded .line-right {
     from {
         transform: translateX(0);
     }
+
     to {
         transform: translateX(-50%);
     }
@@ -608,6 +612,7 @@ body.loaded .line-right {
         opacity: 0;
         transform: scale(1.1);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
