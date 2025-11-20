@@ -505,9 +505,7 @@ body.loaded .line-right {
     .venue-feature-title {
         font-size: 1.3rem;
     }
-}
 
-@media (max-width: 768px) {
     .subpage-hero h1 {
         font-size: 2.5rem;
     }
@@ -519,6 +517,10 @@ body.loaded .line-right {
     .hero-button {
         padding: 10px 25px;
         font-size: 1rem;
+    }
+
+    .hero-image {
+        display: none;
     }
 }
 
@@ -562,6 +564,23 @@ body.loaded .line-right {
     padding: 20px 0;
     background: #f3f3f3;
     border-top: 1px solid #eee;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 5px;
+    background: repeating-linear-gradient(90deg,
+            white,
+            white 10px,
+            transparent 10px,
+            transparent 20px);
+    animation: dashLineMove 60s linear infinite;
 }
 
 .countdown-content {
@@ -628,7 +647,6 @@ body.loaded .line-right {
 
 .features-section {
     padding: 40px 0;
-    background-color: #f9f9f9;
 }
 
 .features-content {
@@ -723,7 +741,6 @@ body.loaded .line-right {
 
 .about-section {
     padding: 100px 0;
-    background: #f8f9fa;
 }
 
 .section-divider {
@@ -1032,7 +1049,6 @@ body.loaded .line-right {
 
 .pricing-section {
     padding: 100px 0;
-    background: #f8f9fa;
 }
 
 .pricing-section h2 {
