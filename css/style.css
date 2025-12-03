@@ -62,6 +62,32 @@ a {
     transition: 0.2s ease-in-out;
 }
 
+body.loaded .navbar.animation {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: 0.2s ease-in-out;
+    animation: navbarAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
+}
+
+@keyframes navbarAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    15% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
 .navbar.scrolled {
     background: rgba(255, 255, 255, 0.596);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -1843,16 +1869,8 @@ body.loaded .line-right {
         text-align: center;
     }
 
-    .countdown-title h3 {
-        font-size: 1.3rem;
-    }
-
     .countdown-timer {
         gap: 15px;
-    }
-
-    .countdown-item {
-        font-size: 1rem;
     }
 
     .footer-container {

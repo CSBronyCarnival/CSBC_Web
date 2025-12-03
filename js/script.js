@@ -17,6 +17,7 @@ function handleScroll() {
         navbar.classList.add('scrolled');
         navmenu.classList.add('scrolled');
         navcontainer.classList.add('scrolled');
+        navbar.classList.remove('animation');
     } else {
         navbar.classList.remove('scrolled');
         navmenu.classList.remove('scrolled');
