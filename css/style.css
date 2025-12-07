@@ -1759,6 +1759,16 @@ body.loaded .line-right {
     color: rgb(32, 32, 32);
     font-weight: 500;
     transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.friend-link-img {
+    height: 40px;
+    width: auto;
+    display: block;
+    opacity: 0.7;
 }
 
 .footer-copyright a:hover,

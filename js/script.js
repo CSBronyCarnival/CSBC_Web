@@ -294,3 +294,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setInterval(switchDjBackground, 500);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const friendLinkImages = document.querySelectorAll('.friend-link-img');
+    
+    friendLinkImages.forEach(img => {
+        const originalSrc = img.src;
+        const hoverSrc = img.getAttribute('data-hover-src');
+        
+        if (hoverSrc && hoverSrc !== originalSrc) {
+            const hoverImage = new Image();
+            hoverImage.src = hoverSrc;
+            
+            img.addEventListener('mouseenter', function() {
+                img.style.transition = 'opacity 0.3s ease';
+                img.style.opacity = '0';
+                
+                setTimeout(() => {
+                    img.src = hoverSrc;
+                    img.style.opacity = '1';
+                }, 150);
+            });
+            
+            img.addEventListener('mouseleave', function() {
+                img.style.opacity = '0';
+                
+                setTimeout(() => {
+                    img.src = originalSrc;
+                    img.style.opacity = '0.7';
+                }, 150);
+            });
+        }
+    });
+});
