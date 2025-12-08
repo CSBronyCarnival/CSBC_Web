@@ -243,27 +243,6 @@ body.loaded .hero-image img {
     animation: imageAnimation 8s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 
-.hero-content {
-    z-index: 1;
-    max-width: 800px;
-    padding: 0 20px;
-    transition: transform 0.2s ease-out;
-    will-change: transform;
-}
-
-body.loaded .hero-animation {
-    animation: titleAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
-}
-
-body.loaded .line-left,
-body.loaded .line-right {
-    height: 2px;
-    width: 60px;
-    background: rgb(255, 255, 255);
-    margin: 0 15px;
-    animation: titleLineAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
-}
-
 @keyframes imageAnimation {
     0% {
         opacity: 0;
@@ -281,6 +260,18 @@ body.loaded .line-right {
     }
 }
 
+.hero-content {
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+}
+
+body.loaded .hero-animation {
+    animation: titleAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
+}
+
 @keyframes titleAnimation {
     0% {
         transform: scale(1.2);
@@ -296,6 +287,15 @@ body.loaded .line-right {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+body.loaded .line-left,
+body.loaded .line-right {
+    height: 2px;
+    width: 60px;
+    background: rgb(255, 255, 255);
+    margin: 0 15px;
+    animation: titleLineAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 
 @keyframes titleLineAnimation {
