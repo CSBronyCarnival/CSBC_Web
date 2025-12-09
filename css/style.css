@@ -125,7 +125,6 @@ body.loaded .navbar.animation {
     display: flex;
     list-style: none;
     gap: 30px;
-    align-items: center;
 }
 
 .nav-menu a {
