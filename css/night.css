@@ -129,6 +129,14 @@ a {
     color: #3498db;
 }
 
+.enormous-divinity {
+    color: #ffffff;
+    transition: 0.3s ease;
+}
+.enormous-divinity:hover {
+    color: #f4e352;
+}
+
 .hamburger {
     display: none;
     cursor: pointer;

@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const now = new Date().getTime();
         const timeRemaining = targetDate - now;
 
-        const isEnglishPage = window.location.pathname.includes('index-eng.html');
+        const isEnglishPage = window.location.pathname.includes('eng/index.html');
 
         if (timeRemaining <= 0) {
             const message = isEnglishPage ? 'Event Started' : '活动已开始';
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <span class="countdown-number">${hours}</span> Hours
                         </div>
                         <div class="countdown-item">
-                            <span class="countdown-number">${minutes}</span> Minutes
+                            <span class="countdown-number">${minutes}</span> Mins
                         </div>
                         <div class="countdown-item">
                             <span class="countdown-number">${seconds}</span> Seconds
