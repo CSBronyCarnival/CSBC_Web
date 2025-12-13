@@ -1776,6 +1776,13 @@ body.loaded .line-right {
     color: #0085b6;
 }
 
+.footer-links-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
 .footer-record {
     margin-top: 15px;
     text-align: right;
