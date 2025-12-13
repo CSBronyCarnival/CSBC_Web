@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <span class="countdown-number">${hours}</span> Hours
                         </div>
                         <div class="countdown-item">
-                            <span class="countdown-number">${minutes}</span> Mins
+                            <span class="countdown-number">${minutes}</span> Minutes
                         </div>
                         <div class="countdown-item">
                             <span class="countdown-number">${seconds}</span> Seconds
