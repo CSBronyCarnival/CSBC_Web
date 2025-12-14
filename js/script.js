@@ -59,6 +59,26 @@ function highlightCurrentSection() {
 }
 
 function handleMouseMove(e) {
+    const isMobileDevice = window.innerWidth < 768 && window.innerWidth < window.innerHeight;
+    
+    if (isMobileDevice) {
+        if (heroBg) {
+            heroBg.style.transform = 'translate(-5%, -5%)';
+        }
+        if (heroImage) {
+            heroImage.style.transform = 'translate(-50%, -50%)';
+        }
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style.transform = 'translate(0, 0)';
+        }
+        const footerImage = document.querySelector('.footer-image img');
+        if (footerImage) {
+            footerImage.style.transform = 'translateY(30%)';
+        }
+        return;
+    }
+    
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
 
@@ -114,6 +134,16 @@ handleScroll();
 window.addEventListener('scroll', handleScroll);
 
 document.addEventListener('mousemove', handleMouseMove);
+
+// 添加窗口大小变化监听器，以便在设备旋转或窗口调整时重新检测是否应该禁用景深效果
+window.addEventListener('resize', function() {
+    // 强制触发一次鼠标移动事件来更新景深效果状态
+    const event = new MouseEvent('mousemove', {
+        clientX: window.innerWidth / 2,
+        clientY: window.innerHeight / 2
+    });
+    document.dispatchEvent(event);
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const qaQuestions = document.querySelectorAll('.qa-question');

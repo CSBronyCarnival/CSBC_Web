@@ -812,13 +812,18 @@ a {
     justify-content: center;
     width: 36px;
     height: 36px;
-    margin-right: 4px;
+    gap: 4px;
+    transition: opacity 0.3s ease;
 }
 
 .social-link img {
     width: 20px;
     height: 20px;
     opacity: 0.6;
+}
+
+.social-link:hover {
+    opacity: 0.8;
 }
 
 .footer-copyright a,
@@ -849,7 +854,7 @@ a {
 }
 
 .friend-link-img {
-    height: 40px;
+    height: 30px;
     width: auto;
     display: block;
     opacity: 0.7;
@@ -976,11 +981,29 @@ a {
     .footer-container {
         flex-direction: column;
         align-items: flex-start;
+        align-items: center;
         gap: 20px;
     }
 
+    .footer-left {
+        align-items: center;
+    }
+
+    .footer-record {
+        text-align: center;
+    }
+
+    .footer-links-title {
+        text-align: center;
+    }
+
+    .footer-copyright {
+        text-align: center;
+    }
+
     .footer-links {
-        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 15px;
     }
 

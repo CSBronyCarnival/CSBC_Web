@@ -1727,7 +1727,7 @@ body.loaded .line-right {
     justify-content: center;
     width: 36px;
     height: 36px;
-    margin-right: 4px;
+    gap: 4px;
     transition: opacity 0.3s ease;
 }
 
@@ -1940,46 +1940,46 @@ body.loaded .line-right {
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
     }
-    
+
     .schedule-table thead {
         display: none;
     }
-    
-    .schedule-table, 
-    .schedule-table tbody, 
-    .schedule-table tr, 
+
+    .schedule-table,
+    .schedule-table tbody,
+    .schedule-table tr,
     .schedule-table td {
         display: block;
         width: 100%;
     }
-    
+
     .schedule-table tr {
         overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
-    
+
     .schedule-table td {
         text-align: left;
         padding: 15px;
         position: relative;
         border-bottom: 1px solid #eee;
     }
-    
+
     .schedule-table td:last-child {
         border-bottom: none;
     }
-    
+
     .schedule-time {
         background: #f1f2f6;
         font-weight: 600;
         color: #2c3e50;
     }
-    
+
     .schedule-event {
         color: #2c3e50;
         padding-top: 25px;
     }
-    
+
     .schedule-preside {
         color: #7f8c8d;
         font-style: italic;
@@ -2492,34 +2492,34 @@ body.loaded .line-right {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .schedule-section {
         padding: 40px 0;
     }
-    
+
     .schedule-day h3 {
         font-size: 1.3rem;
     }
-    
+
     .schedule-day h4 {
         font-size: 0.9rem;
     }
-    
+
     .schedule-table td {
         padding: 12px;
         font-size: 0.9rem;
     }
-    
+
     .schedule-time::before,
     .schedule-event::before,
     .schedule-preside::before {
         font-size: 0.75rem;
     }
-    
+
     .schedule-event {
         padding-top: 22px;
     }
-    
+
     .schedule-preside {
         padding-top: 22px;
     }
