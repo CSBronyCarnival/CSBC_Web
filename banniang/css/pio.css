@@ -72,7 +72,7 @@
     text-align: center;
     border-radius: 66%;
     margin-bottom: .5em;
-    background: rgba(221, 221, 221, .6) center/70% no-repeat;
+    background: rgba(235, 235, 235, .6) center/70% no-repeat;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -98,7 +98,7 @@
     z-index: -2;
     font-size: .8em;
     min-width: 12em;
-    background-color: rgba(221, 221, 221, .6);
+    background-color: rgba(235, 235, 235, .6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: .75em 1em;

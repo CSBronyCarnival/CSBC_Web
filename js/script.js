@@ -302,11 +302,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentIndex = 0;
     
     function switchBackground() {
-        bgImages[currentIndex].classList.remove('active');
-        
-        currentIndex = (currentIndex + 1) % bgImages.length;
-        
-        bgImages[currentIndex].classList.add('active');
+        try {
+            if (!bgImages || bgImages.length === 0) return;
+            
+            bgImages[currentIndex].classList.remove('active');
+            
+            currentIndex = (currentIndex + 1) % bgImages.length;
+            
+            bgImages[currentIndex].classList.add('active');
+        } catch {
+            return;
+        }
     }
     
     setInterval(switchBackground, 500);
@@ -315,11 +321,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let djCurrentIndex = 0;
     
     function switchDjBackground() {
-        djBgImages[djCurrentIndex].classList.remove('active');
-        
-        djCurrentIndex = (djCurrentIndex + 1) % djBgImages.length;
-        
-        djBgImages[djCurrentIndex].classList.add('active');
+        try {
+            if (!djBgImages || djBgImages.length === 0) return;
+            
+            djBgImages[djCurrentIndex].classList.remove('active');
+            
+            djCurrentIndex = (djCurrentIndex + 1) % djBgImages.length;
+            
+            djBgImages[djCurrentIndex].classList.add('active');
+        } catch {
+            return;
+        }
     }
     
     setInterval(switchDjBackground, 500);
