@@ -9,7 +9,7 @@
 .pio-container{
     bottom: 0;
     z-index: 52;
-    color: #666;
+    color: #3d3d3d;
     position: fixed;
     user-select: none;
 }
@@ -56,11 +56,12 @@
     top: 3em;
     opacity: 0;
     position: absolute;
-    transition: opacity .3s;
+    transition: opacity .3s, transform .3s;
+    transform: translateY(20px);
 }
 .pio-container.left .pio-action{ right: 0 }
 .pio-container.right .pio-action{ left: 0 }
-.pio-container:hover .pio-action{ opacity: 1 }
+.pio-container:hover .pio-action{ opacity: 1; transform: translateY(15px) }
 
 .pio-action span{
     color: #fff;
@@ -71,8 +72,9 @@
     text-align: center;
     border-radius: 66%;
     margin-bottom: .5em;
-    border: 1px solid #666;
-    background: #fff center/70% no-repeat;
+    background: rgba(221, 221, 221, .6) center/70% no-repeat;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 .pio-action .pio-home{
     background-image: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTg5My43IDUwNS45SDEyOS4zYy0xMyAwLTI0LjgtNy45LTI5LjgtMTkuOS01LTEyLTIuMi0yNS45IDctMzUuMmwzMDctMzA3YzI2LjEtMjYuMSA2MC45LTQwLjUgOTgtNDAuNXM3MS45IDE0LjQgOTggNDAuNWwzMDcgMzA3YzkuMiA5LjIgMTIgMjMuMSA3IDM1LjItNSAxMi4xLTE2LjcgMTkuOS0yOS44IDE5Ljl6TTY3My4yIDkxOS45aC0zMS41Yy0xNy44IDAtMzIuMy0xNC40LTMyLjMtMzIuM3YtNzcuNGMwLTIzLjEtMTguOC00Mi4xLTQxLjktNDIuNC0yMi4zIDAuMy00MS4xIDE5LjMtNDEuMSA0Mi40djc3LjRjMCAxNy44LTE0LjQgMzIuMy0zMi4zIDMyLjNIMzQ5LjhjLTcwLjkgMC0xMjguNy02My43LTEyOC43LTE0MS45VjU4MS45YzAtMTcuOCAxNC40LTMyLjMgMzIuMy0zMi4zaDUxNi4yYzE3LjggMCAzMi4zIDE0LjQgMzIuMyAzMi4zVjc3OGMtMC4xIDc4LjMtNTcuOCAxNDEuOS0xMjguNyAxNDEuOXoiPjwvcGF0aD48L3N2Zz4=);
@@ -96,18 +98,21 @@
     z-index: -2;
     font-size: .8em;
     min-width: 12em;
-    background-color: rgba(236, 217, 188, .5);
+    background-color: rgba(221, 221, 221, .6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: .75em 1em;
     border-radius: 1em;
     visibility: hidden;
     position: absolute;
     word-break: break-all;
-    border: 1px solid #eee;
-    transition: opacity .3s, visibility .3s;
+    transition: opacity .3s, visibility .3s, transform .3s;
+    transform: translateY(-5px);
 }
 .pio-container .pio-dialog.active{
     opacity: 1;
     visibility: visible;
+    transform: translateY(0px);
 }
 
 .pio-container.left .pio-dialog{ left: 1em }
