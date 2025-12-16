@@ -56,12 +56,13 @@
     top: 3em;
     opacity: 0;
     position: absolute;
-    transition: opacity .3s, transform .3s;
-    transform: translateY(20px);
+    transition: opacity .3s, transform .3s, filter .3s;
+    transform: translateX(-5px);
+    filter: blur(5px);
 }
 .pio-container.left .pio-action{ right: 0 }
 .pio-container.right .pio-action{ left: 0 }
-.pio-container:hover .pio-action{ opacity: 1; transform: translateY(15px) }
+.pio-container:hover .pio-action{ opacity: 1; transform: translateX(0px); filter: blur(0px); }
 
 .pio-action span{
     color: #fff;
@@ -101,17 +102,19 @@
     background-color: rgba(235, 235, 235, .6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    filter: blur(5px);
     padding: .75em 1em;
     border-radius: 1em;
     visibility: hidden;
     position: absolute;
     word-break: break-all;
-    transition: opacity .3s, visibility .3s, transform .3s;
+    transition: opacity .3s, visibility .3s, transform .3s, filter .3s;
     transform: translateY(-5px);
 }
 .pio-container .pio-dialog.active{
     opacity: 1;
     visibility: visible;
+    filter: blur(0px);
     transform: translateY(0px);
 }
 
