@@ -1,0 +1,120 @@
+.pony-mascot {
+    position: fixed;
+    bottom: 140px;
+    right: 100px;
+    width: 120px;
+    height: 120px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.pony-mascot img {
+    width: 240px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.pony-bubble {
+    position: absolute;
+    bottom: 110px;
+    left: 55%;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(230, 230, 230, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 12px 16px;
+    max-width: 200px;
+    min-width: 120px;
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.pony-bubble.show {
+    opacity: 1;
+    visibility: visible;
+    animation: bubblePop 0.3s ease-out;
+}
+
+@keyframes bubblePop {
+    0% {
+        transform: translateY(5px);
+        filter: blur(3px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        filter: blur(0px);
+        opacity: 1;
+    }
+}
+
+.pony-buttons {
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    filter: blur(3px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform: translateY(-50%);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1002;
+}
+
+.pony-mascot:hover .pony-buttons {
+    opacity: 1;
+    visibility: visible;
+    left: 0px;
+    filter: blur(0px);
+}
+
+.pony-button {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(230, 230, 230, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pony-button:hover {
+    border-color: rgba(230, 230, 230);
+}
+
+.pony-button:active {
+    transform: scale(0.9);
+}
+
+.pony-button img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.pony-button.switch-button {
+    background: #ffffffcb;
+}
+
+@media (max-width: 768px) {
+    .pony-mascot {
+        display: none;
+    }
+}

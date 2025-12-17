@@ -9,26 +9,20 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<div class="pio-container right">
-    <div class="pio-action"></div>
-    <canvas id="pio" width="200" height="250"></canvas>
+<div class="pony-mascot" data-pony-images='[
+"img/pony/1.webp",
+"img/pony/2.webp"
+]'>
+    <img id="pony-image">
+    <div class="pony-bubble"></div>
+    <div class="pony-buttons">
+        <div class="pony-button switch-button" id="switch-pony">
+            <img src="img/pony/button/switch.svg">
+        </div>
+    </div>
 </div>
-<link rel="stylesheet" href="banniang/css/pio.css">
-<script src="banniang/js/pio.js"></script>
-<script src="banniang/js/l2d.js"></script>
-<script>
-    var pio = new Paul_Pio({
-        "mode": "fixed",
-        "tips": true,
-        "hidden": true,
-        "content": {
-            "welcome": ["咦？被发现了？"],
-        },
-        "model": [
-            "banniang/live2d-widget-models/111/111.model.json",
-        ]
-    });
-</script>
+<link rel="stylesheet" href="css/pony.css">
+<script src="js/pony.js"></script>
 
 <body>
     <div class="loading-screen">
