@@ -31,10 +31,15 @@ const ponyMessages = {
         "感谢各位对华南马聚的支持，咩咩都看在眼里~",
         "咩啊？",
         "CSBC少不了大家每一只小马的力量，欢迎大家踊跃报名参与各个环节！"
-    ]
+    ],
+    tooltip: {
+        switch: "一键换装~"
+    }
 };
 
 let bubbleHideTimer = null;
+let lastBubbleShowTime = 0;
+const BUBBLE_DISPLAY_DURATION = 3000;
 let ponyImages = [];
 let currentPonyIndex = 0;
 
@@ -67,8 +72,12 @@ function getRandomMessage(type) {
 
 function showBubble(message) {
     const bubble = document.querySelector('.pony-bubble');
+    if (!bubble) return;
+    
     bubble.textContent = message;
     bubble.classList.add('show');
+    
+    lastBubbleShowTime = Date.now();
     
     if (bubbleHideTimer) {
         clearTimeout(bubbleHideTimer);
@@ -77,7 +86,8 @@ function showBubble(message) {
     bubbleHideTimer = setTimeout(() => {
         bubble.classList.remove('show');
         bubbleHideTimer = null;
-    }, 3000);
+        lastBubbleShowTime = 0;
+    }, BUBBLE_DISPLAY_DURATION);
 }
 
 function switchPonyImage() {
@@ -148,6 +158,10 @@ function initPonyMascot() {
         switchButton.addEventListener('click', (e) => {
             e.stopPropagation();
             switchPonyImage();
+        });
+        
+        switchButton.addEventListener('mouseenter', () => {
+            showBubble(ponyMessages.tooltip.switch);
         });
     }
 }

@@ -96,7 +96,7 @@
 }
 
 .pony-button:hover {
-    border-color: rgba(230, 230, 230);
+    border-color: rgb(153, 153, 153);
 }
 
 .pony-button:active {
