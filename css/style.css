@@ -1792,6 +1792,7 @@ body.loaded .line-right {
 }
 
 .footer-links-title {
+    color: rgb(32, 32, 32);
     margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
