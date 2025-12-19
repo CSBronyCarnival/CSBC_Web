@@ -305,7 +305,8 @@ body.loaded .hero-animation {
 
 body.loaded .line-left,
 body.loaded .line-right {
-    height: 2px;
+    height: 4px;
+    border-radius: 3px;
     width: 60px;
     background: rgb(255, 255, 255);
     margin: 0 15px;
