@@ -778,6 +778,16 @@ body.loaded .line-right {
     .feature-item {
         padding: 25px;
     }
+
+    .subtitle-text {
+        font-size: 0.7rem;
+    }
+
+    body.loaded .line-left,
+    body.loaded .line-right {
+        height: 2px;
+        border-radius: 2px;
+    }
 }
 
 .about-section {
