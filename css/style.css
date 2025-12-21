@@ -2555,25 +2555,7 @@ body.loaded .line-right {
         max-width: 100%;
         width: 100%;
     }
-
-    .countdown-section {
-        padding: 20px 0;
-    }
-
-    .countdown-title h3 {
-        font-size: 1.2rem;
-    }
-
-    .countdown-timer {
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .countdown-item {
-        font-size: 0.9rem;
-    }
-
+    
     .schedule-section {
         padding: 40px 0;
     }
