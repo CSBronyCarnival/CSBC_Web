@@ -563,6 +563,12 @@ body.loaded .line-right {
     .hero-image {
         display: none;
     }
+
+    .hero-bg img {
+        width: 110%;
+        height: 110%;
+        object-position: 83% center;
+    }
 }
 
 .subtitle-text {
