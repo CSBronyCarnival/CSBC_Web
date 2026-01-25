@@ -9,6 +9,7 @@ const navmenu = document.querySelector('.nav-menu');
 const navcontainer = document.querySelector('.nav-container');
 const heroBg = document.querySelector('.hero-bg img');
 const heroImage = document.querySelector('.hero-image');
+const heroImgElement = document.querySelector('.hero-image img');
 const hamburger = document.querySelector('.hamburger');
 const navLinks = document.querySelectorAll('.nav-menu a');
 
@@ -114,6 +115,14 @@ function handleMouseMove(e) {
         const footerMoveX = (mouseX - 0.5) * footerIntensity;
         const footerMoveY = (mouseY - 0.5) * footerIntensity;
         footerImage.style.transform = `translateY(30%) translate(${footerMoveX}px, ${footerMoveY}px)`;
+    }
+
+    if (heroImgElement) {
+        const rect = heroImgElement.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        heroImgElement.style.setProperty('--x', `${x}px`);
+        heroImgElement.style.setProperty('--y', `${y}px`);
     }
 }
 

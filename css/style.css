@@ -245,7 +245,7 @@ body.loaded .navbar.animation {
     width: 900px;
     height: auto;
     text-align: center;
-    opacity: 0.1;
+    opacity: 0.2;
 }
 
 body.loaded .hero-image img {
@@ -253,7 +253,11 @@ body.loaded .hero-image img {
     height: auto;
     object-fit: contain;
     opacity: 0.85;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+    filter: brightness(1.2) drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+    --x: -50%;
+    --y: -50%;
+    -webkit-mask-image: radial-gradient(circle 300px at var(--x) var(--y), black 20%, rgba(0, 0, 0, 0.25) 100%);
+    mask-image: radial-gradient(circle 300px at var(--x) var(--y), black 20%, rgba(0, 0, 0, 0.25) 100%);
     animation: imageAnimation 8s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 
