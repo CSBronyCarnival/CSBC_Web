@@ -95,12 +95,10 @@ function openLightbox(index) {
     authorElement.textContent = imgAuthor || '';
     
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
     lightbox.classList.remove('active');
-    document.body.style.overflow = '';
 }
 
 function showPrevImage() {
