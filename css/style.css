@@ -2400,6 +2400,9 @@ body.loaded .line-right {
     backdrop-filter: blur(10px);
     z-index: 2000;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -2408,9 +2411,6 @@ body.loaded .line-right {
 .gallery-lightbox.active {
     opacity: 1;
     visibility: visible;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .lightbox-content {
@@ -2461,15 +2461,17 @@ body.loaded .line-right {
 }
 
 .lightbox-close {
-    position: absolute;
-    top: -50px;
-    right: 0;
+    position: fixed;
+    top: -30px;
+    right: -30px;
     background: none;
     border: none;
     color: white;
     font-size: 2rem;
     cursor: pointer;
     padding: 10px;
+    z-index: 2001;
+    line-height: 1;
 }
 
 .lightbox-nav {
