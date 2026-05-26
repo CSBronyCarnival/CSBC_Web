@@ -347,6 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+
     const friendLinkImages = document.querySelectorAll('.friend-link-img');
     
     friendLinkImages.forEach(img => {
@@ -378,3 +379,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+(function() {
+    const cursor = document.getElementById('customCursor');
+    if (!cursor) return;
+    
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    
+    if (isTouchDevice) {
+        cursor.style.display = 'none';
+        document.body.style.cursor = 'auto';
+        return;
+    }
+    
+    let isFirstMove = true;
+    
+    document.addEventListener('mousemove', function(e) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        if (isFirstMove) {
+            cursor.style.opacity = '1';
+            isFirstMove = false;
+        }
+    });
+    
+    const hoverElements = document.querySelectorAll('a, button, .tab-button, .qa-question, .pricing-button, .hero-button, .section-button, .contact-button, .hamburger, .gallery-item, .pagination-button, .lightbox-close, .lightbox-nav');
+    
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', function() {
+            cursor.classList.add('hover');
+        });
+        
+        el.addEventListener('mouseleave', function() {
+            cursor.classList.remove('hover');
+        });
+    });
+    
+    document.addEventListener('mousedown', function() {
+        cursor.classList.add('click');
+    });
+    
+    document.addEventListener('mouseup', function() {
+        cursor.classList.remove('click');
+    });
+    
+    document.addEventListener('mouseleave', function() {
+        cursor.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', function() {
+        cursor.style.opacity = '1';
+    });
+})();

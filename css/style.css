@@ -20,6 +20,74 @@
 }
 
 body {
+    cursor: none;
+}
+
+a, button, input, textarea, select, [role="button"] {
+    cursor: none;
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.cursor-outer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(79, 167, 255, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.05s ease-out;
+}
+
+.cursor-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: #4fa7ff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.05s ease-out;
+}
+
+.custom-cursor.hover .cursor-outer {
+    width: 35px;
+    height: 35px;
+    border-color: rgba(79, 167, 255, 0.5);
+    background-color: rgba(79, 167, 255, 0.1);
+}
+
+.custom-cursor.hover .cursor-inner {
+    width: 8px;
+    height: 8px;
+    background-color: #3498db;
+}
+
+.custom-cursor.click .cursor-outer {
+    width: 20px;
+    height: 20px;
+    border-color: rgba(79, 167, 255, 1);
+}
+
+.custom-cursor.click .cursor-inner {
+    width: 4px;
+    height: 4px;
+}
+
+body {
     font-family: 'OPPOSans-Ver2-Bold', 'OPPOSans-Bold', 'Arial', 'Microsoft YaHei', sans-serif;
     line-height: 1.6;
     color: #333;
@@ -184,7 +252,6 @@ body.loaded .navbar.animation {
 
 .hamburger {
     display: none;
-    cursor: pointer;
 }
 
 .bar {
@@ -940,7 +1007,6 @@ body.loaded .line-right {
     font-size: 1.1rem;
     font-weight: 500;
     color: #7f8c8d;
-    cursor: pointer;
     transition: all 0.3s ease;
     min-width: 80px;
 }
@@ -1189,7 +1255,6 @@ body.loaded .line-right {
     padding: 12px 30px;
     border-radius: 10px;
     font-size: 1rem;
-    cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     margin-top: auto;
@@ -1262,7 +1327,6 @@ body.loaded .line-right {
 
 .qa-question {
     padding: 20px;
-    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2249,7 +2313,6 @@ body.loaded .line-right {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    cursor: pointer;
     background: #fff;
     line-height: 0;
 }
@@ -2352,7 +2415,6 @@ body.loaded .line-right {
     color: white;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     font-size: 14px;
     transition: background 0.3s ease;
 }
@@ -2363,7 +2425,6 @@ body.loaded .line-right {
 
 .pagination-button:disabled {
     background: #bdc3c7;
-    cursor: not-allowed;
 }
 
 .pagination-numbers {
@@ -2377,7 +2438,6 @@ body.loaded .line-right {
     color: #2c3e50;
     border: none;
     border-radius: 3px;
-    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -2399,7 +2459,6 @@ body.loaded .line-right {
     background: rgba(0, 0, 0, 0.308);
     backdrop-filter: blur(10px);
     z-index: 2000;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2468,7 +2527,6 @@ body.loaded .line-right {
     border: none;
     color: white;
     font-size: 2rem;
-    cursor: pointer;
     padding: 10px;
     z-index: 2001;
     line-height: 1;
@@ -2483,7 +2541,6 @@ body.loaded .line-right {
     color: white;
     font-size: 2rem;
     padding: 15px 20px;
-    cursor: pointer;
     transition: background 0.3s ease;
 }
 
