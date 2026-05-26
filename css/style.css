@@ -45,7 +45,7 @@ a, button, input, textarea, select, [role="button"] {
     left: 50%;
     width: 30px;
     height: 30px;
-    border: 3px solid rgba(128, 225, 255, 0.8);
+    border: 3px solid rgba(87, 194, 255, 0.8);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
@@ -57,7 +57,7 @@ a, button, input, textarea, select, [role="button"] {
     left: 50%;
     width: 6px;
     height: 6px;
-    background-color: #8ae4ff;
+    background-color: #4da9ff;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.1s ease-out, height 0.1s ease-out, background-color 0.1s ease-out;
@@ -66,20 +66,20 @@ a, button, input, textarea, select, [role="button"] {
 .custom-cursor.hover .cursor-outer {
     width: 35px;
     height: 35px;
-    border-color: rgba(128, 225, 255, 0.5);
+    border-color: rgba(87, 194, 255, 0.5);
     background-color: rgba(190, 190, 190, 0.1);
 }
 
 .custom-cursor.hover .cursor-inner {
     width: 8px;
     height: 8px;
-    background-color: #8ae4ff;
+    background-color: #4da9ff;
 }
 
 .custom-cursor.click .cursor-outer {
     width: 20px;
     height: 20px;
-    border-color: rgb(128, 225, 255);
+    border-color: rgb(87, 194, 255);
 }
 
 .custom-cursor.click .cursor-inner {
