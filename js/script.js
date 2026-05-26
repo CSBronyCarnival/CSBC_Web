@@ -402,23 +402,66 @@ document.addEventListener('DOMContentLoaded', function() {
     let isFirstMove = true;
     let rafId = null;
     
-    const ease = 0.3;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+    let velocityX = 0;
+    let velocityY = 0;
+    let lastTime = 0;
     
-    function animate() {
+    const ease = 0.3;
+    const maxStretch = 0.3;
+    const velocityThreshold = 0.5;
+    const maxVelocity = 30;
+    
+    function animate(currentTime) {
         outerX += (mouseX - outerX) * ease;
         outerY += (mouseY - outerY) * ease;
         
         const offsetX = outerX - mouseX;
         const offsetY = outerY - mouseY;
         
-        cursorOuter.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+        const speed = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+        
+        let transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+        
+        if (speed > velocityThreshold) {
+            const angle = Math.atan2(velocityY, velocityX);
+            
+            const normalizedSpeed = Math.min(speed / maxVelocity, 1);
+            
+            const stretch = 1 + normalizedSpeed * maxStretch;
+            const shrink = 1 - normalizedSpeed * maxStretch;
+            
+            const angleDeg = angle * (180 / Math.PI);
+            
+            transform += ` rotate(${angleDeg}deg) scale(${stretch}, ${shrink})`;
+        }
+        
+        cursorOuter.style.transform = transform;
+        
+        velocityX *= 0.85;
+        velocityY *= 0.85;
         
         rafId = requestAnimationFrame(animate);
     }
     
     document.addEventListener('mousemove', function(e) {
+        const currentTime = performance.now();
+        
         mouseX = e.clientX;
         mouseY = e.clientY;
+        
+        if (!isFirstMove && lastTime > 0) {
+            const deltaTime = currentTime - lastTime;
+            if (deltaTime > 0) {
+                velocityX = (mouseX - lastMouseX) / deltaTime * 16;
+                velocityY = (mouseY - lastMouseY) / deltaTime * 16;
+            }
+        }
+        
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+        lastTime = currentTime;
         
         cursor.style.left = mouseX + 'px';
         cursor.style.top = mouseY + 'px';
@@ -428,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function() {
             outerY = mouseY;
             cursor.style.opacity = '1';
             isFirstMove = false;
-            animate();
+            animate(currentTime);
         }
     });
     
