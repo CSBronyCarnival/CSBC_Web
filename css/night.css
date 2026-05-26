@@ -48,7 +48,7 @@ a, button, input, textarea, select, [role="button"] {
     border: 3px solid rgba(255, 255, 255, 0.8);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: all 0.05s ease-out;
+    transition: width 0.2s ease-out, height 0.2s ease-out, border-color 0.2s ease-out, background-color 0.2s ease-out;
 }
 
 .cursor-inner {
@@ -60,7 +60,7 @@ a, button, input, textarea, select, [role="button"] {
     background-color: #ffffff;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    transition: all 0.05s ease-out;
+    transition: width 0.1s ease-out, height 0.1s ease-out, background-color 0.1s ease-out;
 }
 
 .custom-cursor.hover .cursor-outer {

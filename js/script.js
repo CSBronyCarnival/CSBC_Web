@@ -384,6 +384,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const cursor = document.getElementById('customCursor');
     if (!cursor) return;
     
+    const cursorOuter = cursor.querySelector('.cursor-outer');
+    if (!cursorOuter) return;
+    
     const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     
     if (isTouchDevice) {
@@ -392,15 +395,40 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
+    let mouseX = 0;
+    let mouseY = 0;
+    let outerX = 0;
+    let outerY = 0;
     let isFirstMove = true;
+    let rafId = null;
+    
+    const ease = 0.3;
+    
+    function animate() {
+        outerX += (mouseX - outerX) * ease;
+        outerY += (mouseY - outerY) * ease;
+        
+        const offsetX = outerX - mouseX;
+        const offsetY = outerY - mouseY;
+        
+        cursorOuter.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+        
+        rafId = requestAnimationFrame(animate);
+    }
     
     document.addEventListener('mousemove', function(e) {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
         
         if (isFirstMove) {
+            outerX = mouseX;
+            outerY = mouseY;
             cursor.style.opacity = '1';
             isFirstMove = false;
+            animate();
         }
     });
     
