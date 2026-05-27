@@ -5,7 +5,6 @@
     width: 120px;
     height: 120px;
     z-index: 1000;
-    cursor: pointer;
     transition: transform 0.3s ease;
 }
 
@@ -93,7 +92,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     transition: all 0.3s ease;
 }
 
