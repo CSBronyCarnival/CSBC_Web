@@ -655,27 +655,36 @@ a {
 
 .dj-info {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), transparent);
-    padding: 15px 10px 10px;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(2px);
+    scale: 1.05;
 }
 
 .dj-info h4 {
     color: #ffffff;
-    font-size: 16px;
-    margin: 0 0 5px 0;
+    font-size: 18px;
+    margin: 0 0 8px 0;
     font-weight: 600;
+    text-align: center;
 }
 
 .dj-info p {
     color: #b0b0b0;
-    font-size: 12px;
+    font-size: 14px;
     margin: 0;
     line-height: 1.4;
+    text-align: center;
 }
 
 .dj-avatar:hover img {
@@ -683,7 +692,7 @@ a {
 }
 
 .dj-avatar:hover .dj-info {
-    transform: translateY(0);
+    opacity: 1;
 }
 
 .dj-item p {
