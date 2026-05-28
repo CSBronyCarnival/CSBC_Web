@@ -1,3 +1,25 @@
+# 许可证声明 / License
+
+本项目采用**双重许可**方式：
+
+---
+
+## 1. 资产版权所有 / Assets - All Rights Reserved
+
+以下资产保留所有权利（All Rights Reserved）：
+
+- 网站吉祥物 **"咩咩"** 的位图与矢量图资产
+- **"CSBC华南马聚"** 相关 LOGO 的位图与矢量图资产
+
+*未经明确书面授权，禁止复制、修改、分发或用于其他项目。*
+
+---
+
+## 2. 代码许可 / Code License
+
+除上述资产外，本网站其余**代码部分**采用 **MIT 许可证**：
+
+```
 MIT License
 
 Copyright (c) 2025 CSBronyCarnival
@@ -19,3 +41,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
