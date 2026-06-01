@@ -1873,7 +1873,7 @@ body.loaded .line-right {
 .footer-links {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 25px;
     margin: 0;
     padding: 0;
 }
@@ -1889,7 +1889,7 @@ body.loaded .line-right {
 }
 
 .friend-link-img {
-    height: 30px;
+    height: 24px;
     width: auto;
     display: block;
     opacity: 0.7;
