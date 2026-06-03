@@ -642,6 +642,36 @@ body.loaded .line-right {
     }
 }
 
+.nav-images {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.nav-image-item {
+    flex: 1;
+    max-width: 48%;
+}
+
+.nav-image-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .nav-images {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-image-item {
+        max-width: 100%;
+    }
+}
+
 .subtitle-text {
     color: rgb(255, 255, 255);
     font-size: 1rem;
