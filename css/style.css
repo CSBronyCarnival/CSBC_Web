@@ -644,6 +644,7 @@ body.loaded .line-right {
 
 .nav-images {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     justify-content: center;
     margin: 30px 0;
@@ -651,7 +652,7 @@ body.loaded .line-right {
 
 .nav-image-item {
     flex: 1;
-    max-width: 48%;
+    max-width: 100%;
 }
 
 .nav-image-item img {
