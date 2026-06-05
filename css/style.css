@@ -1323,6 +1323,12 @@ body.loaded .line-right {
     z-index: 1;
 }
 
+.pricing-bottom-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
 .qa-section {
     padding: 100px 0;
     background: white;
@@ -1425,7 +1431,7 @@ body.loaded .line-right {
 
 .pricing-tier.featured .pricing-button:hover {
     color: #ffffff;
-    background-color: #3498db;
+    background-color: transparent;
 }
 
 .venue-section {
