@@ -1903,10 +1903,13 @@ body.loaded .line-right {
 
 .footer-links {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
     gap: 25px;
     margin: 0;
     padding: 0;
+    max-width: 400px;
+    justify-content: flex-end;
 }
 
 .footer-links a {
