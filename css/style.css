@@ -1914,7 +1914,7 @@ body.loaded .line-right {
     gap: 25px;
     margin: 0;
     padding: 0;
-    max-width: 400px;
+    max-width: 500px;
     justify-content: flex-end;
 }
 
