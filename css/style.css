@@ -1023,33 +1023,6 @@ body.loaded .line-right {
     margin: 0 auto;
 }
 
-.schedule-tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-    gap: 40px;
-}
-
-.tab-button {
-    background: none;
-    border: none;
-    border-bottom: 2px solid #00000000;
-    padding: 10px 0;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #7f8c8d;
-    transition: all 0.3s ease;
-    min-width: 80px;
-}
-
-.tab-button:hover {
-    color: #3498db;
-}
-
-.tab-button.active {
-    color: #3498db;
-    border-bottom-color: #3498db;
-}
 
 .schedule-day {
     margin-bottom: 50px;
@@ -1085,67 +1058,12 @@ body.loaded .line-right {
     margin-left: 1px;
 }
 
-.schedule-table {
-    background: white;
-    overflow: hidden;
+.schedule-image {
     width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #e0e0e0;
-}
-
-.schedule-table thead {
-    background: #f8f9fa;
-}
-
-.schedule-table th {
-    padding: 20px;
-    text-align: center;
-    font-weight: 600;
-    color: #2c3e50;
-    border-bottom: 2px solid #eee;
-}
-
-.schedule-time-header {
-    width: 150px;
-    background: #f1f2f6;
-}
-
-.schedule-event-header {
-    text-align: left;
-}
-
-.schedule-item {
-    border-bottom: 1px solid #eee;
-}
-
-.schedule-item:last-child {
-    border-bottom: none;
-}
-
-.schedule-time {
-    width: 150px;
-    padding: 20px;
-    background: #f8f9fa;
-    font-weight: 600;
-    color: #2c3e50;
-    text-align: center;
-}
-
-.schedule-event {
-    padding: 20px;
-    font-weight: 500;
-    color: #2c3e50;
-    text-align: left;
-}
-
-.schedule-preside {
-    width: 150px;
-    padding: 20px;
-    color: #7f8c8d;
-    text-align: center;
-    font-style: italic;
-    text-align: center;
-    font-style: italic;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    margin-top: 20px;
 }
 
 .team-section {
