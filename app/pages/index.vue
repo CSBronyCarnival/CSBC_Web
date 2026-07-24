@@ -314,37 +314,9 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
         <span>首页</span>
       </a>
-      <a href="#venue" class="nav-btn" :class="{ active: activeSection === 'venue' }" title="场地">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-        <span>场地</span>
-      </a>
       <a href="#ticket" class="nav-btn" :class="{ active: activeSection === 'ticket' }" title="票价">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
         <span>票价</span>
-      </a>
-      <a href="navigation.html" class="nav-btn" title="订房">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-        <span>订房</span>
-      </a>
-      <a href="#qa" class="nav-btn" :class="{ active: activeSection === 'qa' }" title="常见问题">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <span>FAQ</span>
-      </a>
-      <a href="#team" class="nav-btn" :class="{ active: activeSection === 'team' }" title="团队">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        <span>团队</span>
-      </a>
-      <a href="schedule.html" class="nav-btn" title="时间表">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>日程</span>
-      </a>
-      <a href="gallery.html" class="nav-btn" title="画廊">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        <span>画廊</span>
-      </a>
-      <a href="night.html" class="nav-btn" title="夜下扬蹄">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        <span>夜场</span>
       </a>
     </nav>
   </div>
@@ -1160,21 +1132,27 @@ function toggleQA(index) {
 .nav-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
+  gap: 6px;
+  padding: 8px 10px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(200, 200, 200, 0.4);
   border-radius: 10px;
   text-decoration: none;
-  color: #444;
+  color: #000;
   font-size: 0.85rem;
   font-weight: 500;
-  transition: all 0.25s ease;
-  width: 42px;
+  width: auto;
+  min-width: 40px;
+  max-width: 40px;
   overflow: hidden;
   white-space: nowrap;
+  transition: max-width 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease, gap 0.3s ease;
+}
+.nav-btn svg {
+  flex-shrink: 0;
+  display: block;
 }
 .nav-btn span {
   opacity: 0;
@@ -1182,10 +1160,11 @@ function toggleQA(index) {
 }
 .nav-btn:hover,
 .nav-btn.active {
-  width: auto;
+  max-width: 180px;
   background: rgba(79, 167, 255, 0.9);
   color: #fff;
   border-color: rgba(79, 167, 255, 0.9);
+  gap: 8px;
 }
 .nav-btn:hover span,
 .nav-btn.active span {
@@ -1274,9 +1253,10 @@ function toggleQA(index) {
     gap: 4px;
   }
   .nav-btn {
-    padding: 6px 12px;
+    padding: 6px 8px;
     font-size: 0.8rem;
-    width: 38px;
+    min-width: 36px;
+    max-width: 36px;
   }
   .nav-btn span {
     display: none;
