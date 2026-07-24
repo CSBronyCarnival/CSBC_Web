@@ -289,17 +289,17 @@
         <div class="footer-right">
           <div class="footer-links-title"><p>友情链接</p></div>
           <ul class="footer-links">
-            <li><a target="_blank" href="https://malangpony.com/"><img src="/img/link/exchange/malang_b.png" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://brony.scot/"><img src="/img/link/exchange/bs_b.png" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://www.norsehorsecon.eu/"><img src="/img/link/exchange/norse_b.webp" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://galacon.eu/"><img src="/img/link/exchange/gala_b.webp" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="http://suncelebration.butterpony.com/"><img src="/img/link/exchange/ssc_b.webp" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://x.com/Poniko_MLP/"><img src="/img/link/exchange/ponikon_b.webp" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://sunshine.horse/"><img src="/img/link/exchange/spc_b.webp" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://derpfest.ru/"><img src="/img/link/exchange/derpfest_b.svg" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://twbronycon.org/"><img src="/img/link/exchange/twbc_b.png" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://dreamlandcon.top/"><img src="/img/link/exchange/dlc_b.svg" class="friend-link-img"></a></li>
-            <li><a target="_blank" href="https://www.equestriacn.com/"><img src="/img/link/exchange/eqcn_b.png" class="friend-link-img"></a></li>
+            <li><a target="_blank" href="https://malangpony.com/"><img src="/img/link/exchange/malang_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/malang.png"></a></li>
+            <li><a target="_blank" href="https://brony.scot/"><img src="/img/link/exchange/bs_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/bs.png"></a></li>
+            <li><a target="_blank" href="https://www.norsehorsecon.eu/"><img src="/img/link/exchange/norse_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/norse.webp"></a></li>
+            <li><a target="_blank" href="https://galacon.eu/"><img src="/img/link/exchange/gala_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/gala.webp"></a></li>
+            <li><a target="_blank" href="http://suncelebration.butterpony.com/"><img src="/img/link/exchange/ssc_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/ssc.webp"></a></li>
+            <li><a target="_blank" href="https://x.com/Poniko_MLP/"><img src="/img/link/exchange/ponikon_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/ponikon.webp"></a></li>
+            <li><a target="_blank" href="https://sunshine.horse/"><img src="/img/link/exchange/spc_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/spc.webp"></a></li>
+            <li><a target="_blank" href="https://derpfest.ru/"><img src="/img/link/exchange/derpfest_b.svg" class="friend-link-img" data-hover-src="/img/link/exchange/derpfest.svg"></a></li>
+            <li><a target="_blank" href="https://twbronycon.org/"><img src="/img/link/exchange/twbc_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/twbc.png"></a></li>
+            <li><a target="_blank" href="https://dreamlandcon.top/"><img src="/img/link/exchange/dlc_b.svg" class="friend-link-img" data-hover-src="/img/link/exchange/dlc.svg"></a></li>
+            <li><a target="_blank" href="https://www.equestriacn.com/"><img src="/img/link/exchange/eqcn_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/eqcn.png"></a></li>
           </ul>
           <div class="footer-record">
             <p><a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2024035737号</a></p>
@@ -438,6 +438,34 @@ onMounted(() => {
   ;['home', 'venue', 'ticket', 'qa', 'team'].forEach(id => {
     const el = document.getElementById(id)
     if (el) observer.observe(el)
+  })
+
+  // 友链 logo 悬浮切换彩色
+  document.querySelectorAll('.friend-link-img').forEach(img => {
+    const originalSrc = img.src
+    const hoverSrc = img.getAttribute('data-hover-src')
+    if (!hoverSrc || hoverSrc === originalSrc) return
+
+    // 预加载彩色图
+    const preload = new Image()
+    preload.src = hoverSrc
+
+    img.addEventListener('mouseenter', () => {
+      img.style.transition = 'opacity 0.15s ease'
+      img.style.opacity = '0'
+      setTimeout(() => {
+        img.src = hoverSrc
+        img.style.opacity = '1'
+      }, 150)
+    })
+
+    img.addEventListener('mouseleave', () => {
+      img.style.opacity = '0'
+      setTimeout(() => {
+        img.src = originalSrc
+        img.style.opacity = '0.7'
+      }, 150)
+    })
   })
 })
 
@@ -1099,10 +1127,6 @@ function toggleQA(index) {
   width: auto;
   display: block;
   opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-.friend-link-img:hover {
-  opacity: 1;
 }
 .footer-record {
   margin-top: 15px;
