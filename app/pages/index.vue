@@ -17,7 +17,7 @@
         <h1>华南马聚CSBC2026</h1>
         <p class="hero-poem">春风祥越五羊城 岭南山下友谊生</p>
         <p>2026.7.18-7.19 我在广州等你</p>
-        <a href="https://qm.qq.com/q/kP0n8Mng9G" class="hero-button">加入我们</a>
+        <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="hero">加入我们</BaseButton>
       </div>
     </header>
 
@@ -77,7 +77,7 @@
               我们致力于与各位马迷朋友们共同思考 共同创新
               在发展的过程中与各位一同进步 为各位带来更加良好的参展体验
             </p>
-            <a href="contact.html" class="section-button">联系我们</a>
+            <BaseButton href="contact.html" variant="section">联系我们</BaseButton>
           </div>
           <div class="about-image">
             <img src="/img/about.webp">
@@ -110,7 +110,7 @@
               功能齐全、设施完备的健身中心，15000平方米的户外花园为宾客打造活力惬意的度假时光。
               时间与旅行是生活的美妙馈赠，希望入住的您也能感受到来自瑞士的健康活力与高品质生活体验。
             </p>
-            <a href="navigation.html" class="section-button">了解详情/订购房间</a>
+            <BaseButton href="navigation.html" variant="section">了解详情/订购房间</BaseButton>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@
               <li>包含夜场活动</li>
               <li>标准众筹回馈</li>
             </ul>
-            <a href="https://item.taobao.com/item.htm?ft=t&id=1011981103289" class="pricing-button">立即购买</a>
+            <BaseButton href="https://item.taobao.com/item.htm?ft=t&id=1011981103289" variant="pricing">立即购买</BaseButton>
           </div>
           <div class="pricing-tier featured">
             <h3>酒店套票</h3>
@@ -145,7 +145,7 @@
               <li>特殊回馈</li>
               <li>3晚瑞士酒店经典房（含早餐）</li>
             </ul>
-            <a href="https://item.taobao.com/item.htm?ft=t&id=1014238524305" class="pricing-button">立即购买</a>
+            <BaseButton href="https://item.taobao.com/item.htm?ft=t&id=1014238524305" variant="pricing">立即购买</BaseButton>
           </div>
           <div class="pricing-tier">
             <h3>SUPPORTER</h3>
@@ -155,7 +155,7 @@
               <li>特殊回馈</li>
               <li>场刊致谢</li>
             </ul>
-            <a href="https://item.taobao.com/item.htm?ft=t&id=1011982387024" class="pricing-button">立即购买</a>
+            <BaseButton href="https://item.taobao.com/item.htm?ft=t&id=1011982387024" variant="pricing">立即购买</BaseButton>
           </div>
         </div>
       </div>
@@ -263,62 +263,8 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-image">
-        <img src="/img/csbc-line-w.svg">
-      </div>
-      <div class="footer-container">
-        <div class="footer-left">
-          <div class="footer-logo">
-            <a href="/"><img src="/img/logo.png"></a>
-          </div>
-          <div class="footer-social">
-            <a href="https://space.bilibili.com/371768934" target="_blank" class="social-link"><img src="/img/link/bili.svg" alt="Bilibili"></a>
-            <a href="https://qm.qq.com/q/kP0n8Mng9G" target="_blank" class="social-link"><img src="/img/link/qq.svg" alt="QQ"></a>
-            <a href="https://x.com/csbronycarnival" target="_blank" class="social-link"><img src="/img/link/x.svg" alt="X"></a>
-            <a href="https://www.youtube.com/@lywings1" target="_blank" class="social-link"><img src="/img/link/youtube.svg" alt="YouTube"></a>
-            <a href="https://discord.com/invite/mbNkveehRB" target="_blank" class="social-link"><img src="/img/link/discord.svg" alt="Discord"></a>
-            <a href="https://github.com/CSBronyCarnival" target="_blank" class="social-link"><img src="/img/link/github.svg" alt="GitHub"></a>
-            <a href="https://gitee.com/CSBronyCarnival" target="_blank" class="social-link"><img src="/img/link/gitee.svg" alt="Gitee"></a>
-          </div>
-          <div class="footer-copyright">
-            <p><a href="https://github.com/CSBronyCarnival/CSBC_Web">&copy; 2022-2025 CSBronyCarnival</a><br>该网站的源代码已使用 MIT 许可证开放</p>
-          </div>
-        </div>
-        <div class="footer-right">
-          <div class="footer-links-title"><p>友情链接</p></div>
-          <ul class="footer-links">
-            <li><a target="_blank" href="https://malangpony.com/"><img src="/img/link/exchange/malang_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/malang.png"></a></li>
-            <li><a target="_blank" href="https://brony.scot/"><img src="/img/link/exchange/bs_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/bs.png"></a></li>
-            <li><a target="_blank" href="https://www.norsehorsecon.eu/"><img src="/img/link/exchange/norse_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/norse.webp"></a></li>
-            <li><a target="_blank" href="https://galacon.eu/"><img src="/img/link/exchange/gala_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/gala.webp"></a></li>
-            <li><a target="_blank" href="http://suncelebration.butterpony.com/"><img src="/img/link/exchange/ssc_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/ssc.webp"></a></li>
-            <li><a target="_blank" href="https://x.com/Poniko_MLP/"><img src="/img/link/exchange/ponikon_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/ponikon.webp"></a></li>
-            <li><a target="_blank" href="https://sunshine.horse/"><img src="/img/link/exchange/spc_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/spc.webp"></a></li>
-            <li><a target="_blank" href="https://derpfest.ru/"><img src="/img/link/exchange/derpfest_b.svg" class="friend-link-img" data-hover-src="/img/link/exchange/derpfest.svg"></a></li>
-            <li><a target="_blank" href="https://twbronycon.org/"><img src="/img/link/exchange/twbc_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/twbc.png"></a></li>
-            <li><a target="_blank" href="https://dreamlandcon.top/"><img src="/img/link/exchange/dlc_b.svg" class="friend-link-img" data-hover-src="/img/link/exchange/dlc.svg"></a></li>
-            <li><a target="_blank" href="https://www.equestriacn.com/"><img src="/img/link/exchange/eqcn_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/eqcn.png"></a></li>
-          </ul>
-          <div class="footer-record">
-            <p><a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2024035737号</a></p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- 左下角竖向导航 -->
-    <nav class="side-nav nav-visible">
-      <a href="#home" class="nav-btn" :class="{ active: activeSection === 'home' }" title="首页">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-        <span>首页</span>
-      </a>
-      <a href="#ticket" class="nav-btn" :class="{ active: activeSection === 'ticket' }" title="票价">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
-        <span>票价</span>
-      </a>
-    </nav>
+    <AppFooter />
+    <SideNav :active-section="activeSection" />
   </div>
 </template>
 
@@ -334,66 +280,51 @@ function handleMouseMove(e) {
   const mouseX = e.clientX / window.innerWidth
   const mouseY = e.clientY / window.innerHeight
 
-  // 背景图跟随
   const heroBg = document.querySelector('.hero-bg img')
   if (heroBg) {
     if (isMobile) {
       heroBg.style.transform = 'translate(-5%, -5%)'
     } else {
       const bgIntensity = 15
-      const bgMoveX = (mouseX - 0.5) * bgIntensity
-      const bgMoveY = (mouseY - 0.5) * bgIntensity
-      heroBg.style.transform = `translate(calc(-5% + ${bgMoveX}px), calc(-5% + ${bgMoveY}px))`
+      heroBg.style.transform = `translate(calc(-5% + ${(mouseX - 0.5) * bgIntensity}px), calc(-5% + ${(mouseY - 0.5) * bgIntensity}px))`
     }
   }
 
-  // Hero 装饰图跟随
   const heroImage = document.querySelector('.hero-image')
   if (heroImage) {
     if (isMobile) {
       heroImage.style.transform = 'translate(-50%, -50%)'
     } else {
       const imgIntensity = 25
-      const imgMoveX = (mouseX - 0.5) * imgIntensity
-      const imgMoveY = (mouseY - 0.5) * imgIntensity
-      heroImage.style.transform = `translate(calc(-50% + ${imgMoveX}px), calc(-50% + ${imgMoveY}px))`
+      heroImage.style.transform = `translate(calc(-50% + ${(mouseX - 0.5) * imgIntensity}px), calc(-50% + ${(mouseY - 0.5) * imgIntensity}px))`
     }
   }
 
-  // Hero 文字跟随
   const heroContent = document.querySelector('.hero-content')
   if (heroContent) {
     if (isMobile) {
       heroContent.style.transform = 'translate(0, 0)'
     } else {
       const titleIntensity = 30
-      const titleMoveX = (mouseX - 0.5) * titleIntensity
-      const titleMoveY = (mouseY - 0.5) * titleIntensity
-      heroContent.style.transform = `translate(${titleMoveX}px, ${titleMoveY}px)`
+      heroContent.style.transform = `translate(${(mouseX - 0.5) * titleIntensity}px, ${(mouseY - 0.5) * titleIntensity}px)`
     }
   }
 
-  // 页脚装饰图跟随
   const footerImage = document.querySelector('.footer-image img')
   if (footerImage) {
     if (isMobile) {
       footerImage.style.transform = 'translateY(30%)'
     } else {
       const footerIntensity = 15
-      const footerMoveX = (mouseX - 0.5) * footerIntensity
-      const footerMoveY = (mouseY - 0.5) * footerIntensity
-      footerImage.style.transform = `translateY(30%) translate(${footerMoveX}px, ${footerMoveY}px)`
+      footerImage.style.transform = `translateY(30%) translate(${(mouseX - 0.5) * footerIntensity}px, ${(mouseY - 0.5) * footerIntensity}px)`
     }
   }
 
-  // Hero 图片聚光灯跟随
   const heroImgEl = document.querySelector('.hero-image img')
   if (heroImgEl && !isMobile) {
     const rect = heroImgEl.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    heroImgEl.style.setProperty('--x', `${x}px`)
-    heroImgEl.style.setProperty('--y', `${y}px`)
+    heroImgEl.style.setProperty('--x', `${e.clientX - rect.left}px`)
+    heroImgEl.style.setProperty('--y', `${e.clientY - rect.top}px`)
   }
 }
 
@@ -411,48 +342,18 @@ onMounted(() => {
     const el = document.getElementById(id)
     if (el) observer.observe(el)
   })
-
-  // 友链 logo 悬浮切换彩色
-  document.querySelectorAll('.friend-link-img').forEach(img => {
-    const originalSrc = img.src
-    const hoverSrc = img.getAttribute('data-hover-src')
-    if (!hoverSrc || hoverSrc === originalSrc) return
-
-    // 预加载彩色图
-    const preload = new Image()
-    preload.src = hoverSrc
-
-    img.addEventListener('mouseenter', () => {
-      img.style.transition = 'opacity 0.15s ease'
-      img.style.opacity = '0'
-      setTimeout(() => {
-        img.src = hoverSrc
-        img.style.opacity = '1'
-      }, 150)
-    })
-
-    img.addEventListener('mouseleave', () => {
-      img.style.opacity = '0'
-      setTimeout(() => {
-        img.src = originalSrc
-        img.style.opacity = '0.7'
-      }, 150)
-    })
-  })
 })
 
 onUnmounted(() => {
   document.removeEventListener('mousemove', handleMouseMove)
 })
 
-// FAQ 切换
 function toggleQA(index) {
   activeQA.value = activeQA.value === index ? -1 : index
 }
 </script>
 
 <style scoped>
-/* ===== Hero ===== */
 .hero {
   position: relative;
   height: 100vh;
@@ -545,22 +446,6 @@ function toggleQA(index) {
 .hero-content p {
   font-size: 1.3rem;
   margin-bottom: 30px;
-}
-.hero-button {
-  display: inline-block;
-  padding: 12px 30px;
-  border: 4px solid #fff;
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-.hero-button:hover {
-  background: #fff;
-  color: #000;
 }
 
 /* ===== Container ===== */
@@ -696,22 +581,6 @@ function toggleQA(index) {
   height: auto;
   border-radius: 10px;
 }
-.section-button {
-  display: inline-block;
-  color: #fff;
-  background: #4fa7ff;
-  padding: 12px 25px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-.section-button:hover {
-  color: #5c5c5c;
-  background: #c4c4c43a;
-}
 
 /* ===== Venue ===== */
 .venue-section {
@@ -831,23 +700,6 @@ function toggleQA(index) {
 .pricing-tier ul li:last-child {
   border-bottom: none;
 }
-.pricing-button {
-  color: #fff;
-  background: #4fa7ff;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  margin-top: auto;
-  font-weight: bold;
-  display: inline-block;
-}
-.pricing-button:hover {
-  color: #5c5c5c;
-  background: #c4c4c43a;
-}
 .pricing-tier.featured {
   background: #3498db;
   color: white;
@@ -876,7 +728,7 @@ function toggleQA(index) {
   color: white;
   border-bottom-color: rgba(255,255,255,0.2);
 }
-.pricing-tier.featured .pricing-button {
+.pricing-tier.featured :deep(.btn-pricing) {
   background: white;
   color: #3498db;
 }
@@ -995,182 +847,6 @@ function toggleQA(index) {
   line-height: 1.6;
 }
 
-/* ===== Footer ===== */
-.footer {
-  background: #e2f1ff;
-  padding: 60px 0;
-  position: relative;
-  overflow: hidden;
-}
-.footer-image {
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%;
-  overflow: hidden;
-  z-index: 1;
-}
-.footer-image img {
-  width: 100%;
-  height: auto;
-  transform: translateY(30%);
-  will-change: transform;
-  transition: transform 0.08s ease-out;
-}
-.footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-.footer-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.footer-logo img {
-  height: 40px;
-  margin-bottom: 10px;
-}
-.footer-social {
-  display: flex;
-  margin-left: -8px;
-  margin-bottom: 15px;
-}
-.social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px; height: 36px;
-  transition: opacity 0.3s ease;
-}
-.social-link:hover {
-  opacity: 0.7;
-}
-.social-link img {
-  width: 20px; height: 20px;
-  opacity: 0.9;
-}
-.footer-copyright a,
-.footer-copyright p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #202020;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.footer-right {
-  text-align: right;
-}
-.footer-links-title {
-  color: #202020;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: bold;
-}
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  gap: 25px;
-  margin: 0;
-  padding: 0;
-  max-width: 500px;
-  justify-content: flex-end;
-}
-.footer-links a {
-  text-decoration: none;
-  color: #202020;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  transition: color 0.3s ease;
-}
-.footer-links a:hover,
-.footer-copyright a:hover,
-.footer-record a:hover {
-  color: #0085b6;
-}
-.friend-link-img {
-  height: 24px;
-  width: auto;
-  display: block;
-  opacity: 0.7;
-}
-.footer-record {
-  margin-top: 15px;
-}
-.footer-record p,
-.footer-record a {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #202020;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-/* ===== 左下角竖向导航 ===== */
-.side-nav {
-  position: fixed;
-  bottom: 40px;
-  left: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 999;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.side-nav.nav-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.nav-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(200, 200, 200, 0.4);
-  border-radius: 10px;
-  text-decoration: none;
-  color: #000;
-  font-size: 0.85rem;
-  font-weight: 500;
-  width: auto;
-  min-width: 40px;
-  max-width: 40px;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: max-width 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease, gap 0.3s ease;
-}
-.nav-btn svg {
-  flex-shrink: 0;
-  display: block;
-}
-.nav-btn span {
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.nav-btn:hover,
-.nav-btn.active {
-  max-width: 180px;
-  background: rgba(79, 167, 255, 0.9);
-  color: #fff;
-  border-color: rgba(79, 167, 255, 0.9);
-  gap: 8px;
-}
-.nav-btn:hover span,
-.nav-btn.active span {
-  opacity: 1;
-}
-
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
   .hero-content h1 {
@@ -1226,46 +902,6 @@ function toggleQA(index) {
   .member-avatar {
     width: 100px;
     height: 100px;
-  }
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  .footer-left {
-    align-items: center;
-  }
-  .footer-right {
-    text-align: center;
-  }
-  .footer-links {
-    justify-content: center;
-  }
-  .footer-links-title {
-    text-align: center;
-  }
-  .footer-copyright {
-    text-align: center;
-  }
-  .side-nav {
-    left: 15px;
-    bottom: 20px;
-    gap: 4px;
-  }
-  .nav-btn {
-    padding: 6px 8px;
-    font-size: 0.8rem;
-    min-width: 36px;
-    max-width: 36px;
-  }
-  .nav-btn span {
-    display: none;
-  }
-  .nav-btn:hover {
-    width: auto;
-  }
-  .nav-btn:hover span {
-    display: inline;
   }
 }
 </style>
