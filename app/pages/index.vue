@@ -126,37 +126,29 @@
           <span class="divider-line"></span>
         </div>
         <div class="pricing-content">
-          <div class="pricing-tier">
-            <h3>单人通票</h3>
-            <div class="price">¥188<span>/人</span></div>
-            <ul>
-              <li>18-19日无限制进场</li>
-              <li>包含夜场活动</li>
-              <li>标准众筹回馈</li>
-            </ul>
-            <BaseButton href="https://item.taobao.com/item.htm?ft=t&id=1011981103289" variant="pricing">立即购买</BaseButton>
-          </div>
-          <div class="pricing-tier featured">
-            <h3>酒店套票</h3>
-            <h4>仅限40套</h4>
-            <div class="price">¥1999<span>/人</span></div>
-            <ul>
-              <li>单人通票权益</li>
-              <li>特殊回馈</li>
-              <li>3晚瑞士酒店经典房（含早餐）</li>
-            </ul>
-            <BaseButton href="https://item.taobao.com/item.htm?ft=t&id=1014238524305" variant="pricing">立即购买</BaseButton>
-          </div>
-          <div class="pricing-tier">
-            <h3>SUPPORTER</h3>
-            <div class="price">¥888<span>/人</span></div>
-            <ul>
-              <li>单人通票权益</li>
-              <li>特殊回馈</li>
-              <li>场刊致谢</li>
-            </ul>
-            <BaseButton href="https://item.taobao.com/item.htm?ft=t&id=1011982387024" variant="pricing">立即购买</BaseButton>
-          </div>
+          <PricingCard
+            title="单人通票"
+            price="¥188"
+            unit="/人"
+            :features="['18-19日无限制进场', '包含夜场活动', '标准众筹回馈']"
+            button-href="https://item.taobao.com/item.htm?ft=t&id=1011981103289"
+          />
+          <PricingCard
+            title="酒店套票"
+            subtitle="仅限40套"
+            price="¥1999"
+            unit="/人"
+            :features="['单人通票权益', '特殊回馈', '3晚瑞士酒店经典房（含早餐）']"
+            button-href="https://item.taobao.com/item.htm?ft=t&id=1014238524305"
+            featured
+          />
+          <PricingCard
+            title="SUPPORTER"
+            price="¥888"
+            unit="/人"
+            :features="['单人通票权益', '特殊回馈', '场刊致谢']"
+            button-href="https://item.taobao.com/item.htm?ft=t&id=1011982387024"
+          />
         </div>
       </div>
     </section>
@@ -171,31 +163,11 @@
           <span class="divider-line"></span>
         </div>
         <div class="team-content">
-          <div class="team-member">
-            <div class="member-avatar"><img src="/img/team/光翼.webp"></div>
-            <h3>光翼</h3>
-            <p class="member-description">主办</p>
-          </div>
-          <div class="team-member">
-            <div class="member-avatar"><img src="/img/team/Ladetaw.webp"></div>
-            <h3>Ladetaw</h3>
-            <p class="member-description">主办</p>
-          </div>
-          <div class="team-member">
-            <div class="member-avatar"><img src="/img/team/Stevenife.webp"></div>
-            <h3>Stevenife</h3>
-            <p class="member-description">Office.exe</p>
-          </div>
-          <div class="team-member">
-            <div class="member-avatar"><img src="/img/team/牛奶.webp"></div>
-            <h3>牛奶</h3>
-            <p class="member-description">画师</p>
-          </div>
-          <div class="team-member">
-            <div class="member-avatar"><img src="/img/team/灵翼.webp"></div>
-            <h3>灵翼</h3>
-            <p class="member-description">潜行中</p>
-          </div>
+          <TeamMember name="光翼" avatar="/img/team/光翼.webp" description="主办" />
+          <TeamMember name="Ladetaw" avatar="/img/team/Ladetaw.webp" description="主办" />
+          <TeamMember name="Stevenife" avatar="/img/team/Stevenife.webp" description="Office.exe" />
+          <TeamMember name="牛奶" avatar="/img/team/牛奶.webp" description="画师" />
+          <TeamMember name="灵翼" avatar="/img/team/灵翼.webp" description="潜行中" />
         </div>
       </div>
     </section>
@@ -211,53 +183,38 @@
         </div>
         <div class="qa-content">
           <div class="qa-column">
-            <div class="qa-item" :class="{ active: activeQA === 0 }" @click="toggleQA(0)">
-              <div class="qa-question">
-                <h3>18/19号的活动有差异吗？</h3>
-                <span class="qa-toggle">+</span>
-              </div>
-              <div class="qa-answer">
-                <p>今年的展会回归2天模式<br>展会将于2026年7月18日至19日在广州瑞士酒店举行<br>两天的活动均不相同</p>
-              </div>
-            </div>
-            <div class="qa-item" :class="{ active: activeQA === 1 }" @click="toggleQA(1)">
-              <div class="qa-question">
-                <h3>如何领取众筹回馈？</h3>
-                <span class="qa-toggle">+</span>
-              </div>
-              <div class="qa-answer">
-                <p>我们的众筹回馈于展会现场发放<br>届时您可向检票人员出示淘宝订单页面<br>并领取您的门票和众筹回馈</p>
-              </div>
-            </div>
-            <div class="qa-item" :class="{ active: activeQA === 2 }" @click="toggleQA(2)">
-              <div class="qa-question">
-                <h3>在非展会举行期间如果需要加房怎么办？</h3>
-                <span class="qa-toggle">+</span>
-              </div>
-              <div class="qa-answer">
-                <p>请在群内联系管理员进行登记 我们会为您处理相关事宜</p>
-              </div>
-            </div>
+            <FAQItem
+              question="18/19号的活动有差异吗？"
+              answer="今年的展会回归2天模式<br>展会将于2026年7月18日至19日在广州瑞士酒店举行<br>两天的活动均不相同"
+              :active="activeQA === 0"
+              @toggle="toggleQA(0)"
+            />
+            <FAQItem
+              question="如何领取众筹回馈？"
+              answer="我们的众筹回馈于展会现场发放<br>届时您可向检票人员出示淘宝订单页面<br>并领取您的门票和众筹回馈"
+              :active="activeQA === 1"
+              @toggle="toggleQA(1)"
+            />
+            <FAQItem
+              question="在非展会举行期间如果需要加房怎么办？"
+              answer="请在群内联系管理员进行登记 我们会为您处理相关事宜"
+              :active="activeQA === 2"
+              @toggle="toggleQA(2)"
+            />
           </div>
           <div class="qa-column">
-            <div class="qa-item" :class="{ active: activeQA === 3 }" @click="toggleQA(3)">
-              <div class="qa-question">
-                <h3>展会有单独的官方酒店可以定吗？</h3>
-                <span class="qa-toggle">+</span>
-              </div>
-              <div class="qa-answer">
-                <p>在"CSBC华南马聚"淘宝店的主页找到广州瑞士酒店房间的预定<br>选择房型并下单 并备注您入住的日期<br>如不会操作欢迎在群内问询</p>
-              </div>
-            </div>
-            <div class="qa-item" :class="{ active: activeQA === 4 }" @click="toggleQA(4)">
-              <div class="qa-question">
-                <h3>展会的票数量有限制吗?</h3>
-                <span class="qa-toggle">+</span>
-              </div>
-              <div class="qa-answer">
-                <p>暂定所有票的综合为500张<br>其中酒店套票仅限40张 售完即止<br>详情请关注淘宝店</p>
-              </div>
-            </div>
+            <FAQItem
+              question="展会有单独的官方酒店可以定吗？"
+              answer="在&quot;CSBC华南马聚&quot;淘宝店的主页找到广州瑞士酒店房间的预定<br>选择房型并下单 并备注您入住的日期<br>如不会操作欢迎在群内问询"
+              :active="activeQA === 3"
+              @toggle="toggleQA(3)"
+            />
+            <FAQItem
+              question="展会的票数量有限制吗?"
+              answer="暂定所有票的综合为500张<br>其中酒店套票仅限40张 售完即止<br>详情请关注淘宝店"
+              :active="activeQA === 4"
+              @toggle="toggleQA(4)"
+            />
           </div>
         </div>
       </div>
@@ -307,16 +264,6 @@ function handleMouseMove(e) {
     } else {
       const titleIntensity = 30
       heroContent.style.transform = `translate(${(mouseX - 0.5) * titleIntensity}px, ${(mouseY - 0.5) * titleIntensity}px)`
-    }
-  }
-
-  const footerImage = document.querySelector('.footer-image img')
-  if (footerImage) {
-    if (isMobile) {
-      footerImage.style.transform = 'translateY(30%)'
-    } else {
-      const footerIntensity = 15
-      footerImage.style.transform = `translateY(30%) translate(${(mouseX - 0.5) * footerIntensity}px, ${(mouseY - 0.5) * footerIntensity}px)`
     }
   }
 
@@ -653,85 +600,6 @@ function toggleQA(index) {
   max-width: 1200px;
   margin: 0 auto;
 }
-.pricing-tier {
-  background: white;
-  border-radius: 10px;
-  padding: 30px;
-  text-align: center;
-  flex: 1;
-  min-width: 250px;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-}
-.pricing-tier h3 {
-  font-size: 1.5rem;
-  color: #2c3e50;
-}
-.pricing-tier h4 {
-  font-size: 1rem;
-  color: #7f8c8d;
-  margin-bottom: 20px;
-}
-.price {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #3498db;
-  margin-bottom: 20px;
-}
-.price span {
-  font-size: 1rem;
-  font-weight: normal;
-  color: #7f8c8d;
-  margin-left: 5px;
-}
-.pricing-tier ul {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 25px;
-  flex-grow: 1;
-}
-.pricing-tier ul li {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-  color: #555;
-}
-.pricing-tier ul li:last-child {
-  border-bottom: none;
-}
-.pricing-tier.featured {
-  background: #3498db;
-  color: white;
-  transform: scale(1.05);
-  position: relative;
-  overflow: hidden;
-}
-.pricing-tier.featured::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: url('/img/ticket-bg.svg') no-repeat 80% center;
-  background-size: 190%;
-  opacity: 0.1;
-}
-.pricing-tier.featured > * {
-  position: relative;
-  z-index: 1;
-}
-.pricing-tier.featured h3,
-.pricing-tier.featured h4,
-.pricing-tier.featured .price,
-.pricing-tier.featured .price span,
-.pricing-tier.featured ul li {
-  color: white;
-  border-bottom-color: rgba(255,255,255,0.2);
-}
-.pricing-tier.featured :deep(.btn-pricing) {
-  background: white;
-  color: #3498db;
-}
 
 /* ===== Team ===== */
 .team-section {
@@ -751,35 +619,6 @@ function toggleQA(index) {
   flex-wrap: wrap;
   max-width: 1200px;
   margin: 0 auto;
-}
-.team-member {
-  background: #f8f9fa;
-  border-radius: 10px;
-  padding: 25px;
-  text-align: center;
-  flex: 1;
-  min-width: 200px;
-  max-width: 220px;
-}
-.member-avatar {
-  width: 120px; height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto 15px;
-}
-.member-avatar img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.team-member h3 {
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-  color: #2c3e50;
-}
-.member-description {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #555;
 }
 
 /* ===== FAQ ===== */
@@ -803,48 +642,6 @@ function toggleQA(index) {
 .qa-column {
   flex: 1;
   max-width: 48%;
-}
-.qa-item {
-  background: #f8f9fa;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.qa-question {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.qa-question h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #2c3e50;
-}
-.qa-toggle {
-  font-size: 1.5rem;
-  color: #3498db;
-  transition: transform 0.3s ease;
-}
-.qa-item.active .qa-toggle {
-  transform: rotate(45deg);
-}
-.qa-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  padding: 0 20px;
-}
-.qa-item.active .qa-answer {
-  max-height: 300px;
-  padding: 0 20px 20px;
-}
-.qa-answer p {
-  margin: 0;
-  color: #555;
-  line-height: 1.6;
 }
 
 /* ===== 响应式 ===== */
@@ -894,14 +691,6 @@ function toggleQA(index) {
   }
   .qa-column {
     max-width: 100%;
-  }
-  .team-member {
-    min-width: 180px;
-    max-width: 200px;
-  }
-  .member-avatar {
-    width: 100px;
-    height: 100px;
   }
 }
 </style>

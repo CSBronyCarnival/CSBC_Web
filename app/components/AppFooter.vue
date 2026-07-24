@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer-image">
-      <img src="/img/csbc-line-w.svg">
+      <img ref="footerImgRef" src="/img/csbc-line-w.svg">
     </div>
     <div class="footer-container">
       <div class="footer-left">
@@ -45,9 +45,28 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const footerImgRef = ref(null)
+
+// 页脚装饰图鼠标景深
+function handleFooterMove(e) {
+  const img = footerImgRef.value
+  if (!img) return
+  const isMobile = window.innerWidth < 768
+  const mouseX = e.clientX / window.innerWidth
+  const mouseY = e.clientY / window.innerHeight
+  if (isMobile) {
+    img.style.transform = 'translateY(30%)'
+  } else {
+    const intensity = 15
+    img.style.transform = `translateY(30%) translate(${(mouseX - 0.5) * intensity}px, ${(mouseY - 0.5) * intensity}px)`
+  }
+}
 
 onMounted(() => {
+  document.addEventListener('mousemove', handleFooterMove)
+
   // 友链 logo 悬浮切换彩色
   document.querySelectorAll('.friend-link-img').forEach(img => {
     const originalSrc = img.src
@@ -74,6 +93,10 @@ onMounted(() => {
       }, 150)
     })
   })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('mousemove', handleFooterMove)
 })
 </script>
 
