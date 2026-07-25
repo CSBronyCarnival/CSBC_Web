@@ -145,14 +145,15 @@ function navigate(item) {
 
 /* ===== 菜单按钮 ===== */
 .menu-btn {
-  max-width: 40px; /* 固定宽度，展开时不变化 */
+  max-width: 40px;
 }
-.side-nav.expanded .menu-btn {
+.menu-btn:hover {
+  max-width: 40px !important;
   background: rgba(79, 167, 255, 0.9);
   color: #fff;
   border-color: rgba(79, 167, 255, 0.9);
 }
-.menu-btn:hover {
+.side-nav.expanded .menu-btn {
   background: rgba(79, 167, 255, 0.9);
   color: #fff;
   border-color: rgba(79, 167, 255, 0.9);
@@ -165,10 +166,13 @@ function navigate(item) {
 .nav-slide-leave-active {
   transition: all 0.25s ease;
 }
-.nav-slide-enter-from,
+.nav-slide-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
 .nav-slide-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateX(-20px);
 }
 
 @media (max-width: 768px) {
