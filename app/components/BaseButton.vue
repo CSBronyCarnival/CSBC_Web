@@ -1,5 +1,8 @@
 <template>
-  <a :href="href" :class="['btn', `btn-${variant}`]" :target="isExternal(href) ? '_blank' : undefined">
+  <NuxtLink v-if="to" :to="to" :class="['btn', `btn-${variant}`]">
+    <slot />
+  </NuxtLink>
+  <a v-else :href="href" :class="['btn', `btn-${variant}`]" :target="isExternal(href) ? '_blank' : undefined">
     <slot />
   </a>
 </template>
@@ -7,6 +10,7 @@
 <script setup>
 defineProps({
   href: { type: String, default: '#' },
+  to: { type: String, default: '' },
   variant: { type: String, default: 'section' } // hero | section | pricing
 })
 

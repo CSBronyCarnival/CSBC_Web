@@ -14,7 +14,7 @@
         功能齐全、设施完备的健身中心，15000平方米的户外花园为宾客打造活力惬意的度假时光。
         时间与旅行是生活的美妙馈赠，希望入住的您也能感受到来自瑞士的健康活力与高品质生活体验。
       </p>
-      <BaseButton href="navigation.html" variant="section">了解详情/订购房间</BaseButton>
+      <BaseButton to="/navigation" variant="section">了解详情/订购房间</BaseButton>
     </div>
   </div>
 </template>
