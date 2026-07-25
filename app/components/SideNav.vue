@@ -32,12 +32,23 @@ const items = [
     icon: '<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>' },
   { id: 'gallery', href: '/gallery',
     label: '画廊',
-    icon: '<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' }
+    icon: '<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' },
+  { id: 'news', href: '/news',
+    label: '消息',
+    icon: '<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>' }
 ]
 
 // 通过当前路由匹配高亮，响应式更新
 const activeSection = computed(() => {
-  const pageItem = items.find(item => item.href === route.path)
+  const pageItem = items.find(item => {
+    if (item.href === route.path) return true
+    // 子路径匹配（如 /news/007 匹配 /news），排除首页避免误配
+    if (item.href !== '/') {
+      const prefix = item.href.endsWith('/') ? item.href : item.href + '/'
+      return route.path.startsWith(prefix)
+    }
+    return false
+  })
   return pageItem ? pageItem.id : ''
 })
 
