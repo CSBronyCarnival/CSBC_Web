@@ -1,0 +1,19 @@
+diff --git a/dist/pages/runtime/plugins/check-if-page-unused.js b/dist/pages/runtime/plugins/check-if-page-unused.js
+index d5d01db3367222689db7aa1118c0d38450c85d57..63e6f3e9ae1fa855ced05ab87c7a8a587b0af301 100644
+--- a/dist/pages/runtime/plugins/check-if-page-unused.js
++++ b/dist/pages/runtime/plugins/check-if-page-unused.js
+@@ -17,7 +17,7 @@ function findUnrenderedNestedPage(route) {
+ 	}
+ }
+ const NESTED_PAGE_CONFIRMATION_DELAY = 1e3;
+-const plugin = defineNuxtPlugin({
++export default defineNuxtPlugin({
+ 	name: "nuxt:checkIfPageUnused",
+ 	setup(nuxtApp) {
+ 		const error = useError();
+@@ -56,4 +56,4 @@ const plugin = defineNuxtPlugin({
+ 	env: { islands: false }
+ });
+ //#endregion
+-export { NESTED_PAGE_CONFIRMATION_DELAY, plugin as default, findUnrenderedNestedPage };
++export { NESTED_PAGE_CONFIRMATION_DELAY, findUnrenderedNestedPage };
