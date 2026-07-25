@@ -38,6 +38,12 @@ import { newsList } from '~/data/news'
 
 const route = useRoute()
 const article = computed(() => newsList.find(n => n.id === route.params.id))
+
+// 动态设置文章标题
+const pageTitle = computed(() =>
+  article.value ? `${article.value.title} - CSBC华南马聚2026` : '未找到文章 - CSBC华南马聚2026'
+)
+useHead({ title: pageTitle })
 </script>
 
 <style scoped>

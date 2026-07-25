@@ -1,3 +1,7 @@
+<script setup>
+useHead({ title: 'CSBC华南马聚2026 - 主页' })
+</script>
+
 <template>
   <div class="home">
     <AppHero />

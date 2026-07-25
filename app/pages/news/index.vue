@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+useHead({ title: 'CSBC华南马聚2026 - 展会消息' })
 import { newsList } from '~/data/news'
 </script>
 

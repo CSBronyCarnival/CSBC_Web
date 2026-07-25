@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+useHead({ title: 'CSBC华南马聚2026 - 画廊' })
 import { ref, computed, onMounted } from 'vue'
 
 const items = [
