@@ -23,7 +23,7 @@ defineProps({
 .venue-hero {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 450px;
   overflow: hidden;
 }
 .venue-hero img {
@@ -42,7 +42,7 @@ defineProps({
 }
 .venue-hero-overlay {
   position: absolute;
-  top: 50%;
+  top: 58%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;

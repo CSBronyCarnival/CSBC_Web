@@ -1,6 +1,5 @@
 <template>
   <header class="subpage-hero">
-    <div class="dash-line"></div>
     <div class="subpage-hero-content">
       <svg v-if="icon" class="subpage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" v-html="icon"></svg>
       <h1>{{ title }}</h1>
@@ -21,22 +20,7 @@ defineProps({
 .subpage-hero {
   position: relative;
   overflow: hidden;
-  padding: 18px 0 24px;
-}
-
-/* 顶部蓝色动态虚线 */
-.dash-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 200%;
-  height: 5px;
-  background: repeating-linear-gradient(90deg, #aaddff, #aaddff 10px, transparent 10px, transparent 20px);
-  animation: dashLineMove 60s linear infinite;
-}
-@keyframes dashLineMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  padding: 72px 0 24px;
 }
 
 .subpage-hero-content {
@@ -73,7 +57,7 @@ defineProps({
 
 @media (max-width: 768px) {
   .subpage-hero {
-    padding: 18px 0 12px;
+    padding: 70px 0 12px;
   }
   .subpage-hero h1 {
     font-size: 2rem;

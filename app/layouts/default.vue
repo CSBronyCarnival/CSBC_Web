@@ -1,7 +1,7 @@
 <template>
   <div>
+    <SideNav />
     <slot />
     <AppFooter />
-    <SideNav />
   </div>
 </template>
