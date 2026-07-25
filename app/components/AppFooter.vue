@@ -77,7 +77,7 @@ onMounted(() => {
     preload.src = hoverSrc
 
     img.addEventListener('mouseenter', () => {
-      img.style.transition = 'opacity 0.15s ease'
+      img.style.transition = 'opacity 0.3s ease'
       img.style.opacity = '0'
       setTimeout(() => {
         img.src = hoverSrc

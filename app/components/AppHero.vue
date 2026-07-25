@@ -6,16 +6,18 @@
     <div class="hero-image" ref="heroImageRef">
       <img ref="heroImgElRef" src="/img/csbc-line-w.svg" alt="">
     </div>
-    <div class="hero-content hero-animation" ref="heroContentRef">
-      <div class="hero-subtitle">
-        <span class="line-left line-show"></span>
-        <span class="subtitle-text">GuangZhou China</span>
-        <span class="line-right line-show"></span>
+    <div class="hero-content" ref="heroContentRef">
+      <div class="hero-content-inner hero-animation">
+        <div class="hero-subtitle">
+          <span class="line-left line-show"></span>
+          <span class="subtitle-text">GuangZhou China</span>
+          <span class="line-right line-show"></span>
+        </div>
+        <h1>华南马聚CSBC2026</h1>
+        <p class="hero-poem">春风祥越五羊城 岭南山下友谊生</p>
+        <p>2026.7.18-7.19 我在广州等你</p>
+        <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="hero">加入我们</BaseButton>
       </div>
-      <h1>华南马聚CSBC2026</h1>
-      <p class="hero-poem">春风祥越五羊城 岭南山下友谊生</p>
-      <p>2026.7.18-7.19 我在广州等你</p>
-      <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="hero">加入我们</BaseButton>
     </div>
   </header>
 </template>
@@ -118,10 +120,15 @@ onUnmounted(() => {
 .hero-image img {
   width: 100%; height: auto;
   object-fit: contain;
-  opacity: 0.85;
   filter: brightness(1.2) drop-shadow(0 0 20px rgba(0,0,0,0.5));
   -webkit-mask-image: radial-gradient(circle 300px at var(--x, 50%) var(--y, 50%), black 20%, rgba(0,0,0,0.25) 100%);
   mask-image: radial-gradient(circle 300px at var(--x, 50%) var(--y, 50%), black 20%, rgba(0,0,0,0.25) 100%);
+  animation: imageAnimation 8s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
+}
+@keyframes imageAnimation {
+  0% { opacity: 0; transform: scale(0.95); }
+  15% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
 }
 .hero-content {
   z-index: 1;
@@ -130,13 +137,13 @@ onUnmounted(() => {
   will-change: transform;
   transition: transform 0.12s ease-out;
 }
-.hero-animation {
+.hero-content-inner {
   animation: titleAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 @keyframes titleAnimation {
-  0% { opacity: 0; }
-  15% { opacity: 0; }
-  100% { opacity: 1; }
+  0% { opacity: 0; transform: scale(1.1); }
+  15% { opacity: 0; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
 }
 .hero-subtitle {
   display: flex;
