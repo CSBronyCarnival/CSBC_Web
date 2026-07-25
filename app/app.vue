@@ -38,4 +38,14 @@ body {
   line-height: 1.6;
   color: #333;
 }
+
+/* 页面切换淡入淡出 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

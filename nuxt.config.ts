@@ -4,5 +4,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   devServer: {
     port: 3200
+  },
+  app: {
+    pageTransition: {
+      name: 'fade',
+      mode: 'out-in'
+    }
   }
 })
