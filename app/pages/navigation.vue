@@ -1,6 +1,6 @@
 <template>
   <div class="nav-page">
-    <SubpageHero title="场地交通和订房相关" subtitle="Navigation" />
+    <VenueHero src="/img/venue/full.jpg" alt="广州瑞士酒店" title="场地交通和订房相关" subtitle="Navigation" />
 
     <!-- Hotel Info -->
     <section class="nav-venue-section">
