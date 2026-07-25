@@ -5,7 +5,6 @@
     <!-- Pricing -->
     <section class="pricing-section" id="ticket">
       <div class="container">
-        <SectionTitle title="票价" />
         <div class="pricing-content">
           <PricingCard
             title="单人通票"
