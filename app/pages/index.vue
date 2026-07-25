@@ -6,12 +6,7 @@
     <!-- About -->
     <section class="about-section" id="about">
       <div class="container">
-        <h2>关于</h2>
-        <div class="section-divider">
-          <span class="divider-line"></span>
-          <span class="divider-dot"></span>
-          <span class="divider-line"></span>
-        </div>
+        <SectionTitle title="关于" />
         <AppAbout />
       </div>
     </section>
@@ -19,12 +14,7 @@
     <!-- Venue -->
     <section class="venue-section" id="venue">
       <div class="container">
-        <h2>场地</h2>
-        <div class="section-divider">
-          <span class="divider-line"></span>
-          <span class="divider-dot"></span>
-          <span class="divider-line"></span>
-        </div>
+        <SectionTitle title="场地" />
         <AppVenue />
       </div>
     </section>
@@ -32,12 +22,7 @@
     <!-- Pricing -->
     <section class="pricing-section" id="ticket">
       <div class="container">
-        <h2>票价</h2>
-        <div class="section-divider">
-          <span class="divider-line"></span>
-          <span class="divider-dot"></span>
-          <span class="divider-line"></span>
-        </div>
+        <SectionTitle title="票价" />
         <div class="pricing-content">
           <PricingCard
             title="单人通票"
@@ -69,12 +54,7 @@
     <!-- Team -->
     <section class="team-section" id="team">
       <div class="container">
-        <h2>团队</h2>
-        <div class="section-divider">
-          <span class="divider-line"></span>
-          <span class="divider-dot"></span>
-          <span class="divider-line"></span>
-        </div>
+        <SectionTitle title="团队" />
         <div class="team-content">
           <TeamMember name="光翼" avatar="/img/team/光翼.webp" description="主办" />
           <TeamMember name="Ladetaw" avatar="/img/team/Ladetaw.webp" description="主办" />
@@ -88,12 +68,7 @@
     <!-- FAQ -->
     <section class="qa-section" id="qa">
       <div class="container">
-        <h2>常见问题</h2>
-        <div class="section-divider">
-          <span class="divider-line"></span>
-          <span class="divider-dot"></span>
-          <span class="divider-line"></span>
-        </div>
+        <SectionTitle title="常见问题" />
         <div class="qa-content">
           <div class="qa-column">
             <FAQItem
@@ -136,47 +111,19 @@
   padding: 0 20px;
 }
 
-/* ===== Section Divider ===== */
-.section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 50px auto;
-  margin-top: -25px;
-  width: 200px;
-}
-.divider-line {
-  flex-grow: 1;
-  height: 1px;
-  background: #dfdfdf;
-}
-.divider-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: #c7c7c7;
-  margin: 0 10px;
-}
-
 /* ===== About ===== */
 .about-section {
   padding: 100px 0;
 }
-.about-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #2c3e50;
+
+/* ===== Venue ===== */
+.venue-section {
+  padding: 100px 0;
 }
 
 /* ===== Pricing ===== */
 .pricing-section {
   padding: 100px 0;
-}
-.pricing-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #2c3e50;
 }
 .pricing-content {
   display: flex;
@@ -192,12 +139,6 @@
   padding: 100px 0;
   background: white;
 }
-.team-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #2c3e50;
-}
 .team-content {
   display: flex;
   justify-content: center;
@@ -211,12 +152,6 @@
 .qa-section {
   padding: 100px 0;
   background: white;
-}
-.qa-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #2c3e50;
 }
 .qa-content {
   display: flex;
@@ -232,13 +167,6 @@
 
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
-  .about-section h2,
-  .venue-section h2,
-  .pricing-section h2,
-  .team-section h2,
-  .qa-section h2 {
-    font-size: 2rem;
-  }
   .qa-content {
     flex-direction: column;
   }
