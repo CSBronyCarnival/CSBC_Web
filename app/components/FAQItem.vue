@@ -1,5 +1,5 @@
 <template>
-  <div class="qa-item" :class="{ active }" @click="$emit('toggle')">
+  <div class="qa-item" :class="{ active: isOpen }" @click="isOpen = !isOpen">
     <div class="qa-question">
       <h3>{{ question }}</h3>
       <span class="qa-toggle">+</span>
@@ -11,13 +11,14 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 defineProps({
   question: { type: String, required: true },
-  answer: { type: String, required: true },
-  active: { type: Boolean, default: false }
+  answer: { type: String, required: true }
 })
 
-defineEmits(['toggle'])
+const isOpen = ref(false)
 </script>
 
 <style scoped>

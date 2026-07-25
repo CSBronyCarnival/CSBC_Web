@@ -15,9 +15,9 @@
 </template>
 
 <script setup>
-defineProps({
-  activeSection: { type: String, default: 'home' }
-})
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const activeSection = ref('home')
 
 const items = [
   {
@@ -33,6 +33,26 @@ const items = [
     icon: '<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>'
   }
 ]
+
+let observer = null
+
+onMounted(() => {
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        activeSection.value = entry.target.id
+      }
+    })
+  }, { rootMargin: '-40% 0px -55% 0px' })
+  items.forEach(item => {
+    const el = document.getElementById(item.id)
+    if (el) observer.observe(el)
+  })
+})
+
+onUnmounted(() => {
+  if (observer) observer.disconnect()
+})
 </script>
 
 <style scoped>
