@@ -183,11 +183,32 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
+  .hero-content {
+    max-width: 100%;
+    padding: 0 24px;
+  }
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+  .hero-poem {
+    font-size: 1rem;
+    margin-bottom: 8px;
   }
   .hero-content p {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+  .subtitle-text {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+  .line-show {
+    width: 30px;
+  }
+  .line-left, .line-right {
+    margin: 0 10px;
   }
   .hero-image {
     display: none;

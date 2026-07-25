@@ -35,11 +35,12 @@
         </button>
 
         <NuxtLink
-          v-for="item in items"
+          v-for="(item, index) in items"
           :key="item.id"
           :to="item.href"
           class="mobile-link"
           :class="{ active: activeSection === item.id }"
+          :style="{ '--i': index }"
           @click="mobileOpen = false"
         >
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
@@ -200,8 +201,8 @@ watch(() => route.path, () => {
 .mobile-drawer {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
@@ -226,6 +227,9 @@ watch(() => route.path, () => {
   transition: background 0.2s ease, color 0.2s ease;
   min-width: 200px;
   justify-content: center;
+  opacity: 0;
+  animation: mobileLinkIn 0.4s ease forwards;
+  animation-delay: calc(0.08s * var(--i));
 }
 .mobile-link:hover,
 .mobile-link.active {
@@ -252,6 +256,18 @@ watch(() => route.path, () => {
 }
 .mobile-close:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* 菜单按钮从下往上滑入 */
+@keyframes mobileLinkIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ===== 动画 ===== */
