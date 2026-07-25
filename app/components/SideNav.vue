@@ -1,5 +1,5 @@
 <template>
-  <nav class="top-nav" :class="{ 'mobile-open': mobileOpen }">
+  <nav class="top-nav" :class="{ 'mobile-open': mobileOpen, collapsed: isCollapsed }">
     <div class="nav-inner">
       <!-- 桌面端导航链接 -->
       <div class="nav-links">
@@ -51,11 +51,30 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 
 const route = useRoute()
 
 const mobileOpen = ref(false)
+const scrollY = ref(0)
+
+// 仅在首页顶部时收起导航
+const isCollapsed = computed(() => {
+  return route.path === '/' && scrollY.value < 10
+})
+
+function onScroll() {
+  scrollY.value = window.scrollY
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+})
 
 const items = [
   { id: 'home', href: '/',
@@ -116,9 +135,18 @@ watch(() => route.path, () => {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
+  border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   pointer-events: auto;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+/* 首页顶部收起态 */
+.top-nav.collapsed .nav-inner {
+  transform: translateY(-54px);
+}
+.top-nav.collapsed .nav-inner:hover {
+  transform: translateY(0);
 }
 
 /* ===== 桌面导航链接 ===== */
@@ -272,6 +300,11 @@ watch(() => route.path, () => {
   .hamburger:hover {
     background: rgba(79, 167, 255, 0.9);
     color: #fff;
+  }
+  /* 移动端禁用收起 */
+  .top-nav.collapsed .nav-inner {
+    transform: none;
+    opacity: 1;
   }
 }
 </style>
