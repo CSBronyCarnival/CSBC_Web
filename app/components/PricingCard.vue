@@ -34,7 +34,6 @@ defineProps({
   max-width: 350px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
 }
 .pricing-tier h3 {
   font-size: 1.5rem;

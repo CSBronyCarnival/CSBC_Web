@@ -9,7 +9,7 @@
         我们致力于与各位马迷朋友们共同思考 共同创新
         在发展的过程中与各位一同进步 为各位带来更加良好的参展体验
       </p>
-      <BaseButton href="contact.html" variant="section">联系我们</BaseButton>
+      <BaseButton to="/contact" variant="section">联系我们</BaseButton>
     </div>
     <div class="about-image">
       <img src="/img/about.webp">
