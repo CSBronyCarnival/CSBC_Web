@@ -21,7 +21,7 @@ defineProps({
 .subpage-hero {
   position: relative;
   overflow: hidden;
-  padding: 14px 0 18px;
+  padding: 18px 0 24px;
 }
 
 /* 顶部蓝色动态虚线 */
@@ -48,7 +48,7 @@ defineProps({
 }
 .subpage-icon {
   position: absolute;
-  top: 58%;
+  top: 62%;
   transform: translateY(-50%) rotate(-35deg);
   left: -45px;
   width: 100px;
