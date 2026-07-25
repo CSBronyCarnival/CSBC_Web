@@ -1,6 +1,7 @@
 <template>
   <div class="news-article-page">
     <div v-if="article" class="article-container">
+      <NuxtLink to="/news" class="back-link">&larr; 返回</NuxtLink>
       <article class="news-article">
         <div class="news-hero-image">
           <img :src="article.hero" :alt="article.title">
@@ -25,7 +26,7 @@
 
     <div v-else class="not-found">
       <p>未找到该文章</p>
-      <NuxtLink to="/news" class="back-btn">&larr; 返回展会消息</NuxtLink>
+      <NuxtLink to="/news" class="back-link not-found-link">&larr; 返回</NuxtLink>
     </div>
 
   </div>
@@ -119,21 +120,20 @@ const article = computed(() => newsList.find(n => n.id === route.params.id))
 
 /* ===== Back Link ===== */
 .back-link {
-  text-align: left;
-  padding-top: 40px;
-}
-.back-btn {
   display: inline-block;
-  padding: 10px 24px;
-  background: #4fa7ff;
-  color: white;
+  color: #3498db;
   text-decoration: none;
-  border-radius: 8px;
   font-size: 0.95rem;
-  transition: background 0.3s ease;
+  font-weight: 500;
+  padding: 20px 0 0;
+  transition: color 0.2s ease;
 }
-.back-btn:hover {
-  background: #3d8ce0;
+.back-link:hover {
+  color: #2176a9;
+}
+.not-found-link {
+  padding: 0;
+  margin-top: 12px;
 }
 
 /* ===== Not Found ===== */
