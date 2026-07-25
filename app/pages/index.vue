@@ -98,8 +98,6 @@
       </div>
     </section>
 
-    <AppFooter />
-    <SideNav />
   </div>
 </template>
 

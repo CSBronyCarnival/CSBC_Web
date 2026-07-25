@@ -50,7 +50,6 @@
 
     <AppTransportation />
 
-    <AppFooter />
   </div>
 </template>
 
