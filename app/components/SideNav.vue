@@ -1,24 +1,38 @@
 <template>
-  <nav class="side-nav nav-visible">
-    <span
-      v-for="item in items"
-      :key="item.id"
-      class="nav-btn"
-      :class="{ active: activeSection === item.id }"
-      :title="item.label"
-      @click="navigate(item)"
-    >
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
-      <span>{{ item.label }}</span>
+  <nav class="side-nav nav-visible" :class="{ expanded }">
+    <!-- 导航按钮列表 -->
+    <Transition name="nav-slide">
+      <div v-show="expanded" class="nav-items">
+        <span
+          v-for="item in items"
+          :key="item.id"
+          class="nav-btn"
+          :class="{ active: activeSection === item.id }"
+          :title="item.label"
+          @click="navigate(item)"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+          <span>{{ item.label }}</span>
+        </span>
+      </div>
+    </Transition>
+
+    <!-- 菜单开关按钮 -->
+    <span class="nav-btn menu-btn" @click="toggleMenu">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
     </span>
   </nav>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
+
+const expanded = ref(false)
 
 const items = [
   { id: 'home', href: '/',
@@ -38,11 +52,10 @@ const items = [
     icon: '<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>' }
 ]
 
-// 通过当前路由匹配高亮，响应式更新
+// 通过当前路由匹配高亮
 const activeSection = computed(() => {
   const pageItem = items.find(item => {
     if (item.href === route.path) return true
-    // 子路径匹配（如 /news/007 匹配 /news），排除首页避免误配
     if (item.href !== '/') {
       const prefix = item.href.endsWith('/') ? item.href : item.href + '/'
       return route.path.startsWith(prefix)
@@ -52,6 +65,10 @@ const activeSection = computed(() => {
   return pageItem ? pageItem.id : ''
 })
 
+function toggleMenu() {
+  expanded.value = !expanded.value
+}
+
 function navigate(item) {
   router.push(item.href)
 }
@@ -60,8 +77,8 @@ function navigate(item) {
 <style scoped>
 .side-nav {
   position: fixed;
-  bottom: 40px;
-  left: 30px;
+  bottom: 20px;
+  left: 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -74,6 +91,15 @@ function navigate(item) {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ===== 导航按钮容器 ===== */
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ===== 通用按钮 ===== */
 .nav-btn {
   display: flex;
   align-items: center;
@@ -88,6 +114,7 @@ function navigate(item) {
   color: #000;
   font-size: 0.85rem;
   font-weight: 500;
+  cursor: pointer;
   width: auto;
   min-width: 40px;
   max-width: 40px;
@@ -106,14 +133,42 @@ function navigate(item) {
 .nav-btn:hover,
 .nav-btn.active {
   max-width: 180px;
+  gap: 8px;
   background: rgba(79, 167, 255, 0.9);
   color: #fff;
   border-color: rgba(79, 167, 255, 0.9);
-  gap: 8px;
 }
 .nav-btn:hover span,
 .nav-btn.active span {
   opacity: 1;
+}
+
+/* ===== 菜单按钮 ===== */
+.menu-btn {
+  max-width: 40px; /* 固定宽度，展开时不变化 */
+}
+.side-nav.expanded .menu-btn {
+  background: rgba(79, 167, 255, 0.9);
+  color: #fff;
+  border-color: rgba(79, 167, 255, 0.9);
+}
+.menu-btn:hover {
+  background: rgba(79, 167, 255, 0.9);
+  color: #fff;
+  border-color: rgba(79, 167, 255, 0.9);
+}
+
+/* ===== 展开/收起动画 ===== */
+.nav-slide-enter-active {
+  transition: all 0.3s ease;
+}
+.nav-slide-leave-active {
+  transition: all 0.25s ease;
+}
+.nav-slide-enter-from,
+.nav-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 @media (max-width: 768px) {
@@ -128,14 +183,8 @@ function navigate(item) {
     min-width: 36px;
     max-width: 36px;
   }
-  .nav-btn span {
-    display: none;
-  }
-  .nav-btn:hover {
-    width: auto;
-  }
-  .nav-btn:hover span {
-    display: inline;
+  .nav-items {
+    gap: 4px;
   }
 }
 </style>
