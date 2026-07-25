@@ -49,10 +49,11 @@ function navigate(item) {
 
 let observer = null
 
-// 根据路由更新高亮
+// 根据路由更新高亮，未匹配时全部取消激活
 function updateActiveByRoute() {
   const pageItem = items.find(item => item.href === route.path)
   if (pageItem) activeSection.value = pageItem.id
+  else activeSection.value = ''
 }
 
 // 重建滚动监听（路由切换后页面 DOM 元素会变）
