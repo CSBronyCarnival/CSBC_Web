@@ -20,7 +20,7 @@ defineProps({
 .subpage-hero {
   position: relative;
   overflow: hidden;
-  padding: 72px 0 24px;
+  padding: 76px 0 24px;
 }
 
 .subpage-hero-content {
@@ -57,7 +57,7 @@ defineProps({
 
 @media (max-width: 768px) {
   .subpage-hero {
-    padding: 70px 0 12px;
+    padding: 24px 0 12px;
   }
   .subpage-hero h1 {
     font-size: 2rem;

@@ -10,7 +10,7 @@
           class="nav-link"
           :class="{ active: activeSection === item.id }"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon" />
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
           <span>{{ item.label }}</span>
         </NuxtLink>
       </div>
@@ -35,7 +35,7 @@
           :class="{ active: activeSection === item.id }"
           @click="mobileOpen = false"
         >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon" />
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
           <span>{{ item.label }}</span>
         </NuxtLink>
       </div>
@@ -110,11 +110,11 @@ watch(() => route.path, () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 48px;
+  height: 52px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   pointer-events: auto;
 }
@@ -129,7 +129,7 @@ watch(() => route.path, () => {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 4px 14px;
   border-radius: 8px;
   text-decoration: none;
   color: #555;
@@ -141,12 +141,11 @@ watch(() => route.path, () => {
   flex-shrink: 0;
 }
 .nav-link:hover {
-  background: rgba(79, 167, 255, 0.1);
-  color: #3498db;
+  background: rgba(0, 0, 0, 0.05);
 }
 .nav-link.active {
-  background: rgba(79, 167, 255, 0.9);
-  color: #fff;
+  background: rgba(79, 167, 255, 0.1);
+  color: #3498db;
 }
 
 /* ===== 汉堡按钮（仅移动端） ===== */
@@ -236,25 +235,45 @@ watch(() => route.path, () => {
 
 /* ===== 移动端响应式 ===== */
 @media (max-width: 768px) {
+  .top-nav {
+    left: auto;
+    right: 0;
+    width: auto;
+  }
   .nav-inner {
-    max-width: calc(100% - 32px);
-    height: 44px;
-    border-radius: 12px;
-    margin: 10px auto 0;
-    padding: 0 12px;
-    justify-content: flex-end;
+    max-width: none;
+    height: auto;
+    margin: 10px 10px 0 0;
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+    box-shadow: none;
   }
   .nav-links {
     display: none;
   }
   .hamburger {
     display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .hamburger:hover {
+    background: rgba(79, 167, 255, 0.9);
+    color: #fff;
   }
   .mobile-drawer {
-    top: 54px;
+    top: 0;
+    padding-top: 60px;
   }
   .mobile-overlay {
-    top: 54px;
+    top: 0;
   }
 }
 </style>
