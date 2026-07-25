@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="img/logo.png" width="auto" height="80" alt="CSBC" style="margin-bottom: 10px;">
+<img src="public/img/logo.png" width="auto" height="80" alt="CSBC" style="margin-bottom: 10px;">
 
 # CSBC official website
 

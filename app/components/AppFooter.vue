@@ -18,7 +18,7 @@
           <a href="https://gitee.com/CSBronyCarnival" target="_blank" class="social-link"><img src="/img/link/gitee.svg" alt="Gitee"></a>
         </div>
         <div class="footer-copyright">
-          <p><a href="https://github.com/CSBronyCarnival/CSBC_Web">&copy; 2022-2025 CSBronyCarnival</a><br>该网站的源代码已使用 MIT 许可证开放</p>
+          <p>&copy; 2022-2025 CSBronyCarnival<br><a href="https://github.com/CSBronyCarnival/CSBC_Web" target="_blank">在 GitHub 上查看源代码</a></p>
         </div>
       </div>
       <div class="footer-right">
