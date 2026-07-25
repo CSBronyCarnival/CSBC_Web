@@ -85,8 +85,8 @@ defineProps({
     font-size: 2rem;
   }
   .venue-icon {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
   }
 }
 </style>

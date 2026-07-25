@@ -33,12 +33,12 @@ defineProps({
 .subpage-icon {
   position: absolute;
   top: 62%;
-  transform: translateY(-50%) rotate(-35deg);
   left: -45px;
   width: 100px;
   height: 100px;
   stroke-width: 2.5;
   color: rgba(0, 0, 0, 0.08);
+  transform: translateY(-50%) rotate(-35deg);
   pointer-events: none;
 }
 .subpage-hero h1 {
@@ -66,8 +66,8 @@ defineProps({
     font-size: 1rem;
   }
   .subpage-icon {
-    width: 40px;
-    height: 40px;
+    top: 50%;
+    left: 25px;
   }
 }
 </style>

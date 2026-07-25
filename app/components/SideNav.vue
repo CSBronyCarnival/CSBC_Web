@@ -24,9 +24,16 @@
       </button>
     </div>
 
-    <!-- 移动端抽屉菜单 -->
-    <Transition name="drawer-slide">
-      <div v-if="mobileOpen" class="mobile-drawer">
+    <!-- 移动端全屏遮罩菜单 -->
+    <Transition name="drawer-fade">
+      <div v-if="mobileOpen" class="mobile-drawer" @click.self="mobileOpen = false">
+        <!-- 关闭按钮 -->
+        <button class="mobile-close" @click="mobileOpen = false" aria-label="关闭菜单">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+
         <NuxtLink
           v-for="item in items"
           :key="item.id"
@@ -35,15 +42,10 @@
           :class="{ active: activeSection === item.id }"
           @click="mobileOpen = false"
         >
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
           <span>{{ item.label }}</span>
         </NuxtLink>
       </div>
-    </Transition>
-
-    <!-- 移动端遮罩 -->
-    <Transition name="overlay-fade">
-      <div v-if="mobileOpen" class="mobile-overlay" @click="mobileOpen = false" />
     </Transition>
   </nav>
 </template>
@@ -166,70 +168,73 @@ watch(() => route.path, () => {
   background: rgba(79, 167, 255, 0.1);
 }
 
-/* ===== 移动端抽屉 ===== */
+/* ===== 移动端全屏遮罩菜单 ===== */
 .mobile-drawer {
   position: fixed;
-  top: 60px;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 12px 20px 20px;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 32px;
   z-index: 999;
+  pointer-events: auto;
 }
 .mobile-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-radius: 8px;
+  gap: 12px;
+  padding: 14px 32px;
+  border-radius: 10px;
   text-decoration: none;
-  color: #555;
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.15rem;
   font-weight: 500;
+  background: rgba(255, 255, 255, 0.08);
   transition: background 0.2s ease, color 0.2s ease;
+  min-width: 200px;
+  justify-content: center;
 }
 .mobile-link:hover,
 .mobile-link.active {
-  background: rgba(79, 167, 255, 0.9);
+  background: rgba(79, 167, 255, 0.75);
   color: #fff;
 }
 
-/* 移动端遮罩 */
-.mobile-overlay {
-  position: fixed;
-  inset: 0;
-  top: 60px;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 998;
+/* 关闭按钮 */
+.mobile-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.mobile-close:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* ===== 动画 ===== */
-.drawer-slide-enter-active {
-  transition: all 0.3s ease;
-}
-.drawer-slide-leave-active {
-  transition: all 0.25s ease;
-}
-.drawer-slide-enter-from,
-.drawer-slide-leave-to {
-  opacity: 0;
-  transform: translateY(-12px);
-}
-
-.overlay-fade-enter-active {
+.drawer-fade-enter-active {
   transition: opacity 0.3s ease;
 }
-.overlay-fade-leave-active {
+.drawer-fade-leave-active {
   transition: opacity 0.25s ease;
 }
-.overlay-fade-enter-from,
-.overlay-fade-leave-to {
+.drawer-fade-enter-from,
+.drawer-fade-leave-to {
   opacity: 0;
 }
 
@@ -267,13 +272,6 @@ watch(() => route.path, () => {
   .hamburger:hover {
     background: rgba(79, 167, 255, 0.9);
     color: #fff;
-  }
-  .mobile-drawer {
-    top: 0;
-    padding-top: 60px;
-  }
-  .mobile-overlay {
-    top: 0;
   }
 }
 </style>
