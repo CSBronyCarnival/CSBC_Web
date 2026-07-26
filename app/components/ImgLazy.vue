@@ -89,6 +89,10 @@ onUnmounted(() => {
 }
 
 .lazy-img-spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  z-index: 1;
   width: 24px;
   aspect-ratio: 1;
   border-radius: 50%;
