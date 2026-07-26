@@ -1,6 +1,6 @@
 <template>
   <div class="venue-hero">
-    <img :src="src" :alt="alt">
+    <ImgLazy :src="src" :alt="alt" />
     <div class="venue-hero-overlay">
       <svg v-if="icon" class="venue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" v-html="icon"></svg>
       <h1>{{ title }}</h1>
@@ -26,11 +26,10 @@ defineProps({
   height: 450px;
   overflow: hidden;
 }
-.venue-hero img {
+.venue-hero :deep(.lazy-img) {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
+  background: #1a1a1a;
 }
 .venue-hero::after {
   content: '';
