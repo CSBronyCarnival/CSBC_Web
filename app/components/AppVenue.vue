@@ -49,10 +49,12 @@
   color: #2c3e50;
 }
 .venue-description h3 span {
+  display: block;
   font-size: 0.8rem;
   color: #7f8c8d;
   font-weight: 400;
   font-style: italic;
+  margin-top: 4px;
 }
 .venue-description h4 {
   font-size: 1rem;
