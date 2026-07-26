@@ -1,7 +1,7 @@
 <template>
   <div class="venue-feature-item">
     <div class="venue-feature-image">
-      <img :src="imgSrc">
+      <ImgLazy :src="imgSrc" class="venue-img" />
     </div>
     <div class="venue-feature-subtitle">{{ subtitle }}</div>
     <h3 class="venue-feature-title">{{ title }}</h3>
@@ -30,7 +30,8 @@ defineProps({
   overflow: hidden;
   border-radius: 15px;
 }
-.venue-feature-image img {
+.venue-feature-image :deep(.lazy-img),
+.venue-feature-image :deep(.lazy-img-el) {
   width: 100%;
   height: 220px;
   object-fit: cover;
@@ -58,7 +59,8 @@ defineProps({
 }
 
 @media (max-width: 768px) {
-  .venue-feature-image img {
+  .venue-feature-image :deep(.lazy-img),
+  .venue-feature-image :deep(.lazy-img-el) {
     height: 180px;
   }
   .venue-feature-title {

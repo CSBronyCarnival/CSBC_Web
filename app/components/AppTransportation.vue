@@ -13,10 +13,10 @@
 
       <div class="nav-images">
         <div class="nav-image-item">
-          <img src="/img/navigation/switzerland.jpg">
+          <ImgLazy src="/img/navigation/switzerland.jpg" alt="广州瑞士酒店" class="nav-img" />
         </div>
         <div class="nav-image-item">
-          <img src="/img/navigation/transport.jpg">
+          <ImgLazy src="/img/navigation/transport.jpg" alt="交通指引" class="nav-img" />
         </div>
       </div>
 
@@ -141,11 +141,13 @@
   flex: 1;
   max-width: 100%;
 }
-.nav-image-item img {
+.nav-image-item :deep(.lazy-img) {
   width: 100%;
-  height: auto;
   border-radius: 15px;
   display: block;
+}
+.nav-image-item :deep(.lazy-img-el) {
+  border-radius: 15px;
 }
 .transportation-content {
   display: grid;

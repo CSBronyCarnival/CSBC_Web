@@ -17,7 +17,7 @@
               class="gallery-item"
               @click="openViewer(items.indexOf(item))"
             >
-              <img :src="item.src" :alt="item.name" loading="lazy">
+              <ImgLazy :src="item.src" :alt="item.name" class="gallery-img" />
               <div class="gallery-info">
                 <div class="gallery-name">{{ item.name }}</div>
                 <div class="gallery-author" v-if="item.author">{{ item.author }}</div>
@@ -160,14 +160,17 @@ function openViewer(index) {
   cursor: pointer;
   aspect-ratio: 4 / 3;
 }
-.gallery-item img {
+.gallery-item :deep(.lazy-img),
+.gallery-item :deep(.lazy-img-el) {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
   display: block;
 }
-.gallery-item:hover img {
+.gallery-item :deep(.lazy-img-el) {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.gallery-item:hover :deep(.lazy-img-el) {
   transform: scale(1.08);
 }
 .gallery-info {
