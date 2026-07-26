@@ -13,9 +13,14 @@
     "nuxt@4.5.0": "patches/nuxt@4.5.0.patch"
   },
   "dependencies": {
+    "jquery": "^3.7.1",
     "nuxt": "^4.5.0",
+    "pdfjs-dist": "^6.1.200",
     "v-viewer": "^3.0.23",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32"
   }
 }
