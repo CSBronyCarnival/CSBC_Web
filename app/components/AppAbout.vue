@@ -48,7 +48,11 @@
   flex: 0 0 auto;
   width: 500px;
 }
-.about-image :deep(.lazy-img),
+.about-image :deep(.lazy-img) {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+}
 .about-image :deep(.lazy-img-el) {
   width: 100%;
   border-radius: 10px;

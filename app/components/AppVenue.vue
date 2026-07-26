@@ -31,7 +31,11 @@
   flex: 1;
   max-width: 500px;
 }
-.venue-image :deep(.lazy-img),
+.venue-image :deep(.lazy-img) {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+}
 .venue-image :deep(.lazy-img-el) {
   width: 100%;
   border-radius: 10px;
