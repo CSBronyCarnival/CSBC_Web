@@ -6,7 +6,7 @@
     <div class="footer-container">
       <div class="footer-left">
         <div class="footer-logo">
-          <a href="/"><img src="/img/logo.png"></a>
+          <NuxtLink href="/"><img src="/img/logo.png"></NuxtLink>
         </div>
         <div class="footer-social">
           <a href="https://space.bilibili.com/371768934" target="_blank" class="social-link"><img :src="nightSrc('/img/link/bili.svg')" alt="Bilibili"></a>

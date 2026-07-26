@@ -3,7 +3,7 @@
     <div class="container">
       <div class="about-row">
         <div class="about-img">
-          <img src="/img/night/about.webp" alt="夜下扬蹄" />
+          <ImgLazy src="/img/night/about.webp" alt="夜下扬蹄" />
           <p class="credit">摄影：Ryazen</p>
         </div>
         <div class="about-text">
@@ -38,11 +38,11 @@
   flex: 0 0 45%;
   overflow: hidden;
   margin-left: 40px;
-}
-.about-img img {
-  width: 100%;
   border-radius: 8px;
-  display: block;
+}
+/* 覆盖 ImgLazy 内部浅色背景 */
+.about-img :deep(.lazy-img) {
+  background: #1e1e1e;
 }
 .credit {
   font-size: 12px;
