@@ -15,7 +15,9 @@
       </div>
 
       <div v-else class="flipbook-stage">
-        <div ref="bookRef" id="flipbook" class="flipbook-book"></div>
+        <div class="flipbook-book-wrap" :class="{ 'is-cover': currentPage === 1 && !isMobile, 'is-last': currentPage === totalPages && !isMobile }">
+          <div ref="bookRef" id="flipbook" class="flipbook-book"></div>
+        </div>
 
         <div class="flipbook-nav">
           <button
@@ -64,11 +66,11 @@ const totalPages = ref(0)
 const currentPage = ref(1)
 
 const bookRef = ref(null)
+const isMobile = ref(false)
 
 let $ = null
 let pdfDoc = null
 let turnReady = false
-let isMobile = false
 
 function loadTurnJs() {
   return new Promise((resolve, reject) => {
@@ -189,21 +191,21 @@ function onResize() {
   clearTimeout(resizeTimer)
   resizeTimer = setTimeout(async () => {
     const nowMobile = window.innerWidth < MOBILE_BP
-    if (nowMobile === isMobile) return
+    if (nowMobile === isMobile.value) return
 
     const savedPage = currentPage.value
-    isMobile = nowMobile
+    isMobile.value = nowMobile
 
     try { $('#flipbook').turn('destroy') } catch (_) { /* ignore */ }
 
     const firstPage = await pdfDoc.getPage(1)
     const nativeView = firstPage.getViewport({ scale: 1 })
-    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile)
+    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile.value)
 
     const canvases = await renderAllPages(layout.renderScale)
 
     await nextTick()
-    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile, savedPage)
+    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile.value, savedPage)
   }, 300)
 }
 
@@ -211,7 +213,7 @@ onMounted(async () => {
   document.addEventListener('keydown', onKeyDown)
   window.addEventListener('resize', onResize)
 
-  isMobile = window.innerWidth < MOBILE_BP
+  isMobile.value = window.innerWidth < MOBILE_BP
 
   try {
     const jqModule = await import('jquery')
@@ -232,13 +234,13 @@ onMounted(async () => {
 
     const firstPage = await pdfDoc.getPage(1)
     const nativeView = firstPage.getViewport({ scale: 1 })
-    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile)
+    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile.value)
     const canvases = await renderAllPages(layout.renderScale)
 
     loading.value = false
     await nextTick()
 
-    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile, 1)
+    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile.value, 1)
   } catch (err) {
     console.error('FlipBook: 加载失败', err)
     error.value = err.message || '未知错误'
@@ -267,6 +269,8 @@ onUnmounted(() => {
 <style scoped>
 .flipbook-outer {
   width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .flipbook-status {
@@ -307,6 +311,16 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.flipbook-book-wrap {
+  transition: transform 0.4s ease;
+}
+.flipbook-book-wrap.is-cover {
+  transform: translateX(-25%);
+}
+.flipbook-book-wrap.is-last {
+  transform: translateX(25%);
 }
 
 .flipbook-book {

@@ -21,9 +21,11 @@ useHead({ title: 'CSBC华南马聚2026 - 场刊' })
 <style scoped>
 .conbook-page {
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .conbook-section {
   padding: 40px 0 80px;
+  overflow-x: hidden;
 }
 .conbook-container {
   max-width: 1100px;
