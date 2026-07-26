@@ -37,6 +37,12 @@ body {
   font-family: 'OPPOSans-Ver2-Bold', 'OPPOSans-Bold', 'Arial', 'Microsoft YaHei', sans-serif;
   line-height: 1.6;
   color: #333;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+body.night {
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
 /* 页面切换淡入淡出 */

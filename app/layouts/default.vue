@@ -5,3 +5,14 @@
     <AppFooter :key="$route.path" />
   </div>
 </template>
+
+<script setup>
+const route = useRoute()
+const isNight = computed(() => route.path.startsWith('/night'))
+
+useHead({
+  bodyAttrs: computed(() => ({
+    class: isNight.value ? 'night' : ''
+  }))
+})
+</script>

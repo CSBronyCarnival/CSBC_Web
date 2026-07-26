@@ -154,7 +154,7 @@ watch(() => route.path, () => {
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   pointer-events: auto;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  transition: transform 0.35s ease, opacity 0.35s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .top-nav.collapsed .nav-inner {
@@ -203,7 +203,7 @@ watch(() => route.path, () => {
   background: transparent;
   color: #555;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 .hamburger:hover {
   background: rgba(79, 167, 255, 0.1);
@@ -287,7 +287,7 @@ watch(() => route.path, () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 .mobile-close:hover {
   background: rgba(255, 255, 255, 0.2);
