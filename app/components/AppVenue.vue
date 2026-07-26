@@ -1,7 +1,7 @@
 <template>
   <div class="venue-content">
     <div class="venue-image">
-      <img src="/img/venue/main.webp">
+      <ImgLazy src="/img/venue/main.webp" alt="广州瑞士酒店" class="venue-img" />
     </div>
     <div class="venue-description">
       <h3>广州瑞士酒店 <span>Swissôtel Guangzhou</span></h3>
@@ -31,9 +31,9 @@
   flex: 1;
   max-width: 500px;
 }
-.venue-image img {
+.venue-image :deep(.lazy-img),
+.venue-image :deep(.lazy-img-el) {
   width: 100%;
-  height: auto;
   border-radius: 10px;
 }
 .venue-description {

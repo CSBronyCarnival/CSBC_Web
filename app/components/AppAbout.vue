@@ -12,7 +12,7 @@
       <BaseButton to="/contact" variant="section">联系我们</BaseButton>
     </div>
     <div class="about-image">
-      <img src="/img/about.webp">
+      <ImgLazy src="/img/about.webp" alt="CSBC 关于" class="about-img" />
     </div>
   </div>
 </template>
@@ -48,9 +48,9 @@
   flex: 0 0 auto;
   width: 500px;
 }
-.about-image img {
+.about-image :deep(.lazy-img),
+.about-image :deep(.lazy-img-el) {
   width: 100%;
-  height: auto;
   border-radius: 10px;
 }
 

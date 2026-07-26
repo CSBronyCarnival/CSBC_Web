@@ -1,6 +1,6 @@
 <template>
   <div class="team-member">
-    <div class="member-avatar"><img :src="avatar" :alt="name"></div>
+    <div class="member-avatar"><ImgLazy :src="avatar" :alt="name" class="avatar-img" /></div>
     <h3>{{ name }}</h3>
     <p class="member-description">{{ description }}</p>
   </div>
@@ -30,9 +30,14 @@ defineProps({
   overflow: hidden;
   margin: 0 auto 15px;
 }
-.member-avatar img {
-  width: 100%; height: 100%;
+.member-avatar :deep(.lazy-img),
+.member-avatar :deep(.lazy-img-el) {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+}
+.member-avatar :deep(.lazy-img) {
+  border-radius: 50%;
 }
 .team-member h3 {
   font-size: 1.3rem;
