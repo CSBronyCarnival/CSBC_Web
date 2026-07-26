@@ -1,7 +1,6 @@
 <template>
   <nav class="top-nav" :class="{ 'mobile-open': mobileOpen, collapsed: isCollapsed }">
     <div class="nav-inner">
-      <!-- 桌面端导航链接 -->
       <div class="nav-links">
         <NuxtLink
           v-for="item in items"
@@ -15,7 +14,6 @@
         </NuxtLink>
       </div>
 
-      <!-- 移动端汉堡按钮 -->
       <button class="hamburger" @click="mobileOpen = !mobileOpen" aria-label="菜单">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
           <path v-if="!mobileOpen" d="M4 6h16M4 12h16M4 18h16" />
@@ -24,10 +22,8 @@
       </button>
     </div>
 
-    <!-- 移动端全屏遮罩菜单 -->
     <Transition name="drawer-fade">
       <div v-if="mobileOpen" class="mobile-drawer" @click.self="mobileOpen = false">
-        <!-- 关闭按钮 -->
         <button class="mobile-close" @click="mobileOpen = false" aria-label="关闭菜单">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 6l12 12M18 6L6 18" />
@@ -98,7 +94,6 @@ const items = [
     icon: '<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>' }
 ]
 
-// 路由匹配高亮
 const activeSection = computed(() => {
   const pageItem = items.find(item => {
     if (item.href === route.path) return true
@@ -118,7 +113,6 @@ watch(() => route.path, () => {
 </script>
 
 <style scoped>
-/* ===== 导航容器 ===== */
 .top-nav {
   position: fixed;
   top: 0;
@@ -137,15 +131,12 @@ watch(() => route.path, () => {
   justify-content: center;
   height: 52px;
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   pointer-events: auto;
   transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
-/* 首页顶部收起态 */
 .top-nav.collapsed .nav-inner {
   transform: translateY(-54px);
 }
@@ -153,7 +144,6 @@ watch(() => route.path, () => {
   transform: translateY(0);
 }
 
-/* ===== 桌面导航链接 ===== */
 .nav-links {
   display: flex;
   align-items: center;
@@ -182,7 +172,6 @@ watch(() => route.path, () => {
   color: #3498db;
 }
 
-/* ===== 汉堡按钮（仅移动端） ===== */
 .hamburger {
   display: none;
   align-items: center;
@@ -200,13 +189,10 @@ watch(() => route.path, () => {
   background: rgba(79, 167, 255, 0.1);
 }
 
-/* ===== 移动端全屏遮罩菜单 ===== */
 .mobile-drawer {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(4px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -240,7 +226,6 @@ watch(() => route.path, () => {
   color: #fff;
 }
 
-/* 关闭按钮 */
 .mobile-close {
   position: absolute;
   top: 16px;
@@ -261,7 +246,6 @@ watch(() => route.path, () => {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* 菜单按钮从下往上滑入 */
 @keyframes mobileLinkIn {
   from {
     opacity: 0;
@@ -273,7 +257,6 @@ watch(() => route.path, () => {
   }
 }
 
-/* ===== 动画 ===== */
 .drawer-fade-enter-active {
   transition: opacity 0.3s ease;
 }
@@ -285,7 +268,6 @@ watch(() => route.path, () => {
   opacity: 0;
 }
 
-/* ===== 移动端响应式 ===== */
 @media (max-width: 768px) {
   .top-nav {
     left: auto;
@@ -298,8 +280,6 @@ watch(() => route.path, () => {
     margin: 10px 10px 0 0;
     padding: 0;
     background: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
     border-radius: 0;
     box-shadow: none;
   }
@@ -312,18 +292,38 @@ watch(() => route.path, () => {
     height: 40px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   .hamburger:hover {
     background: rgba(79, 167, 255, 0.9);
     color: #fff;
   }
-  /* 移动端禁用收起 */
   .top-nav.collapsed .nav-inner {
     transform: none;
     opacity: 1;
+  }
+}
+</style>
+
+<style>
+.top-nav .nav-inner {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-drawer {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+@media (max-width: 768px) {
+  .top-nav .nav-inner {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .top-nav .hamburger {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 }
 </style>
