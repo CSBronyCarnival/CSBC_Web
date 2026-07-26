@@ -7,7 +7,7 @@
           <span class="flipbook-dot"></span>
           <span class="flipbook-dot"></span>
         </div>
-        <p>正在加载 PDF</p>
+        <p>正在加载场刊… {{ progress }}%</p>
       </div>
       <div v-else-if="error" class="flipbook-status flipbook-error">
         <p>PDF 加载失败</p>
@@ -62,6 +62,7 @@ const MOBILE_BP = 768
 
 const loading = ref(true)
 const error = ref('')
+const progress = ref(0)
 const totalPages = ref(0)
 const currentPage = ref(1)
 
@@ -119,12 +120,14 @@ function calcBookLayout(nativePageW, nativePageH, mobile) {
   return { bookWidth, bookHeight, renderScale }
 }
 
-async function renderAllPages(scale) {
+async function renderAllPages(scale, onProgress) {
   const canvasPromises = []
   for (let i = 1; i <= totalPages.value; i++) {
-    canvasPromises.push(
-      pdfDoc.getPage(i).then(p => renderPageToCanvas(p, scale))
-    )
+    const promise = pdfDoc.getPage(i).then(p => renderPageToCanvas(p, scale))
+    if (onProgress) {
+      promise.then(() => onProgress(i))
+    }
+    canvasPromises.push(promise)
   }
   return (await Promise.all(canvasPromises)).map(r => r.canvas)
 }
@@ -229,13 +232,27 @@ onMounted(async () => {
       'https://unpkg.com/pdfjs-dist@6.1.200/build/pdf.worker.min.mjs'
 
     const loadingTask = pdfjsLib.getDocument({ url: props.pdfUrl })
+
+    loadingTask.onProgress = (data) => {
+      if (data.total > 0) {
+        progress.value = Math.round((data.loaded / data.total) * 50)
+      }
+    }
+
     pdfDoc = await loadingTask.promise
     totalPages.value = pdfDoc.numPages
+    progress.value = 50
 
     const firstPage = await pdfDoc.getPage(1)
     const nativeView = firstPage.getViewport({ scale: 1 })
     const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile.value)
-    const canvases = await renderAllPages(layout.renderScale)
+
+    const total = pdfDoc.numPages
+    const canvases = await renderAllPages(layout.renderScale, (done) => {
+      progress.value = 50 + Math.round((done / total) * 50)
+    })
+
+    progress.value = 100
 
     loading.value = false
     await nextTick()
