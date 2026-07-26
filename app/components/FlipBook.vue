@@ -2,11 +2,15 @@
   <ClientOnly>
     <div class="flipbook-outer">
       <div v-if="loading" class="flipbook-status">
-        <div class="flipbook-spinner"></div>
-        <p>正在加载场刊…</p>
+        <div class="flipbook-dots">
+          <span class="flipbook-dot"></span>
+          <span class="flipbook-dot"></span>
+          <span class="flipbook-dot"></span>
+        </div>
+        <p>正在加载 PDF</p>
       </div>
       <div v-else-if="error" class="flipbook-status flipbook-error">
-        <p>场刊加载失败</p>
+        <p>PDF 加载失败</p>
         <p class="flipbook-error-msg">{{ error }}</p>
       </div>
 
@@ -280,17 +284,23 @@ onUnmounted(() => {
   opacity: 0.7;
   margin-top: 4px;
 }
-.flipbook-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid #e0e0e0;
-  border-top-color: #4fa7ff;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+.flipbook-dots {
+  display: flex;
+  gap: 10px;
   margin-bottom: 16px;
 }
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.flipbook-dot {
+  width: 12px;
+  height: 12px;
+  background: #4fa7ff;
+  animation: dot-blink 1.4s ease-in-out infinite both;
+}
+.flipbook-dot:nth-child(1) { animation-delay: 0s; }
+.flipbook-dot:nth-child(2) { animation-delay: 0.2s; }
+.flipbook-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot-blink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
 }
 
 .flipbook-stage {
