@@ -4,7 +4,7 @@
       <NuxtLink to="/news" class="back-link">&larr; 返回</NuxtLink>
       <article class="news-article">
         <div class="news-hero-image">
-          <img :src="article.hero" :alt="article.title">
+          <ImgLazy :src="article.hero" :alt="article.title" class="hero-img" />
         </div>
         <div class="news-header">
           <span class="news-publish-date">{{ article.date }}</span>
@@ -13,13 +13,13 @@
         <div class="news-divider"></div>
         <div class="news-content" v-html="article.content"></div>
         <div v-if="article.images.length > 1" class="news-article-images">
-          <img
+          <ImgLazy
             v-for="(src, i) in article.images"
             :key="i"
             :src="src"
             :alt="`${article.title} ${i + 1}`"
-            loading="lazy"
-          >
+            class="article-img"
+          />
         </div>
       </article>
     </div>
@@ -69,10 +69,9 @@ useHead({ title: pageTitle })
   overflow: hidden;
   line-height: 0;
 }
-.news-hero-image img {
-  width: 100%;
+.news-hero-image :deep(.lazy-img),
+.news-hero-image :deep(.lazy-img-el) {
   height: 400px;
-  object-fit: cover;
 }
 .news-header {
   max-width: 1200px;
@@ -117,10 +116,9 @@ useHead({ title: pageTitle })
   flex-direction: column;
   gap: 20px;
 }
-.news-article-images img {
+.news-article-images :deep(.lazy-img) {
   border-radius: 8px;
   width: 100%;
-  height: auto;
   max-width: 600px;
 }
 
@@ -157,7 +155,8 @@ useHead({ title: pageTitle })
   .news-article {
     padding: 40px 0;
   }
-  .news-hero-image img {
+  .news-hero-image :deep(.lazy-img),
+  .news-hero-image :deep(.lazy-img-el) {
     height: 250px;
   }
   .news-main-title {

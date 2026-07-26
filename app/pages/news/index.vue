@@ -5,7 +5,7 @@
         <div class="news-grid">
           <div v-for="item in newsList" :key="item.id" class="news-item">
             <NuxtLink :to="`/news/${item.id}`" class="news-image-link">
-              <img :src="item.cover" :alt="item.title" loading="lazy" class="news-image">
+              <ImgLazy :src="item.cover" :alt="item.title" class="news-image" />
             </NuxtLink>
             <div class="news-info">
               <span class="news-date">{{ item.date }}</span>
@@ -55,13 +55,14 @@ import { newsList } from '~/data/news'
   overflow: hidden;
   border-radius: 8px;
 }
-.news-image {
+.news-image-link :deep(.lazy-img) {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
 }
-.news-image-link:hover .news-image {
+.news-image-link :deep(.lazy-img-el) {
+  transition: opacity 0.4s ease, transform 0.3s ease;
+}
+.news-image-link:hover :deep(.lazy-img-el) {
   transform: scale(1.05);
 }
 .news-info {
