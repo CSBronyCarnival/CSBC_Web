@@ -1,5 +1,5 @@
 <template>
-  <nav class="top-nav" :class="{ 'mobile-open': mobileOpen, collapsed: isCollapsed }">
+  <nav class="top-nav" :class="{ 'mobile-open': mobileOpen, collapsed: isCollapsed, night: isNight }">
     <div class="nav-inner">
       <div class="nav-links">
         <NuxtLink
@@ -50,12 +50,12 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 
-// 确保毛玻璃效果在生产构建中不被 strip
 useHead({
   style: [
     {
       innerHTML: `
         .top-nav .nav-inner{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+        .top-nav.night .nav-inner{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
         .mobile-drawer{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
         @media(max-width:768px){
           .top-nav .nav-inner{backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -71,10 +71,11 @@ const route = useRoute()
 const mobileOpen = ref(false)
 const scrollY = ref(0)
 
-// 仅在首页顶部时收起导航
 const isCollapsed = computed(() => {
   return route.path === '/' && scrollY.value < 10
 })
+
+const isNight = computed(() => route.path.startsWith('/night'))
 
 function onScroll() {
   scrollY.value = window.scrollY
@@ -203,6 +204,33 @@ watch(() => route.path, () => {
 }
 .hamburger:hover {
   background: rgba(79, 167, 255, 0.1);
+}
+
+.top-nav.night .nav-inner {
+  background: rgba(18, 18, 18, 0.85);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.top-nav.night .nav-link {
+  color: rgba(255, 255, 255, 0.7);
+}
+.top-nav.night .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.top-nav.night .nav-link.active {
+  background: rgba(79, 167, 255, 0.2);
+  color: #4fa7ff;
+}
+
+@media (max-width: 768px) {
+  .top-nav.night .hamburger {
+    background: rgba(18, 18, 18, 0.85);
+    color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  .top-nav.night .hamburger:hover {
+    background: rgba(79, 167, 255, 0.9);
+    color: #fff;
+  }
 }
 
 .mobile-drawer {

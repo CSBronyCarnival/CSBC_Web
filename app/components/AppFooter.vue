@@ -1,7 +1,7 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{ night: isNight }">
     <div class="footer-image">
-      <img ref="footerImgRef" src="/img/csbc-line-w.svg">
+      <img ref="footerImgRef" :src="isNight ? '/img/csbc-line.svg' : '/img/csbc-line-w.svg'">
     </div>
     <div class="footer-container">
       <div class="footer-left">
@@ -9,13 +9,13 @@
           <a href="/"><img src="/img/logo.png"></a>
         </div>
         <div class="footer-social">
-          <a href="https://space.bilibili.com/371768934" target="_blank" class="social-link"><img src="/img/link/bili.svg" alt="Bilibili"></a>
-          <a href="https://qm.qq.com/q/kP0n8Mng9G" target="_blank" class="social-link"><img src="/img/link/qq.svg" alt="QQ"></a>
-          <a href="https://x.com/csbronycarnival" target="_blank" class="social-link"><img src="/img/link/x.svg" alt="X"></a>
-          <a href="https://www.youtube.com/@lywings1" target="_blank" class="social-link"><img src="/img/link/youtube.svg" alt="YouTube"></a>
-          <a href="https://discord.com/invite/mbNkveehRB" target="_blank" class="social-link"><img src="/img/link/discord.svg" alt="Discord"></a>
-          <a href="https://github.com/CSBronyCarnival" target="_blank" class="social-link"><img src="/img/link/github.svg" alt="GitHub"></a>
-          <a href="https://gitee.com/CSBronyCarnival" target="_blank" class="social-link"><img src="/img/link/gitee.svg" alt="Gitee"></a>
+          <a href="https://space.bilibili.com/371768934" target="_blank" class="social-link"><img :src="nightSrc('/img/link/bili.svg')" alt="Bilibili"></a>
+          <a href="https://qm.qq.com/q/kP0n8Mng9G" target="_blank" class="social-link"><img :src="nightSrc('/img/link/qq.svg')" alt="QQ"></a>
+          <a href="https://x.com/csbronycarnival" target="_blank" class="social-link"><img :src="nightSrc('/img/link/x.svg')" alt="X"></a>
+          <a href="https://www.youtube.com/@lywings1" target="_blank" class="social-link"><img :src="nightSrc('/img/link/youtube.svg')" alt="YouTube"></a>
+          <a href="https://discord.com/invite/mbNkveehRB" target="_blank" class="social-link"><img :src="nightSrc('/img/link/discord.svg')" alt="Discord"></a>
+          <a href="https://github.com/CSBronyCarnival" target="_blank" class="social-link"><img :src="nightSrc('/img/link/github.svg')" alt="GitHub"></a>
+          <a href="https://gitee.com/CSBronyCarnival" target="_blank" class="social-link"><img :src="nightSrc('/img/link/gitee.svg')" alt="Gitee"></a>
         </div>
         <div class="footer-copyright">
           <p>&copy; 2022-2025 CSBronyCarnival<br><a href="https://github.com/CSBronyCarnival/CSBC_Web" target="_blank">在 GitHub 上查看源代码</a></p>
@@ -24,17 +24,17 @@
       <div class="footer-right">
         <div class="footer-links-title"><p>友情链接</p></div>
         <ul class="footer-links">
-          <li><a target="_blank" href="https://malangpony.com/"><img src="/img/link/exchange/malang_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/malang.png"></a></li>
-          <li><a target="_blank" href="https://brony.scot/"><img src="/img/link/exchange/bs_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/bs.png"></a></li>
-          <li><a target="_blank" href="https://www.norsehorsecon.eu/"><img src="/img/link/exchange/norse_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/norse.webp"></a></li>
-          <li><a target="_blank" href="https://galacon.eu/"><img src="/img/link/exchange/gala_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/gala.webp"></a></li>
-          <li><a target="_blank" href="http://suncelebration.butterpony.com/"><img src="/img/link/exchange/ssc_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/ssc.webp"></a></li>
-          <li><a target="_blank" href="https://x.com/Poniko_MLP/"><img src="/img/link/exchange/ponikon_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/ponikon.webp"></a></li>
-          <li><a target="_blank" href="https://sunshine.horse/"><img src="/img/link/exchange/spc_b.webp" class="friend-link-img" data-hover-src="/img/link/exchange/spc.webp"></a></li>
-          <li><a target="_blank" href="https://derpfest.ru/"><img src="/img/link/exchange/derpfest_b.svg" class="friend-link-img" data-hover-src="/img/link/exchange/derpfest.svg"></a></li>
-          <li><a target="_blank" href="https://twbronycon.org/"><img src="/img/link/exchange/twbc_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/twbc.png"></a></li>
-          <li><a target="_blank" href="https://dreamlandcon.top/"><img src="/img/link/exchange/dlc_b.svg" class="friend-link-img" data-hover-src="/img/link/exchange/dlc.svg"></a></li>
-          <li><a target="_blank" href="https://www.equestriacn.com/"><img src="/img/link/exchange/eqcn_b.png" class="friend-link-img" data-hover-src="/img/link/exchange/eqcn.png"></a></li>
+          <li><a target="_blank" href="https://malangpony.com/"><img :src="nightSrc('/img/link/exchange/malang_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/malang.png"></a></li>
+          <li><a target="_blank" href="https://brony.scot/"><img :src="nightSrc('/img/link/exchange/bs_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/bs.png"></a></li>
+          <li><a target="_blank" href="https://www.norsehorsecon.eu/"><img :src="nightSrc('/img/link/exchange/norse_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/norse.webp"></a></li>
+          <li><a target="_blank" href="https://galacon.eu/"><img :src="nightSrc('/img/link/exchange/gala_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/gala.webp"></a></li>
+          <li><a target="_blank" href="http://suncelebration.butterpony.com/"><img :src="nightSrc('/img/link/exchange/ssc_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/ssc.webp"></a></li>
+          <li><a target="_blank" href="https://x.com/Poniko_MLP/"><img :src="nightSrc('/img/link/exchange/ponikon_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/ponikon.webp"></a></li>
+          <li><a target="_blank" href="https://sunshine.horse/"><img :src="nightSrc('/img/link/exchange/spc_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/spc.webp"></a></li>
+          <li><a target="_blank" href="https://derpfest.ru/"><img :src="nightSrc('/img/link/exchange/derpfest_b.svg')" class="friend-link-img" data-hover-src="/img/link/exchange/derpfest.svg"></a></li>
+          <li><a target="_blank" href="https://twbronycon.org/"><img :src="nightSrc('/img/link/exchange/twbc_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/twbc.png"></a></li>
+          <li><a target="_blank" href="https://dreamlandcon.top/"><img :src="nightSrc('/img/link/exchange/dlc_b.svg')" class="friend-link-img" data-hover-src="/img/link/exchange/dlc.svg"></a></li>
+          <li><a target="_blank" href="https://www.equestriacn.com/"><img :src="nightSrc('/img/link/exchange/eqcn_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/eqcn.png"></a></li>
         </ul>
         <div class="footer-record">
           <p><a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2024035737号</a></p>
@@ -45,11 +45,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
+const route = useRoute()
 const footerImgRef = ref(null)
 
-// 页脚装饰图鼠标景深
+const isNight = computed(() => route.path.startsWith('/night'))
+
+function nightSrc(src) {
+  if (!isNight.value) return src
+  const replaced = src.replace(/_b\.([^.]+)$/, '_w.$1')
+  if (replaced !== src) return replaced
+  return src.replace(/\.([^.]+)$/, '_w.$1')
+}
+
 function handleFooterMove(e) {
   const img = footerImgRef.value
   if (!img) return
@@ -67,7 +76,6 @@ function handleFooterMove(e) {
 onMounted(() => {
   document.addEventListener('mousemove', handleFooterMove)
 
-  // 友链 logo 悬浮切换彩色
   document.querySelectorAll('.friend-link-img').forEach(img => {
     const originalSrc = img.src
     const hoverSrc = img.getAttribute('data-hover-src')
@@ -106,6 +114,25 @@ onUnmounted(() => {
   padding: 60px 0;
   position: relative;
   overflow: hidden;
+}
+.footer.night {
+  background: #0a0a0a;
+}
+.footer.night .footer-copyright a,
+.footer.night .footer-copyright p {
+  color: #909090;
+}
+.footer.night .footer-links-title {
+  color: #909090;
+}
+.footer.night .footer-record p,
+.footer.night .footer-record a {
+  color: #909090;
+}
+.footer.night .footer-links a:hover,
+.footer.night .footer-copyright a:hover,
+.footer.night .footer-record a:hover {
+  color: #7ccbff;
 }
 .footer-image {
   position: absolute;

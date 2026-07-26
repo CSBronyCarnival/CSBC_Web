@@ -2,6 +2,6 @@
   <div>
     <SideNav />
     <slot />
-    <AppFooter />
+    <AppFooter :key="$route.path" />
   </div>
 </template>
