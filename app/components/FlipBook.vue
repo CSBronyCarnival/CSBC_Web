@@ -1,7 +1,6 @@
 <template>
   <ClientOnly>
     <div class="flipbook-outer">
-      <!-- 加载 / 错误状态 -->
       <div v-if="loading" class="flipbook-status">
         <div class="flipbook-spinner"></div>
         <p>正在加载场刊…</p>
@@ -11,12 +10,9 @@
         <p class="flipbook-error-msg">{{ error }}</p>
       </div>
 
-      <!-- 书本主体 -->
       <div v-else class="flipbook-stage">
-        <!-- turn.js 书本体 -->
         <div ref="bookRef" id="flipbook" class="flipbook-book"></div>
 
-        <!-- 底部导航 -->
         <div class="flipbook-nav">
           <button
             class="flipbook-btn"
@@ -56,6 +52,8 @@ const props = defineProps({
   pdfUrl: { type: String, required: true }
 })
 
+const MOBILE_BP = 768
+
 const loading = ref(true)
 const error = ref('')
 const totalPages = ref(0)
@@ -64,7 +62,9 @@ const currentPage = ref(1)
 const bookRef = ref(null)
 
 let $ = null
+let pdfDoc = null
 let turnReady = false
+let isMobile = false
 
 function loadTurnJs() {
   return new Promise((resolve, reject) => {
@@ -88,11 +88,11 @@ async function renderPageToCanvas(page, scale) {
   return { canvas, viewport }
 }
 
-function calcBookLayout(nativePageW, nativePageH) {
-  const maxWidth = Math.min(window.innerWidth - 40, 1100)
-  const maxHeight = window.innerHeight * 0.7
+function calcBookLayout(nativePageW, nativePageH, mobile) {
+  const maxWidth = Math.min(window.innerWidth - (mobile ? 24 : 40), mobile ? 600 : 1100)
+  const maxHeight = window.innerHeight * (mobile ? 0.78 : 0.7)
 
-  let bookWidth = nativePageW * 2
+  let bookWidth = mobile ? nativePageW : nativePageW * 2
   let bookHeight = nativePageH
 
   if (bookWidth > maxWidth) {
@@ -106,11 +106,63 @@ function calcBookLayout(nativePageW, nativePageH) {
     bookWidth = Math.floor(bookWidth * s)
   }
 
-  const targetPageW = bookWidth / 2
+  const targetPageW = mobile ? bookWidth : bookWidth / 2
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
   const renderScale = (targetPageW * dpr) / nativePageW
 
   return { bookWidth, bookHeight, renderScale }
+}
+
+async function renderAllPages(scale) {
+  const canvasPromises = []
+  for (let i = 1; i <= totalPages.value; i++) {
+    canvasPromises.push(
+      pdfDoc.getPage(i).then(p => renderPageToCanvas(p, scale))
+    )
+  }
+  return (await Promise.all(canvasPromises)).map(r => r.canvas)
+}
+
+function initTurn(bookW, bookH, canvases, mobile, startPage) {
+  const bookEl = bookRef.value
+  if (!bookEl) return
+
+  bookEl.innerHTML = ''
+  bookEl.style.width = bookW + 'px'
+  bookEl.style.height = bookH + 'px'
+
+  canvases.forEach((canvas) => {
+    const pageDiv = document.createElement('div')
+    pageDiv.style.width = '100%'
+    pageDiv.style.height = '100%'
+    pageDiv.style.overflow = 'hidden'
+    pageDiv.style.background = '#fff'
+
+    canvas.style.width = '100%'
+    canvas.style.height = '100%'
+    canvas.style.objectFit = 'contain'
+    pageDiv.appendChild(canvas)
+
+    bookEl.appendChild(pageDiv)
+  })
+
+  $('#flipbook').turn({
+    display: mobile ? 'single' : 'double',
+    acceleration: true,
+    gradients: !mobile,
+    autoCenter: true,
+    duration: 600,
+    page: startPage || 1,
+    turnCorners: 'bl,br',
+    when: {
+      turned: function (_e, page) {
+        currentPage.value = page
+      },
+      turning: function (_e, page) {
+        currentPage.value = page
+      }
+    }
+  })
 }
 
 function onKeyDown(e) {
@@ -128,13 +180,34 @@ function goPrev() {
   $('#flipbook').turn('previous')
 }
 
+let resizeTimer = null
+function onResize() {
+  clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(async () => {
+    const nowMobile = window.innerWidth < MOBILE_BP
+    if (nowMobile === isMobile) return
+
+    const savedPage = currentPage.value
+    isMobile = nowMobile
+
+    try { $('#flipbook').turn('destroy') } catch (_) { /* ignore */ }
+
+    const firstPage = await pdfDoc.getPage(1)
+    const nativeView = firstPage.getViewport({ scale: 1 })
+    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile)
+
+    const canvases = await renderAllPages(layout.renderScale)
+
+    await nextTick()
+    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile, savedPage)
+  }, 300)
+}
+
 onMounted(async () => {
   document.addEventListener('keydown', onKeyDown)
+  window.addEventListener('resize', onResize)
 
-  let pdfDoc = null
-  let canvases = []
-  let bookW = 0
-  let bookH = 0
+  isMobile = window.innerWidth < MOBILE_BP
 
   try {
     const jqModule = await import('jquery')
@@ -155,75 +228,24 @@ onMounted(async () => {
 
     const firstPage = await pdfDoc.getPage(1)
     const nativeView = firstPage.getViewport({ scale: 1 })
-    const layout = calcBookLayout(nativeView.width, nativeView.height)
-    bookW = layout.bookWidth
-    bookH = layout.bookHeight
-    const renderScale = layout.renderScale
+    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile)
+    const canvases = await renderAllPages(layout.renderScale)
 
-    const canvasPromises = []
-    for (let i = 1; i <= totalPages.value; i++) {
-      canvasPromises.push(
-        pdfDoc.getPage(i).then(p => renderPageToCanvas(p, renderScale))
-      )
-    }
-    canvases = (await Promise.all(canvasPromises)).map(r => r.canvas)
+    loading.value = false
+    await nextTick()
+
+    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile, 1)
   } catch (err) {
     console.error('FlipBook: 加载失败', err)
     error.value = err.message || '未知错误'
     loading.value = false
-    return
   }
-
-  loading.value = false
-  await nextTick()
-
-  const bookEl = bookRef.value
-  if (!bookEl) {
-    error.value = 'DOM 未就绪'
-    return
-  }
-
-  bookEl.style.width = bookW + 'px'
-  bookEl.style.height = bookH + 'px'
-
-  canvases.forEach((canvas) => {
-    const pageDiv = document.createElement('div')
-    pageDiv.style.width = '100%'
-    pageDiv.style.height = '100%'
-    pageDiv.style.overflow = 'hidden'
-    pageDiv.style.background = '#fff'
-
-    canvas.style.width = '100%'
-    canvas.style.height = '100%'
-    canvas.style.objectFit = 'contain'
-    pageDiv.appendChild(canvas)
-
-    bookEl.appendChild(pageDiv)
-  })
-
-  await nextTick()
-
-  $('#flipbook').turn({
-    display: 'double',
-    acceleration: true,
-    gradients: true,
-    autoCenter: true,
-    duration: 600,
-    page: 1,
-    turnCorners: 'bl,br',
-    when: {
-      turned: function (_e, page) {
-        currentPage.value = page
-      },
-      turning: function (_e, page) {
-        currentPage.value = page
-      }
-    }
-  })
 })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeyDown)
+  window.removeEventListener('resize', onResize)
+  clearTimeout(resizeTimer)
   if ($) {
     try { $('#flipbook').turn('destroy') } catch (_) { /* ignore */ }
   }
