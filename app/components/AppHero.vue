@@ -92,6 +92,7 @@ onUnmounted(() => {
   text-align: center;
   color: white;
   overflow: hidden;
+  background: rgba(0, 0, 0, 0.4);
 }
 .hero-bg {
   position: absolute;
@@ -102,7 +103,6 @@ onUnmounted(() => {
 .hero-bg img {
   width: 110%; height: 110%;
   object-fit: cover;
-  filter: brightness(0.7);
   transform: translate(-5%, -5%);
   will-change: transform;
   transition: transform 0.08s ease-out;
