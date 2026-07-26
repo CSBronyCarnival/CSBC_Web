@@ -92,6 +92,8 @@ onUnmounted(() => {
   text-align: center;
   color: white;
   overflow: hidden;
+  background: #1a1a1a;
+  z-index: -2;
 }
 .hero-bg {
   position: absolute;

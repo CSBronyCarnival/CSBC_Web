@@ -9,20 +9,22 @@
 
     <section class="gallery-section">
       <div class="container">
-        <div class="gallery-grid">
-          <div
-            v-for="(item, i) in pagedItems"
-            :key="item.src"
-            class="gallery-item"
-            @click="openViewer(items.indexOf(item))"
-          >
-            <img :src="item.src" :alt="item.name" loading="lazy">
-            <div class="gallery-info">
-              <div class="gallery-name">{{ item.name }}</div>
-              <div class="gallery-author" v-if="item.author">{{ item.author }}</div>
+        <Transition name="gallery-fade" mode="out-in">
+          <div class="gallery-grid" :key="currentPage">
+            <div
+              v-for="(item, i) in pagedItems"
+              :key="item.src"
+              class="gallery-item"
+              @click="openViewer(items.indexOf(item))"
+            >
+              <img :src="item.src" :alt="item.name" loading="lazy">
+              <div class="gallery-info">
+                <div class="gallery-name">{{ item.name }}</div>
+                <div class="gallery-author" v-if="item.author">{{ item.author }}</div>
+              </div>
             </div>
           </div>
-        </div>
+        </Transition>
 
         <div class="gallery-pagination">
           <button class="pagination-button" :disabled="currentPage <= 1" @click="prevPage">上一页</button>
@@ -135,6 +137,14 @@ function openViewer(index) {
 /* ===== Gallery Grid ===== */
 .gallery-section {
   padding: 80px 0;
+}
+.gallery-fade-enter-active,
+.gallery-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.gallery-fade-enter-from,
+.gallery-fade-leave-to {
+  opacity: 0;
 }
 .gallery-grid {
   display: grid;
