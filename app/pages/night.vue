@@ -5,6 +5,8 @@
         <img src="/img/night/stickshort.webp" alt="夜下扬蹄" class="hero-logo" />
       </div>
     </section>
+
+    <NightAbout />
   </div>
 </template>
 
