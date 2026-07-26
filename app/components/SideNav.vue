@@ -50,6 +50,22 @@
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 
+// 确保毛玻璃效果在生产构建中不被 strip
+useHead({
+  style: [
+    {
+      innerHTML: `
+        .top-nav .nav-inner{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+        .mobile-drawer{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+        @media(max-width:768px){
+          .top-nav .nav-inner{backdrop-filter:none;-webkit-backdrop-filter:none}
+          .top-nav .hamburger{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+        }
+      `
+    }
+  ]
+})
+
 const route = useRoute()
 
 const mobileOpen = ref(false)
@@ -301,29 +317,6 @@ watch(() => route.path, () => {
   .top-nav.collapsed .nav-inner {
     transform: none;
     opacity: 1;
-  }
-}
-</style>
-
-<style>
-.top-nav .nav-inner {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.mobile-drawer {
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-@media (max-width: 768px) {
-  .top-nav .nav-inner {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  .top-nav .hamburger {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
   }
 }
 </style>
