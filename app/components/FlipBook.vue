@@ -66,37 +66,32 @@ const bookRef = ref(null)
 let $ = null
 let turnReady = false
 
-// 加载 turn.js 脚本（返回 Promise）
 function loadTurnJs() {
   return new Promise((resolve, reject) => {
     if (turnReady) return resolve()
     const script = document.createElement('script')
-    script.src = '/js/turn.js'
+    script.src = '/lib/js/turn.js'
     script.onload = () => { turnReady = true; resolve() }
     script.onerror = () => reject(new Error('turn.js 加载失败'))
     document.head.appendChild(script)
   })
 }
 
-// 渲染单页 PDF 到 canvas
 async function renderPageToCanvas(page, scale) {
   const viewport = page.getViewport({ scale })
   const canvas = document.createElement('canvas')
   canvas.width = viewport.width
   canvas.height = viewport.height
   const ctx = canvas.getContext('2d')
-  // 关闭图像平滑以加速渲染（翻书时 canvas 不走 CSS 缩放）
   ctx.imageSmoothingEnabled = false
   await page.render({ canvasContext: ctx, viewport }).promise
   return { canvas, viewport }
 }
 
-// 计算翻书容器尺寸，返回 book 尺寸 + 最优渲染 scale
 function calcBookLayout(nativePageW, nativePageH) {
   const maxWidth = Math.min(window.innerWidth - 40, 1100)
   const maxHeight = window.innerHeight * 0.7
 
-  // 双页模式总宽
   let bookWidth = nativePageW * 2
   let bookHeight = nativePageH
 
@@ -111,7 +106,6 @@ function calcBookLayout(nativePageW, nativePageH) {
     bookWidth = Math.floor(bookWidth * s)
   }
 
-  // 渲染 scale = 单页目标宽度 / 原始宽度，再乘 DPR 保证清晰
   const targetPageW = bookWidth / 2
   const dpr = Math.min(window.devicePixelRatio || 1, 2)
   const renderScale = (targetPageW * dpr) / nativePageW
@@ -119,7 +113,6 @@ function calcBookLayout(nativePageW, nativePageH) {
   return { bookWidth, bookHeight, renderScale }
 }
 
-// 键盘导航
 function onKeyDown(e) {
   if (e.key === 'ArrowRight') goNext()
   else if (e.key === 'ArrowLeft') goPrev()
@@ -138,19 +131,16 @@ function goPrev() {
 onMounted(async () => {
   document.addEventListener('keydown', onKeyDown)
 
-  // 预存：所有异步数据加载完再操作 DOM
   let pdfDoc = null
   let canvases = []
   let bookW = 0
   let bookH = 0
 
   try {
-    // 1. 加载 jQuery 并设为全局
     const jqModule = await import('jquery')
     $ = jqModule.default
     window.jQuery = window.$ = $
 
-    // 2. 并行加载 turn.js + pdfjs-dist
     const [_, pdfjsLib] = await Promise.all([
       loadTurnJs(),
       import('pdfjs-dist')
@@ -159,12 +149,10 @@ onMounted(async () => {
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       'https://unpkg.com/pdfjs-dist@6.1.200/build/pdf.worker.min.mjs'
 
-    // 3. 加载 PDF
     const loadingTask = pdfjsLib.getDocument({ url: props.pdfUrl })
     pdfDoc = await loadingTask.promise
     totalPages.value = pdfDoc.numPages
 
-    // 4. 先取第一页原始尺寸计算布局 + 最优渲染 scale
     const firstPage = await pdfDoc.getPage(1)
     const nativeView = firstPage.getViewport({ scale: 1 })
     const layout = calcBookLayout(nativeView.width, nativeView.height)
@@ -172,7 +160,6 @@ onMounted(async () => {
     bookH = layout.bookHeight
     const renderScale = layout.renderScale
 
-    // 5. 按最优 scale 渲染所有页面
     const canvasPromises = []
     for (let i = 1; i <= totalPages.value; i++) {
       canvasPromises.push(
@@ -187,11 +174,9 @@ onMounted(async () => {
     return
   }
 
-  // 5. 数据就绪 → 显示 DOM
   loading.value = false
   await nextTick()
 
-  // 6. 现在 bookRef 已可用，构建页面并初始化 turn.js
   const bookEl = bookRef.value
   if (!bookEl) {
     error.value = 'DOM 未就绪'
@@ -248,19 +233,16 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* ===== turn.js 需要全局样式 ===== */
 #flipbook .turn-page {
   background-color: #fff;
 }
 </style>
 
 <style scoped>
-/* ===== 外层容器 ===== */
 .flipbook-outer {
   width: 100%;
 }
 
-/* ===== 加载 / 错误 ===== */
 .flipbook-status {
   display: flex;
   flex-direction: column;
@@ -289,19 +271,16 @@ onUnmounted(() => {
   to { transform: rotate(360deg); }
 }
 
-/* ===== 书本舞台 ===== */
 .flipbook-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* ===== 书本体（turn.js 接管） ===== */
 .flipbook-book {
   margin: 0 auto;
 }
 
-/* ===== 底部导航 ===== */
 .flipbook-nav {
   display: flex;
   align-items: center;
@@ -337,7 +316,6 @@ onUnmounted(() => {
   text-align: center;
 }
 
-/* ===== 响应式 ===== */
 @media (max-width: 768px) {
   .flipbook-nav {
     flex-wrap: wrap;
