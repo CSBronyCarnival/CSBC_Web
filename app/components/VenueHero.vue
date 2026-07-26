@@ -1,6 +1,6 @@
 <template>
   <div class="venue-hero">
-    <ImgLazy :src="src" :alt="alt" />
+    <ImgLazy :src="src" :alt="alt" no-spinner />
     <div class="venue-hero-overlay">
       <svg v-if="icon" class="venue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" v-html="icon"></svg>
       <h1>{{ title }}</h1>

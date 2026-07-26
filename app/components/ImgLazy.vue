@@ -1,6 +1,6 @@
 <template>
   <div ref="rootRef" class="lazy-img">
-    <Transition name="spinner-fade">
+    <Transition v-if="!noSpinner" name="spinner-fade">
       <div v-if="spinnerVisible && !loaded" class="lazy-img-spinner"></div>
     </Transition>
 
@@ -22,7 +22,8 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   src: { type: String, required: true },
-  alt: { type: String, default: '' }
+  alt: { type: String, default: '' },
+  noSpinner: { type: Boolean, default: false }
 })
 
 const rootRef = ref(null)
@@ -59,7 +60,7 @@ onMounted(() => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           resolvedSrc.value = props.src
-          startSpinnerTimer()
+          if (!props.noSpinner) startSpinnerTimer()
           observer.unobserve(entry.target)
         }
       })
