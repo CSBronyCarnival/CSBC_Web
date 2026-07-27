@@ -149,9 +149,9 @@ watch(() => route.path, () => {
 }
 
 .nav-inner {
-  max-width: 645px;
+  width: fit-content;
   margin: 12px auto 0;
-  padding: 0 8px;
+  padding: 0 11px;
   display: flex;
   align-items: center;
   justify-content: center;
