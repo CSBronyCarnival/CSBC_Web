@@ -104,4 +104,10 @@ defineProps({
   background: white;
   color: #3498db;
 }
+
+/* 购票按钮填满卡片 */
+.pricing-tier :deep(.click-tilt),
+.pricing-tier :deep(.btn-pricing) {
+  width: 100%;
+}
 </style>
