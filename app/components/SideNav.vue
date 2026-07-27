@@ -35,23 +35,25 @@
           </svg>
         </button>
 
-        <ClickTilt
-          v-for="(item, index) in items"
-          :key="item.id"
-        >
-          <NuxtLink
-            :to="item.href"
-            class="mobile-link"
-            :class="{ active: activeSection === item.id }"
-            :style="{ '--i': index }"
-            @click="mobileOpen = false"
+        <div class="mobile-nav-links">
+          <ClickTilt
+            v-for="(item, index) in items"
+            :key="item.id"
           >
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
-            <span>{{ item.label }}</span>
-          </NuxtLink>
-        </ClickTilt>
-        <div class="mobile-lang-divider"></div>
-        <button class="mobile-lang-btn" :style="{ '--i': items.length }" @click="toggleLang; mobileOpen = false">
+            <NuxtLink
+              :to="item.href"
+              class="mobile-link"
+              :class="{ active: activeSection === item.id }"
+              :style="{ '--i': index }"
+              @click="mobileOpen = false"
+            >
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+              <span>{{ item.label }}</span>
+            </NuxtLink>
+          </ClickTilt>
+        </div>
+
+        <button class="mobile-lang-btn" @click="handleMobileLangToggle">
           {{ locale === 'zh' ? 'EN' : '中文' }}
         </button>
       </div>
@@ -98,6 +100,11 @@ function onScroll() {
 async function toggleLang() {
   const target = locale.value === 'zh' ? 'en' : 'zh'
   await setLocale(target)
+}
+
+async function handleMobileLangToggle() {
+  await toggleLang()
+  mobileOpen.value = false
 }
 
 onMounted(() => {
@@ -268,6 +275,12 @@ watch(() => route.path, () => {
   z-index: 999;
   pointer-events: auto;
 }
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
 .mobile-link {
   display: flex;
   align-items: center;
@@ -409,35 +422,33 @@ watch(() => route.path, () => {
   color: #4fa7ff;
 }
 
-/* 语言切换按钮 - 移动端 */
-.mobile-lang-divider {
-  width: 80%;
-  max-width: 200px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 8px auto;
-}
 .mobile-lang-btn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 32px;
+  padding: 0 22px;
+  height: 44px;
   border: none;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.15rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  min-width: 200px;
-  justify-content: center;
-  opacity: 0;
-  animation: mobileLinkIn 0.4s ease forwards;
-  animation-delay: calc(0.08s * var(--i));
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease;
+  z-index: 1000;
+  animation: fadeInUp 0.35s ease forwards;
 }
 .mobile-lang-btn:hover {
-  background: rgba(79, 167, 255, 0.75);
-  color: #fff;
+  background: rgba(79, 167, 255, 0.7);
+  border-color: rgba(79, 167, 255, 0.8);
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
