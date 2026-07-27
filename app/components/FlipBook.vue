@@ -25,12 +25,12 @@
               class="flipbook-btn"
               :disabled="currentPage <= 1"
               @click="goPrev"
-              aria-label="上一页"
+              :aria-label="$t('conbook.prev')"
             >
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M15 19l-7-7 7-7"/>
               </svg>
-              上一页
+              {{ $t('conbook.prev') }}
             </button>
           </ClickTilt>
 
@@ -41,9 +41,9 @@
               class="flipbook-btn"
               :disabled="currentPage >= totalPages"
               @click="goNext"
-              aria-label="下一页"
+              :aria-label="$t('conbook.next')"
             >
-              下一页
+              {{ $t('conbook.next') }}
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 5l7 7-7 7"/>
               </svg>

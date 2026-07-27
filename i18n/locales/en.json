@@ -160,5 +160,15 @@
       "feature3": "Con Book mention",
       "btn": "BUY TICKET"
     }
+  },
+  "gallery": {
+    "hero": "Gallery",
+    "prev": "Previous Page",
+    "next": "Next Page"
+  },
+  "conbook": {
+    "hero": "Conbook",
+    "prev": "Previous",
+    "next": "Next"
   }
 }
