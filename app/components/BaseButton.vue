@@ -1,10 +1,12 @@
 <template>
-  <NuxtLink v-if="to" :to="to" :class="['btn', `btn-${variant}`]">
-    <slot />
-  </NuxtLink>
-  <a v-else :href="href" :class="['btn', `btn-${variant}`]" :target="isExternal(href) ? '_blank' : undefined">
-    <slot />
-  </a>
+  <ClickTilt>
+    <NuxtLink v-if="to" :to="to" :class="['btn', `btn-${variant}`]">
+      <slot />
+    </NuxtLink>
+    <a v-else :href="href" :class="['btn', `btn-${variant}`]" :target="isExternal(href) ? '_blank' : undefined">
+      <slot />
+    </a>
+  </ClickTilt>
 </template>
 
 <script setup>
