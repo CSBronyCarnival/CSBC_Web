@@ -1,8 +1,6 @@
 <template>
   <div ref="rootRef" class="lazy-img">
-    <Transition v-if="!noSpinner" name="spinner-fade">
-      <div v-if="spinnerVisible && !loaded" class="lazy-img-spinner"></div>
-    </Transition>
+    <LoadingSpinner v-if="!noSpinner" :visible="spinnerVisible && !loaded" />
 
     <img
       v-if="resolvedSrc"
@@ -19,6 +17,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import LoadingSpinner from './LoadingSpinner.vue'
 
 const props = defineProps({
   src: { type: String, required: true },
@@ -87,34 +86,6 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.lazy-img-spinner {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  z-index: 1;
-  width: 24px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(farthest-side, #4fa7ff 94%, #0000) top / 6px 6px no-repeat,
-    conic-gradient(#0000 30%, #4fa7ff);
-  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 6px), #000 0);
-  mask: radial-gradient(farthest-side, #0000 calc(100% - 6px), #000 0);
-  animation: lazy-spin 1s infinite linear;
-}
-@keyframes lazy-spin {
-  100% { transform: rotate(1turn); }
-}
-
-.spinner-fade-enter-active,
-.spinner-fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.spinner-fade-enter-from,
-.spinner-fade-leave-to {
-  opacity: 0;
 }
 
 .lazy-img-el {
