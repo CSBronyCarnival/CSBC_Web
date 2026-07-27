@@ -2,16 +2,19 @@
   <nav class="top-nav" :class="{ 'mobile-open': mobileOpen, collapsed: isCollapsed, night: isNight }">
     <div class="nav-inner">
       <div class="nav-links">
-        <NuxtLink
+        <ClickTilt
           v-for="item in items"
           :key="item.id"
-          :to="item.href"
-          class="nav-link"
-          :class="{ active: activeSection === item.id }"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
-          <span>{{ item.label }}</span>
-        </NuxtLink>
+          <NuxtLink
+            :to="item.href"
+            class="nav-link"
+            :class="{ active: activeSection === item.id }"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+            <span>{{ item.label }}</span>
+          </NuxtLink>
+        </ClickTilt>
       </div>
 
       <button class="hamburger" @click="mobileOpen = !mobileOpen" aria-label="菜单">
@@ -30,18 +33,21 @@
           </svg>
         </button>
 
-        <NuxtLink
+        <ClickTilt
           v-for="(item, index) in items"
           :key="item.id"
-          :to="item.href"
-          class="mobile-link"
-          :class="{ active: activeSection === item.id }"
-          :style="{ '--i': index }"
-          @click="mobileOpen = false"
         >
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
-          <span>{{ item.label }}</span>
-        </NuxtLink>
+          <NuxtLink
+            :to="item.href"
+            class="mobile-link"
+            :class="{ active: activeSection === item.id }"
+            :style="{ '--i': index }"
+            @click="mobileOpen = false"
+          >
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+            <span>{{ item.label }}</span>
+          </NuxtLink>
+        </ClickTilt>
       </div>
     </Transition>
   </nav>
