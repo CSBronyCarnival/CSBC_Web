@@ -27,17 +27,23 @@
         </Transition>
 
         <div class="gallery-pagination">
-          <button class="pagination-button" :disabled="currentPage <= 1" @click="prevPage">上一页</button>
-          <div class="pagination-numbers">
-            <button
-              v-for="p in totalPages"
-              :key="p"
-              class="pagination-number"
-              :class="{ active: p === currentPage }"
-              @click="currentPage = p"
-            >{{ p }}</button>
-          </div>
-          <button class="pagination-button" :disabled="currentPage >= totalPages" @click="nextPage">下一页</button>
+          <ClickTilt>
+            <button class="pagination-button" :disabled="currentPage <= 1" @click="prevPage">上一页</button>
+          </ClickTilt>
+          <ClickTilt>
+            <div class="pagination-numbers">
+              <button
+                v-for="p in totalPages"
+                :key="p"
+                class="pagination-number"
+                :class="{ active: p === currentPage }"
+                @click="currentPage = p"
+              >{{ p }}</button>
+            </div>
+          </ClickTilt>
+          <ClickTilt>
+            <button class="pagination-button" :disabled="currentPage >= totalPages" @click="nextPage">下一页</button>
+          </ClickTilt>
         </div>
       </div>
     </section>
