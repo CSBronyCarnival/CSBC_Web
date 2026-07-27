@@ -4,7 +4,7 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
 
 <template>
   <div class="nav-page">
-    <VenueHero src="/img/venue/full.webp" alt="广州瑞士酒店"
+    <VenueHero src="/img/venue/full.webp" :alt="$t('navPage.hotel')"
       :title="$t('navPage.hero')"
       :subtitle="$t('navPage.heroSub')"
       icon='<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' />
