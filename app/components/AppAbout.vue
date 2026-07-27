@@ -1,15 +1,11 @@
 <template>
   <div class="about-content-wrapper">
     <div class="about-text">
-      <h3>华南马聚CSBC</h3>
+      <h3>{{ $t('about.title') }}</h3>
       <div class="title-underline"></div>
-      <p>思考 创新 进步</p>
-      <p>
-        我们是华南马聚CSBC 始于广州 2022年以来已在华南地区成功举办多场展会<br>
-        我们致力于与各位马迷朋友们共同思考 共同创新
-        在发展的过程中与各位一同进步 为各位带来更加良好的参展体验
-      </p>
-      <BaseButton to="/contact" variant="section">联系我们</BaseButton>
+      <p>{{ $t('about.slogan') }}</p>
+      <p v-html="$t('about.desc')"></p>
+      <BaseButton to="/contact" variant="section">{{ $t('about.contact') }}</BaseButton>
     </div>
     <div class="about-image">
       <ImgLazy src="/img/about.webp" alt="CSBC 关于" class="about-img" />

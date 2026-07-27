@@ -15,6 +15,8 @@
             <span>{{ item.label }}</span>
           </NuxtLink>
         </ClickTilt>
+        <span class="nav-divider"></span>
+        <button class="lang-btn" @click="toggleLang">{{ locale === 'zh' ? 'EN' : '中文' }}</button>
       </div>
 
       <button class="hamburger" @click="mobileOpen = !mobileOpen" aria-label="菜单">
@@ -48,6 +50,10 @@
             <span>{{ item.label }}</span>
           </NuxtLink>
         </ClickTilt>
+        <div class="mobile-lang-divider"></div>
+        <button class="mobile-lang-btn" :style="{ '--i': items.length }" @click="toggleLang; mobileOpen = false">
+          {{ locale === 'zh' ? 'EN' : '中文' }}
+        </button>
       </div>
     </Transition>
   </nav>
@@ -55,6 +61,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 useHead({
   style: [
@@ -73,6 +80,7 @@ useHead({
 })
 
 const route = useRoute()
+const { t, locale } = useI18n()
 
 const mobileOpen = ref(false)
 const scrollY = ref(0)
@@ -87,6 +95,10 @@ function onScroll() {
   scrollY.value = window.scrollY
 }
 
+function toggleLang() {
+  locale.value = locale.value === 'zh' ? 'en' : 'zh'
+}
+
 onMounted(() => {
   window.addEventListener('scroll', onScroll, { passive: true })
   onScroll()
@@ -96,32 +108,32 @@ onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
 
-const items = [
+const items = computed(() => [
   { id: 'home', href: '/',
-    label: '首页',
+    label: t('nav.home'),
     icon: '<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>' },
   { id: 'navigation', href: '/navigation',
-    label: '场地',
+    label: t('nav.venue'),
     icon: '<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' },
   { id: 'ticket', href: '/ticket',
-    label: '票价',
+    label: t('nav.ticket'),
     icon: '<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>' },
   { id: 'gallery', href: '/gallery',
-    label: '画廊',
+    label: t('nav.gallery'),
     icon: '<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' },
   { id: 'conbook', href: '/conbook',
-    label: '场刊',
+    label: t('nav.conbook'),
     icon: '<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>' },
   { id: 'news', href: '/news',
-    label: '展会消息',
+    label: t('nav.news'),
     icon: '<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>' },
   { id: 'night', href: '/night',
-    label: '夜下扬蹄',
+    label: t('nav.night'),
     icon: '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>' },
-]
+])
 
 const activeSection = computed(() => {
-  const pageItem = items.find(item => {
+  const pageItem = items.value.find(item => {
     if (item.href === route.path) return true
     if (item.href !== '/') {
       const prefix = item.href.endsWith('/') ? item.href : item.href + '/'
@@ -355,5 +367,76 @@ watch(() => route.path, () => {
     transform: none;
     opacity: 1;
   }
+}
+
+/* 语言切换按钮 - 桌面端 */
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.15);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+.lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+.lang-btn:hover {
+  background: rgba(79, 167, 255, 0.1);
+  color: #3498db;
+}
+
+.top-nav.night .nav-divider {
+  background: rgba(255, 255, 255, 0.2);
+}
+.top-nav.night .lang-btn {
+  color: rgba(255, 255, 255, 0.7);
+}
+.top-nav.night .lang-btn:hover {
+  background: rgba(79, 167, 255, 0.2);
+  color: #4fa7ff;
+}
+
+/* 语言切换按钮 - 移动端 */
+.mobile-lang-divider {
+  width: 80%;
+  max-width: 200px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 8px auto;
+}
+.mobile-lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 200px;
+  justify-content: center;
+  opacity: 0;
+  animation: mobileLinkIn 0.4s ease forwards;
+  animation-delay: calc(0.08s * var(--i));
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.mobile-lang-btn:hover {
+  background: rgba(79, 167, 255, 0.75);
+  color: #fff;
 }
 </style>

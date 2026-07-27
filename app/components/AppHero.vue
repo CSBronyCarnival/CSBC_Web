@@ -13,10 +13,10 @@
           <span class="subtitle-text">GuangZhou China</span>
           <span class="line-right line-show"></span>
         </div>
-        <h1>华南马聚CSBC2026</h1>
-        <p class="hero-poem">春风祥越五羊城 岭南山下友谊生</p>
-        <p>2026.7.18-7.19 我在广州等你</p>
-        <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="hero">加入我们</BaseButton>
+        <h1>{{ $t('hero.title') }}</h1>
+        <p class="hero-poem">{{ $t('hero.poem') }}</p>
+        <p>{{ $t('hero.date') }}</p>
+        <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="hero">{{ $t('hero.join') }}</BaseButton>
       </div>
     </div>
   </header>

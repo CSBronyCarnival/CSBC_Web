@@ -13,6 +13,7 @@
     "nuxt@4.5.0": "patches/nuxt@4.5.0.patch"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^10.5.0",
     "jquery": "^3.7.1",
     "nuxt": "^4.5.0",
     "pdfjs-dist": "^6.1.200",

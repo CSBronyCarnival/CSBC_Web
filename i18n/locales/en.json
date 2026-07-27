@@ -1,0 +1,79 @@
+{
+  "nav": {
+    "home": "Home",
+    "venue": "Venue",
+    "ticket": "Pricing",
+    "gallery": "Gallery",
+    "conbook": "Conbook",
+    "news": "News",
+    "night": "Concert"
+  },
+  "hero": {
+    "title": "China Southern Brony Carnival 2026",
+    "poem": "Auspicious spring wind brushes over, atmosphere of friendship arises.",
+    "date": "2026.7.18 - 2026.7.19 Hope To See You In GuangZhou!",
+    "join": "Join Us"
+  },
+  "features": {
+    "subtitle": "Meeting You, Is Our Luck",
+    "title": "2026 Trotting Ahead With You",
+    "desc": "By a chance, We held our first convention at 2022\nFive years have passed, And our original intention remains unchanged.\nIt is our honor to come across you here!",
+    "items": [
+      { "title": "Non-profit", "desc": "Non commercial operations. Purest convention experience." },
+      { "title": "Multicultural diversity", "desc": "No matter where you come from, the door of friendship is open to you." },
+      { "title": "Enhanced interactivity", "desc": "More interactive activities, More immersive experience." },
+      { "title": "Multi level, wide depth", "desc": "Not only limited to canon contents, but also fan contents." }
+    ]
+  },
+  "about": {
+    "title": "CSBC China Southern Brony Carnival",
+    "slogan": "Think-Create-Revolution",
+    "desc": "We are CSBC, founded in Guangzhou. Since 2022, we have successfully held multiple conventions in the southern region of China.\nWe are committed to working with Bronies to think together, innovate together, and progress together in the process of development, bringing you a better convention experience.",
+    "contact": "Contact Us"
+  },
+  "venue": {
+    "name": "Swissôtel Guangzhou",
+    "subtitle": "1961 Huaguan Road (Huanguan Lu), Tianhe District, Guangzhou",
+    "address": "",
+    "desc": "Swissôtel Guangzhou is located in the Software Park, central to Tianhe Intelligence City(IBD).\nThe hotel has 364 rooms with a modern Oriental style. With All-day dining , Chinese and Japanese Restaurant.Moreover, it has an outdoor swimming pool, a well-equipped fitness center and a 15,000sqm outdoor garden. At Swissôtel, we want you to live life well by encouraging you to live in the moment.",
+    "button": "Information / Room Booking"
+  },
+  "sections": {
+    "about": "About Us",
+    "venue": "Venue",
+    "team": "Team Members",
+    "faq": "FAQ"
+  },
+  "team": {
+    "guangyi": "Organizer",
+    "ladetaw": "Organizer",
+    "stevenife": "Office.exe",
+    "niunai": "Lead Artist",
+    "lingyi": "Hidden"
+  },
+  "faq": [
+    {
+      "q": "Is there any difference in the activity on the 18th/19th?",
+      "a": "Yeeeeeeeeeeeeeep!\nThe events on the 18th and 19th are not the same, please enjoy them!"
+    },
+    {
+      "q": "How to receive my con pass and stuff?",
+      "a": "They will be granted at the venue on convention days.\nPlease show the order to our staffs to get your pass and rewards."
+    },
+    {
+      "q": "Are there any entry and exit restrictions during the convention?",
+      "a": "There are no restrictions. Attendees can freely enter and exit the venue with their pass during the convention.\nThe pass is included in your rewards. This is the only proof of entry, please do not lose it."
+    },
+    {
+      "q": "Is there a separate official hotel available for booking?",
+      "a": "The hotel room is not only available in Hotel Pack.\nYou can also make a separate reservation by asking staffs."
+    },
+    {
+      "q": "Is there a limit on the number of tickets?",
+      "a": "The total number of our ticket is currently not limited. Different types of tickets have limitations and different quantities.\nFor more information, please follow our offical updates."
+    }
+  ],
+  "lang": {
+    "switchTo": "中文"
+  }
+}

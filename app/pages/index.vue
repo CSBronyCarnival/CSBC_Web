@@ -1,5 +1,13 @@
 <script setup>
 useHead({ title: 'CSBC华南马聚2026 - 主页' })
+
+const teamMembers = [
+  { name: '光翼', avatar: '/img/team/光翼.webp', roleKey: 'guangyi' },
+  { name: 'Ladetaw', avatar: '/img/team/Ladetaw.webp', roleKey: 'ladetaw' },
+  { name: 'Stevenife', avatar: '/img/team/Stevenife.webp', roleKey: 'stevenife' },
+  { name: '牛奶', avatar: '/img/team/牛奶.webp', roleKey: 'niunai' },
+  { name: '灵翼', avatar: '/img/team/灵翼.webp', roleKey: 'lingyi' },
+]
 </script>
 
 <template>
@@ -10,7 +18,7 @@ useHead({ title: 'CSBC华南马聚2026 - 主页' })
     <!-- About -->
     <section class="about-section" id="about">
       <div class="container">
-        <SectionTitle title="关于" />
+        <SectionTitle :title="$t('sections.about')" />
         <AppAbout />
       </div>
     </section>
@@ -18,7 +26,7 @@ useHead({ title: 'CSBC华南马聚2026 - 主页' })
     <!-- Venue -->
     <section class="venue-section" id="venue">
       <div class="container">
-        <SectionTitle title="场地" />
+        <SectionTitle :title="$t('sections.venue')" />
         <AppVenue />
       </div>
     </section>
@@ -26,13 +34,15 @@ useHead({ title: 'CSBC华南马聚2026 - 主页' })
     <!-- Team -->
     <section class="team-section" id="team">
       <div class="container">
-        <SectionTitle title="团队" />
+        <SectionTitle :title="$t('sections.team')" />
         <div class="team-content">
-          <TeamMember name="光翼" avatar="/img/team/光翼.webp" description="主办" />
-          <TeamMember name="Ladetaw" avatar="/img/team/Ladetaw.webp" description="主办" />
-          <TeamMember name="Stevenife" avatar="/img/team/Stevenife.webp" description="Office.exe" />
-          <TeamMember name="牛奶" avatar="/img/team/牛奶.webp" description="画师" />
-          <TeamMember name="灵翼" avatar="/img/team/灵翼.webp" description="潜行中" />
+          <TeamMember
+            v-for="member in teamMembers"
+            :key="member.name"
+            :name="member.name"
+            :avatar="member.avatar"
+            :description="$t('team.' + member.roleKey)"
+          />
         </div>
       </div>
     </section>
@@ -40,30 +50,30 @@ useHead({ title: 'CSBC华南马聚2026 - 主页' })
     <!-- FAQ -->
     <section class="qa-section" id="qa">
       <div class="container">
-        <SectionTitle title="常见问题" />
+        <SectionTitle :title="$t('sections.faq')" />
         <div class="qa-content">
           <div class="qa-column">
             <FAQItem
-              question="18/19号的活动有差异吗？"
-              answer="今年的展会回归2天模式<br>展会将于2026年7月18日至19日在广州瑞士酒店举行<br>两天的活动均不相同"
+              :question="$t('faq.0.q')"
+              :answer="$t('faq.0.a')"
             />
             <FAQItem
-              question="如何领取众筹回馈？"
-              answer="我们的众筹回馈于展会现场发放<br>届时您可向检票人员出示淘宝订单页面<br>并领取您的门票和众筹回馈"
+              :question="$t('faq.1.q')"
+              :answer="$t('faq.1.a')"
             />
             <FAQItem
-              question="在非展会举行期间如果需要加房怎么办？"
-              answer="请在群内联系管理员进行登记 我们会为您处理相关事宜"
+              :question="$t('faq.2.q')"
+              :answer="$t('faq.2.a')"
             />
           </div>
           <div class="qa-column">
             <FAQItem
-              question="展会有单独的官方酒店可以定吗？"
-              answer="在&quot;CSBC华南马聚&quot;淘宝店的主页找到广州瑞士酒店房间的预定<br>选择房型并下单 并备注您入住的日期<br>如不会操作欢迎在群内问询"
+              :question="$t('faq.3.q')"
+              :answer="$t('faq.3.a')"
             />
             <FAQItem
-              question="展会的票数量有限制吗?"
-              answer="暂定所有票的综合为500张<br>其中酒店套票仅限40张 售完即止<br>详情请关注淘宝店"
+              :question="$t('faq.4.q')"
+              :answer="$t('faq.4.a')"
             />
           </div>
         </div>
