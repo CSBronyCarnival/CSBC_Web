@@ -130,5 +130,35 @@
       "nansha_a": "Take Metro【Line 4】(towards Huangcun) to Huangcun Station, then transfer to【Line 21】(towards Zengcheng Square) to Tianhe Smart City Station. 【4-21】 Approximately 55 minutes.",
       "pazhou_a": "Take Metro【Line 11】(Outer Circle) to Tianhe Park Station, then transfer to【Line 21】(towards Zengcheng Square) to Tianhe Smart City Station. 【11-21】 Approximately 21 minutes."
     }
+  },
+  "ticket": {
+    "hero": "Pricing",
+    "heroSub": "Ticket",
+    "card1": {
+      "title": "Standard",
+      "unit": "/Person",
+      "feature1": "Unlimited Entry Including Concerts",
+      "feature2": "Attendee Gift",
+      "feature3": "",
+      "btn": "BUY TICKET"
+    },
+    "card2": {
+      "title": "HotelPack",
+      "subtitle": "(Limited)",
+      "unit": "/Person",
+      "feature1": "All Standard perks",
+      "feature2": "SUPPORTER Gift",
+      "feature3": "One Swissotel classic room for 3 nights (breakfast included)",
+      "feature4": "Related Rights With The Hotel Room",
+      "btn": "BUY TICKET"
+    },
+    "card3": {
+      "title": "SUPPORTER",
+      "unit": "/Person",
+      "feature1": "All Standard perks",
+      "feature2": "SUPPORTER Gift",
+      "feature3": "Con Book mention",
+      "btn": "BUY TICKET"
+    }
   }
 }

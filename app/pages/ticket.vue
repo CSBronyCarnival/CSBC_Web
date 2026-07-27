@@ -1,37 +1,56 @@
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 useHead({ title: 'CSBC华南马聚2026 - 票价' })
+
+const cards = computed(() => [
+  {
+    title: t('ticket.card1.title'),
+    unit: t('ticket.card1.unit'),
+    features: [t('ticket.card1.feature1'), t('ticket.card1.feature2'), t('ticket.card1.feature3')].filter(Boolean),
+    btn: t('ticket.card1.btn'),
+    href: 'https://item.taobao.com/item.htm?ft=t&id=1011981103289'
+  },
+  {
+    title: t('ticket.card2.title'),
+    subtitle: t('ticket.card2.subtitle'),
+    unit: t('ticket.card2.unit'),
+    features: [t('ticket.card2.feature1'), t('ticket.card2.feature2'), t('ticket.card2.feature3'), t('ticket.card2.feature4')].filter(Boolean),
+    btn: t('ticket.card2.btn'),
+    href: 'https://item.taobao.com/item.htm?ft=t&id=1014238524305',
+    featured: true
+  },
+  {
+    title: t('ticket.card3.title'),
+    unit: t('ticket.card3.unit'),
+    features: [t('ticket.card3.feature1'), t('ticket.card3.feature2'), t('ticket.card3.feature3')].filter(Boolean),
+    btn: t('ticket.card3.btn'),
+    href: 'https://item.taobao.com/item.htm?ft=t&id=1011982387024'
+  }
+])
 </script>
 
 <template>
   <div class="ticket-page">
-    <SubpageHero title="票价" subtitle="Ticket" icon='<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>' />
+    <SubpageHero :title="$t('ticket.hero')" :subtitle="$t('ticket.heroSub')" icon='<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>' />
 
-    <!-- Pricing -->
     <section class="pricing-section" id="ticket">
       <div class="container">
         <div class="pricing-content">
           <PricingCard
-            title="单人通票"
-            price="¥188"
-            unit="/人"
-            :features="['18-19日无限制进场', '包含夜场活动', '标准众筹回馈']"
-            button-href="https://item.taobao.com/item.htm?ft=t&id=1011981103289"
-          />
-          <PricingCard
-            title="酒店套票"
-            subtitle="仅限40套"
-            price="¥1999"
-            unit="/人"
-            :features="['单人通票权益', '特殊回馈', '3晚瑞士酒店经典房（含早餐）']"
-            button-href="https://item.taobao.com/item.htm?ft=t&id=1014238524305"
-            featured
-          />
-          <PricingCard
-            title="SUPPORTER"
-            price="¥888"
-            unit="/人"
-            :features="['单人通票权益', '特殊回馈', '场刊致谢']"
-            button-href="https://item.taobao.com/item.htm?ft=t&id=1011982387024"
+            v-for="(card, i) in cards"
+            :key="i"
+            :title="card.title"
+            :subtitle="card.subtitle"
+            :price="card.featured ? '¥1999' : i === 0 ? '¥188' : '¥888'"
+            :unit="card.unit"
+            :features="card.features"
+            :button-href="card.href"
+            :button-text="card.btn"
+            :featured="card.featured"
           />
         </div>
       </div>
@@ -45,14 +64,12 @@ useHead({ title: 'CSBC华南马聚2026 - 票价' })
   min-height: 100vh;
 }
 
-/* ===== Container ===== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* ===== Pricing ===== */
 .pricing-section {
   padding: 100px 0;
 }
