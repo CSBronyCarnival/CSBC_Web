@@ -8,7 +8,7 @@
       ref="imgRef"
       class="pony-img"
       :src="ponyImages[currentIndex]"
-      alt="CSBC 小马"
+      alt="咩咩本尊"
     />
 
     <Transition name="bubble">
