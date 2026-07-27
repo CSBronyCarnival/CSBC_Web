@@ -16,7 +16,9 @@
           </NuxtLink>
         </ClickTilt>
         <span class="nav-divider"></span>
-        <button class="lang-btn" @click="toggleLang">{{ locale === 'zh' ? 'EN' : '中文' }}</button>
+        <ClickTilt>
+          <button class="lang-btn" @click="toggleLang">{{ locale === 'zh' ? 'EN' : '中文' }}</button>
+        </ClickTilt>
       </div>
 
       <button class="hamburger" @click="mobileOpen = !mobileOpen" aria-label="菜单">
@@ -407,8 +409,7 @@ watch(() => route.path, () => {
   flex-shrink: 0;
 }
 .lang-btn:hover {
-  background: rgba(79, 167, 255, 0.1);
-  color: #3498db;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .top-nav.night .nav-divider {
@@ -418,8 +419,7 @@ watch(() => route.path, () => {
   color: rgba(255, 255, 255, 0.7);
 }
 .top-nav.night .lang-btn:hover {
-  background: rgba(79, 167, 255, 0.2);
-  color: #4fa7ff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .mobile-lang-btn {
