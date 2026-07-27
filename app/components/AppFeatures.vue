@@ -62,6 +62,7 @@ const featureItems = computed(() =>
   line-height: 1.8;
   color: #555;
   max-width: 800px;
+  white-space: pre-line;
 }
 .features-list {
   display: grid;
