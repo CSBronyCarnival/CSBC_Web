@@ -3,15 +3,12 @@
     <div class="container">
       <div class="about-row">
         <div class="about-img">
-          <ImgLazy src="/img/night/about.webp" alt="夜下扬蹄" />
-          <p class="credit">摄影：Ryazen</p>
+          <ImgLazy src="/img/night/about.webp" :alt="$t('night.title')" />
+          <p class="credit">{{ $t('night.credit') }}</p>
         </div>
         <div class="about-text">
-          <h3>夜下扬蹄</h3>
-          <p>
-            我们追求梦想中的小马音乐现场，志在成为亚洲地区最为专门化的小马音乐会。<br />
-            来自五湖四海的小马音乐人相聚一堂，他们用音乐创造了一个又一个难忘的夜晚。
-          </p>
+          <h3>{{ $t('night.title') }}</h3>
+          <p v-html="$t('night.desc')"></p>
         </div>
       </div>
     </div>
@@ -63,6 +60,7 @@
 }
 .about-text p {
   margin-bottom: 25px;
+  white-space: pre-line;
 }
 
 @media (max-width: 768px) {

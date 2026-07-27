@@ -2,7 +2,7 @@
   <div class="night-page">
     <section class="night-hero">
       <div class="hero-content">
-        <img src="/img/night/stickshort.webp" alt="夜下扬蹄" class="hero-logo" />
+        <img src="/img/night/stickshort.webp" :alt="$t('night.hero')" class="hero-logo" />
       </div>
     </section>
 

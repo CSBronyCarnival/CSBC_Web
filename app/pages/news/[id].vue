@@ -1,7 +1,7 @@
 <template>
   <div class="news-article-page">
     <div v-if="article" class="article-container">
-      <NuxtLink to="/news" class="back-link">&larr; 返回</NuxtLink>
+      <NuxtLink to="/news" class="back-link">&larr; {{ $t('news.back') }}</NuxtLink>
       <article class="news-article">
         <div class="news-hero-image">
           <ImgLazy :src="article.hero" :alt="article.title" class="hero-img" />
@@ -25,8 +25,8 @@
     </div>
 
     <div v-else class="not-found">
-      <p>未找到该文章</p>
-      <NuxtLink to="/news" class="back-link not-found-link">&larr; 返回</NuxtLink>
+      <p>{{ $t('news.notFound') }}</p>
+      <NuxtLink to="/news" class="back-link not-found-link">&larr; {{ $t('news.back') }}</NuxtLink>
     </div>
 
   </div>

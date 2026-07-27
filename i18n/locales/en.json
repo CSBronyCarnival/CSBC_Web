@@ -77,7 +77,7 @@
     "switchTo": "中文"
   },
   "footer": {
-    "sourceCode": "The source code of this website is open under the MIT license.",
+    "sourceCode": "View source on GitHub",
     "friendLinks": "Friends & Partners"
   },
   "navPage": {
@@ -170,5 +170,16 @@
     "hero": "Conbook",
     "prev": "Previous",
     "next": "Next"
+  },
+  "news": {
+    "hero": "News",
+    "back": "Back",
+    "notFound": "Article not found"
+  },
+  "night": {
+    "hero": "Prance The Night",
+    "title": "Prance The Night",
+    "desc": "In the pursuit of our own brony music scene, we found one of the most specialized brony concert in Asia.\nEnjoy the night brought by amazing brony musicians from China and other countries.",
+    "credit": "Photo by Ryazen"
   }
 }
