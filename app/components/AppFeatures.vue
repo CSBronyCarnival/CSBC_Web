@@ -7,10 +7,10 @@
         <p class="features-description" v-html="$t('features.desc')"></p>
       </div>
       <div class="features-list">
-        <div v-for="(item, idx) in featureIcons" :key="idx" class="feature-item">
+        <div v-for="(item, idx) in featureItems" :key="idx" class="feature-item">
           <div class="feature-icon"><img :src="item.icon"></div>
-          <h3>{{ $t('features.items')[idx].title }}</h3>
-          <p>{{ $t('features.items')[idx].desc }}</p>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
         </div>
       </div>
     </div>
@@ -18,12 +18,18 @@
 </template>
 
 <script setup>
-const featureIcons = [
-  { icon: '/img/features/1.svg' },
-  { icon: '/img/features/2.svg' },
-  { icon: '/img/features/3.svg' },
-  { icon: '/img/features/4.svg' },
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const featureItems = computed(() =>
+  [0, 1, 2, 3].map((i) => ({
+    icon: `/img/features/${i + 1}.svg`,
+    title: t(`features.items.${i}.title`),
+    desc: t(`features.items.${i}.desc`),
+  }))
+)
 </script>
 
 <style scoped>

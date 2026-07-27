@@ -80,7 +80,7 @@ useHead({
 })
 
 const route = useRoute()
-const { t, locale } = useI18n()
+const { t, locale, setLocale } = useI18n()
 
 const mobileOpen = ref(false)
 const scrollY = ref(0)
@@ -95,8 +95,9 @@ function onScroll() {
   scrollY.value = window.scrollY
 }
 
-function toggleLang() {
-  locale.value = locale.value === 'zh' ? 'en' : 'zh'
+async function toggleLang() {
+  const target = locale.value === 'zh' ? 'en' : 'zh'
+  await setLocale(target)
 }
 
 onMounted(() => {
