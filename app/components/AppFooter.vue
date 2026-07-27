@@ -18,11 +18,11 @@
           <a href="https://gitee.com/CSBronyCarnival" target="_blank" class="social-link"><img :src="nightSrc('/img/link/gitee.svg')" alt="Gitee"></a>
         </div>
         <div class="footer-copyright">
-          <p>&copy; 2022-2025 CSBronyCarnival<br><a href="https://github.com/CSBronyCarnival/CSBC_Web" target="_blank">在 GitHub 上查看源代码</a></p>
+          <p>&copy; 2022-2025 CSBronyCarnival<br><a href="https://github.com/CSBronyCarnival/CSBC_Web" target="_blank">{{ $t('footer.sourceCode') }}</a></p>
         </div>
       </div>
       <div class="footer-right">
-        <div class="footer-links-title"><p>友情链接</p></div>
+        <div class="footer-links-title"><p>{{ $t('footer.friendLinks') }}</p></div>
         <ul class="footer-links">
           <li><a target="_blank" href="https://malangpony.com/"><img :src="nightSrc('/img/link/exchange/malang_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/malang.png"></a></li>
           <li><a target="_blank" href="https://brony.scot/"><img :src="nightSrc('/img/link/exchange/bs_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/bs.png"></a></li>

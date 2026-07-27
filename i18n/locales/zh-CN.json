@@ -75,5 +75,9 @@
   ],
   "lang": {
     "switchTo": "EN"
+  },
+  "footer": {
+    "sourceCode": "在 GitHub 上查看源代码",
+    "friendLinks": "友情链接"
   }
 }

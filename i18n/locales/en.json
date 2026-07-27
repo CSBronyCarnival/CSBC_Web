@@ -75,5 +75,9 @@
   ],
   "lang": {
     "switchTo": "中文"
+  },
+  "footer": {
+    "sourceCode": "View source on GitHub",
+    "friendLinks": "Friends & Partners"
   }
 }
