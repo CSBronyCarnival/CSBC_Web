@@ -3,6 +3,7 @@
     <SideNav />
     <slot />
     <AppFooter :key="$route.path" />
+    <CornerPony />
   </div>
 </template>
 
