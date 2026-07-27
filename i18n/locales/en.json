@@ -77,7 +77,33 @@
     "switchTo": "中文"
   },
   "footer": {
-    "sourceCode": "View source on GitHub",
+    "sourceCode": "The source code of this website is open under the MIT license.",
     "friendLinks": "Friends & Partners"
+  },
+  "navPage": {
+    "hero": "Navigation / Room Booking",
+    "heroSub": "Location and Transportation",
+    "hotel": "Swissôtel Guangzhou",
+    "hotelSub": "Venue",
+    "address": "Location: 1961 Huaguan Road (Huanguan Lu), Tianhe District, Guangzhou",
+    "desc": "Swissôtel Guangzhou is located in the Software Park, central to Tianhe Intelligence City(IBD). The hotel has 364 rooms with a modern Oriental style. With All-day dining , Chinese and Japanese Restaurant.Moreover, it has an outdoor swimming pool, a well-equipped fitness center and a 15,000sqm outdoor garden. At Swissôtel, we want you to live life well by encouraging you to live in the moment.",
+    "card1": { "subtitle": "Classic Room 1", "title": "1 King Size Bed", "desc": "", "btn": "Book Now" },
+    "card2": { "subtitle": "Classic Room 2", "title": "2 Single Size Beds", "desc": "", "btn": "Book Now" },
+    "card3": { "subtitle": "Venue", "title": "Manestage", "desc": "", "btn": "More Information" },
+    "transportation": "Map and Navigation",
+    "intro": "2026 CSBC Southern China Brony Carnival (July 18-19) will be held at Guangzhou Swissotel, located at No. 1961 Huaguan Road, Tianhe District, Guangzhou City, Guangdong Province. For attendees heading to the venue, please get off at Tianhe Smart City Station on Guangzhou Metro Line 21. During operating hours, you can take the Brony Bus. It is approximately 1.1 km (about a 17-minute walk) from the metro station to the venue. Alternatively, you may take Bus B26 or Bus 491 for one stop to reduce walking distance.",
+    "arrival": {
+      "baiyun": "Arriving at Guangzhou Baiyun International Airport",
+      "t2": "T1 / T2 Arrivals",
+      "t3": "T3 Arrivals",
+      "guangzhouStation": "Arriving at Guangzhou Railway Station",
+      "eastStation": "Arriving at Guangzhou East Railway Station",
+      "southStation": "Arriving at Guangzhou South Railway Station / Panyu Station",
+      "baiyunStation": "Arriving at Guangzhou Baiyun Railway Station",
+      "northStation": "Arriving at Guangzhou North Railway Station / Huadu Station",
+      "xintang": "Arriving at Xintang Station / Xintang South Station",
+      "nansha": "Arriving at Nansha North Railway Station",
+      "pazhou": "Arriving at Pazhou Station (Guangdong Intercity Railway)"
+    }
   }
 }

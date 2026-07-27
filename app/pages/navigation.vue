@@ -4,19 +4,22 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
 
 <template>
   <div class="nav-page">
-    <VenueHero src="/img/venue/full.webp" alt="广州瑞士酒店" title="场地交通和订房相关" subtitle="Navigation" icon='<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' />
+    <VenueHero src="/img/venue/full.webp" alt="广州瑞士酒店"
+      :title="$t('navPage.hero')"
+      :subtitle="$t('navPage.heroSub')"
+      icon='<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' />
 
     <!-- Hotel Info -->
     <section class="nav-venue-section">
       <div class="nav-venue-container">
         <div class="nav-venue-header">
-          <h2>广州瑞士酒店</h2>
-          <p class="nav-venue-subtitle">Swissôtel Guangzhou</p>
+          <h2>{{ $t('navPage.hotel') }}</h2>
+          <p class="nav-venue-subtitle">{{ $t('navPage.hotelSub') }}</p>
           <div class="nav-venue-address">
-            <p>地址：广州市天河区华观路1961号</p>
+            <p>{{ $t('navPage.address') }}</p>
           </div>
           <div class="nav-venue-description">
-            <p>广州瑞士酒店位于广州市天河区东北部天河智慧城（IBD）的核心区--天河软件园内。酒店共拥有364间具有现代东方格调的客房及套房。酒店拥有3个风格各异的餐厅为宾客带来多元化的美食体验此外，酒店还配有户外泳池，功能齐全、设施完备的健身中心，15000平方米的户外花园为宾客打造活力惬意的度假时光。</p>
+            <p>{{ $t('navPage.desc') }}</p>
           </div>
         </div>
       </div>
@@ -27,27 +30,27 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
       <div class="venue-features-container">
         <VenueFeatureCard
           img-src="/img/venue/1.webp"
-          subtitle="房间内景1"
-          title="经典大床房"
-          description="温馨大床 设施齐全 舒适入住体验"
+          :subtitle="$t('navPage.card1.subtitle')"
+          :title="$t('navPage.card1.title')"
+          :description="$t('navPage.card1.desc')"
           button-href="https://item.taobao.com/item.htm?ft=t&id=1011988599464"
-          button-text="立即订房"
+          :button-text="$t('navPage.card1.btn')"
         />
         <VenueFeatureCard
           img-src="/img/venue/2.webp"
-          subtitle="房间内景2"
-          title="经典双床房"
-          description="床位加倍 价格不变 尽享优质睡眠"
+          :subtitle="$t('navPage.card2.subtitle')"
+          :title="$t('navPage.card2.title')"
+          :description="$t('navPage.card2.desc')"
           button-href="https://item.taobao.com/item.htm?ft=t&id=1013484277299"
-          button-text="立即订房"
+          :button-text="$t('navPage.card2.btn')"
         />
         <VenueFeatureCard
           img-src="/img/venue/3.webp"
-          subtitle="场地内景"
-          title="马展场地内景"
-          description="千平会场 7.5米挑高 舒适宽敞"
+          :subtitle="$t('navPage.card3.subtitle')"
+          :title="$t('navPage.card3.title')"
+          :description="$t('navPage.card3.desc')"
           button-href="/"
-          button-text="了解更多"
+          :button-text="$t('navPage.card3.btn')"
         />
       </div>
     </section>
