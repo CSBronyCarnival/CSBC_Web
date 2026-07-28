@@ -163,8 +163,8 @@
   },
   "gallery": {
     "hero": "Gallery",
-    "prev": "Previous Page",
-    "next": "Next Page"
+    "prev": "Previous",
+    "next": "Next"
   },
   "conbook": {
     "hero": "Conbook",
