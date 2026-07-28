@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SideNav />
+    <AppNav />
     <slot />
     <AppFooter :key="$route.path" />
     <CornerPony />
