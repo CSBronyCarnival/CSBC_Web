@@ -52,8 +52,10 @@
 </template>
 
 <script setup>
-useHead({ title: 'CSBC华南马聚2026 - 画廊' })
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.gallery')) })
 
 const items = [
   { src: '/img/gallery/1.webp',  name: '马迷巴士',   author: '摄影：Ryazen' },
@@ -93,7 +95,6 @@ function nextPage() {
   if (currentPage.value < totalPages.value) currentPage.value++
 }
 
-// viewerjs 全屏查看器
 const viewerContainer = ref(null)
 let viewerInstance = null
 
@@ -132,7 +133,6 @@ function openViewer(index) {
   padding: 0 20px;
 }
 
-/* viewer 存储容器（不可见但保持图片加载） */
 .viewer-storage {
   height: 0;
   overflow: hidden;
@@ -140,7 +140,6 @@ function openViewer(index) {
   position: absolute;
 }
 
-/* ===== Gallery Grid ===== */
 .gallery-section {
   padding: 80px 0;
 }
@@ -203,7 +202,6 @@ function openViewer(index) {
   margin-top: 2px;
 }
 
-/* ===== Pagination ===== */
 .gallery-pagination {
   display: flex;
   justify-content: center;

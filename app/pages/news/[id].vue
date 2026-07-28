@@ -34,14 +34,15 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { newsList } from '~/data/news'
 
 const route = useRoute()
 const article = computed(() => newsList.find(n => n.id === route.params.id))
 
-// 动态设置文章标题
+const { t } = useI18n()
 const pageTitle = computed(() =>
-  article.value ? `${article.value.title} - CSBC华南马聚2026` : '未找到文章 - CSBC华南马聚2026'
+  article.value ? `${article.value.title} - ${t('site.name')}` : t('pageTitle.notFound')
 )
 useHead({ title: pageTitle })
 </script>
@@ -56,7 +57,6 @@ useHead({ title: pageTitle })
   padding: 0 20px;
 }
 
-/* ===== Article ===== */
 .news-article {
   padding: 60px 0;
   background: #ffffff;
@@ -122,7 +122,6 @@ useHead({ title: pageTitle })
   max-width: 600px;
 }
 
-/* ===== Back Link ===== */
 .back-link {
   display: inline-block;
   color: #3498db;
@@ -140,7 +139,6 @@ useHead({ title: pageTitle })
   margin-top: 12px;
 }
 
-/* ===== Not Found ===== */
 .not-found {
   text-align: center;
   padding: 100px 20px;

@@ -71,7 +71,6 @@ defineProps({
   border-bottom: none;
 }
 
-/* featured 变体 */
 .pricing-tier.featured {
   background: #3498db;
   color: white;
@@ -105,7 +104,6 @@ defineProps({
   color: #3498db;
 }
 
-/* 购票按钮填满卡片 */
 .pricing-tier :deep(.click-tilt),
 .pricing-tier :deep(.btn-pricing) {
   width: 100%;

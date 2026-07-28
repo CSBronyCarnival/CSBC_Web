@@ -20,7 +20,10 @@
 </template>
 
 <script setup>
-useHead({ title: 'CSBC华南马聚2026 - 展会消息' })
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.news')) })
 import { newsList } from '~/data/news'
 </script>
 
@@ -34,7 +37,6 @@ import { newsList } from '~/data/news'
   padding: 0 20px;
 }
 
-/* ===== News Grid ===== */
 .news-section {
   padding: 80px 0;
 }

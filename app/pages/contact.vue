@@ -1,5 +1,8 @@
 <script setup>
-useHead({ title: 'CSBC华南马聚2026 - 联系我们' })
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.contact')) })
 </script>
 
 <template>
@@ -52,7 +55,6 @@ useHead({ title: 'CSBC华南马聚2026 - 联系我们' })
   padding: 0 20px;
 }
 
-/* ===== Contact Section ===== */
 .contact-section {
   padding: 80px 0;
 }
@@ -103,7 +105,6 @@ useHead({ title: 'CSBC华南马聚2026 - 联系我们' })
   margin-bottom: 20px;
 }
 
-/* 按钮统一样式覆盖 */
 .contact-item :deep(.btn-section) {
   margin-top: auto;
 }

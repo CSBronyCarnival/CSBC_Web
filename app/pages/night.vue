@@ -1,3 +1,10 @@
+<script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.night')) })
+</script>
+
 <template>
   <div class="night-page">
     <section class="night-hero">

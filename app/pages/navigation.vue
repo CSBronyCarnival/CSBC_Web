@@ -1,5 +1,8 @@
 <script setup>
-useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.navigation')) })
 </script>
 
 <template>
@@ -9,7 +12,6 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
       :subtitle="$t('navPage.heroSub')"
       icon='<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' />
 
-    <!-- Hotel Info -->
     <section class="nav-venue-section">
       <div class="nav-venue-container">
         <div class="nav-venue-header">
@@ -25,7 +27,6 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
       </div>
     </section>
 
-    <!-- Room Features -->
     <section class="venue-features-section">
       <div class="venue-features-container">
         <VenueFeatureCard
@@ -61,7 +62,6 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
 </template>
 
 <style scoped>
-/* ===== Venue Hotel Info ===== */
 .nav-venue-section {
   padding: 80px 0;
 }
@@ -110,7 +110,6 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
   margin: 0;
 }
 
-/* ===== Room Features ===== */
 .venue-features-section {
   background-color: #ffffff;
   margin-bottom: 80px;
@@ -124,8 +123,6 @@ useHead({ title: 'CSBC华南马聚2026 - 场地交通和订房相关' })
   gap: 40px;
 }
 
-
-/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .nav-venue-section {
     padding: 50px 0;

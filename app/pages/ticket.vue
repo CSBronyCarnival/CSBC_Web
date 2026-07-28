@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-useHead({ title: 'CSBC华南马聚2026 - 票价' })
+useHead({ title: computed(() => t('pageTitle.ticket')) })
 
 const cards = computed(() => [
   {

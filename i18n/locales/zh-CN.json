@@ -1,4 +1,18 @@
 {
+  "site": {
+    "name": "CSBC华南马聚2026"
+  },
+  "pageTitle": {
+    "home": "CSBC华南马聚2026 - 主页",
+    "ticket": "CSBC华南马聚2026 - 票价",
+    "gallery": "CSBC华南马聚2026 - 画廊",
+    "navigation": "CSBC华南马聚2026 - 场地交通和订房相关",
+    "contact": "CSBC华南马聚2026 - 联系我们",
+    "conbook": "CSBC华南马聚2026 - 场刊",
+    "news": "CSBC华南马聚2026 - 展会消息",
+    "night": "CSBC华南马聚2026 - 夜下扬蹄",
+    "notFound": "未找到文章 - CSBC华南马聚2026"
+  },
   "nav": {
     "home": "首页",
     "venue": "场地",

@@ -15,7 +15,10 @@
 </template>
 
 <script setup>
-useHead({ title: 'CSBC华南马聚2026 - 场刊' })
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.conbook')) })
 </script>
 
 <style scoped>

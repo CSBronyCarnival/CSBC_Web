@@ -1,4 +1,18 @@
 {
+  "site": {
+    "name": "CSBC 2026"
+  },
+  "pageTitle": {
+    "home": "CSBC 2026 - Home",
+    "ticket": "CSBC 2026 - Ticket",
+    "gallery": "CSBC 2026 - Gallery",
+    "navigation": "CSBC 2026 - Venue & Navigation",
+    "contact": "CSBC 2026 - Contact Us",
+    "conbook": "CSBC 2026 - Conbook",
+    "news": "CSBC 2026 - News",
+    "night": "CSBC 2026 - Prance The Night",
+    "notFound": "Article not found - CSBC 2026"
+  },
   "nav": {
     "home": "Home",
     "venue": "Venue",

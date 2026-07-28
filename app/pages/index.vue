@@ -1,5 +1,8 @@
 <script setup>
-useHead({ title: 'CSBC华南马聚2026 - 主页' })
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+useHead({ title: computed(() => t('pageTitle.home')) })
 
 const teamMembers = [
   { name: '光翼', avatar: '/img/team/光翼.webp', roleKey: 'guangyi' },
@@ -15,7 +18,6 @@ const teamMembers = [
     <AppHero />
     <AppFeatures />
 
-    <!-- About -->
     <section class="about-section" id="about">
       <div class="container">
         <SectionTitle :title="$t('sections.about')" />
@@ -23,7 +25,6 @@ const teamMembers = [
       </div>
     </section>
 
-    <!-- Venue -->
     <section class="venue-section" id="venue">
       <div class="container">
         <SectionTitle :title="$t('sections.venue')" />
@@ -31,7 +32,6 @@ const teamMembers = [
       </div>
     </section>
 
-    <!-- Team -->
     <section class="team-section" id="team">
       <div class="container">
         <SectionTitle :title="$t('sections.team')" />
@@ -47,7 +47,6 @@ const teamMembers = [
       </div>
     </section>
 
-    <!-- FAQ -->
     <section class="qa-section" id="qa">
       <div class="container">
         <SectionTitle :title="$t('sections.faq')" />
@@ -84,24 +83,20 @@ const teamMembers = [
 </template>
 
 <style scoped>
-/* ===== Container ===== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* ===== About ===== */
 .about-section {
   padding: 100px 0;
 }
 
-/* ===== Venue ===== */
 .venue-section {
   padding: 100px 0;
 }
 
-/* ===== Team ===== */
 .team-section {
   padding: 100px 0;
   background: white;
@@ -115,7 +110,6 @@ const teamMembers = [
   margin: 0 auto;
 }
 
-/* ===== FAQ ===== */
 .qa-section {
   padding: 100px 0;
   background: white;
@@ -132,7 +126,6 @@ const teamMembers = [
   max-width: 48%;
 }
 
-/* ===== 响应式 ===== */
 @media (max-width: 768px) {
   .qa-content {
     flex-direction: column;
