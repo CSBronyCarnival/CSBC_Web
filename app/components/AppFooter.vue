@@ -265,5 +265,8 @@ onUnmounted(() => {
   .footer-copyright {
     text-align: center;
   }
+  .footer-image {
+    display: none;
+  }
 }
 </style>
