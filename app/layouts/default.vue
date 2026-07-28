@@ -17,3 +17,9 @@ useHead({
   }))
 })
 </script>
+
+<style>
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+</style>
