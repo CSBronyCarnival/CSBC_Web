@@ -163,16 +163,19 @@
   },
   "gallery": {
     "hero": "画廊",
+    "heroSub": "Gallery",
     "prev": "上一页",
     "next": "下一页"
   },
   "conbook": {
     "hero": "场刊",
+    "heroSub": "Conbook",
     "prev": "上一页",
     "next": "下一页"
   },
   "news": {
     "hero": "展会消息",
+    "heroSub": "News",
     "back": "返回",
     "notFound": "未找到该文章"
   },
@@ -181,5 +184,18 @@
     "title": "夜下扬蹄",
     "desc": "我们追求梦想中的小马音乐现场，志在成为亚洲地区最为专门化的小马音乐会。\n来自五湖四海的小马音乐人相聚一堂，他们用音乐创造了一个又一个难忘的夜晚。",
     "credit": "摄影：Ryazen"
+  },
+  "contact": {
+    "hero": "联系我们",
+    "heroSub": "Contact Us",
+    "qqTitle": "QQ群",
+    "qqDesc": "查看展会实时动态",
+    "qqBtn": "加入QQ群",
+    "biliTitle": "Bilibili",
+    "biliDesc": "展会相关信息与录播",
+    "biliBtn": "点击查看",
+    "discordTitle": "Discord",
+    "discordDesc": "查看展会实时动态",
+    "discordBtn": "加入服务器"
   }
 }

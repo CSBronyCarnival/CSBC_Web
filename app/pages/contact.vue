@@ -4,7 +4,7 @@ useHead({ title: 'CSBC华南马聚2026 - 联系我们' })
 
 <template>
   <div class="contact-page">
-    <SubpageHero title="联系我们" subtitle="Contact Us" icon='<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>' />
+    <SubpageHero :title="$t('contact.hero')" :subtitle="$t('contact.heroSub')" icon='<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>' />
 
     <section class="contact-section">
       <div class="container">
@@ -13,27 +13,27 @@ useHead({ title: 'CSBC华南马聚2026 - 联系我们' })
             <div class="contact-icon">
               <img src="/img/link/qq.svg" alt="QQ群">
             </div>
-            <h3>QQ群</h3>
-            <p>查看展会实时动态</p>
-            <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="section">加入QQ群</BaseButton>
+            <h3>{{ $t('contact.qqTitle') }}</h3>
+            <p>{{ $t('contact.qqDesc') }}</p>
+            <BaseButton href="https://qm.qq.com/q/kP0n8Mng9G" variant="section">{{ $t('contact.qqBtn') }}</BaseButton>
           </div>
 
           <div class="contact-item">
             <div class="contact-icon">
               <img src="/img/link/bili.svg" alt="Bilibili">
             </div>
-            <h3>Bilibili</h3>
-            <p>展会相关信息与录播</p>
-            <BaseButton href="https://space.bilibili.com/371768934" variant="section">点击查看</BaseButton>
+            <h3>{{ $t('contact.biliTitle') }}</h3>
+            <p>{{ $t('contact.biliDesc') }}</p>
+            <BaseButton href="https://space.bilibili.com/371768934" variant="section">{{ $t('contact.biliBtn') }}</BaseButton>
           </div>
 
           <div class="contact-item">
             <div class="contact-icon">
               <img src="/img/link/discord.svg" alt="Discord">
             </div>
-            <h3>Discord</h3>
-            <p>查看展会实时动态</p>
-            <BaseButton href="https://discord.com/invite/mbNkveehRB" variant="section">加入服务器</BaseButton>
+            <h3>{{ $t('contact.discordTitle') }}</h3>
+            <p>{{ $t('contact.discordDesc') }}</p>
+            <BaseButton href="https://discord.com/invite/mbNkveehRB" variant="section">{{ $t('contact.discordBtn') }}</BaseButton>
           </div>
         </div>
       </div>

@@ -132,8 +132,8 @@
     }
   },
   "ticket": {
-    "hero": "Pricing",
-    "heroSub": "Ticket",
+    "hero": "Ticket",
+    "heroSub": "票价",
     "card1": {
       "title": "Standard",
       "unit": "/Person",
@@ -163,16 +163,19 @@
   },
   "gallery": {
     "hero": "Gallery",
+    "heroSub": "画廊",
     "prev": "Previous",
     "next": "Next"
   },
   "conbook": {
     "hero": "Conbook",
+    "heroSub": "场刊",
     "prev": "Previous",
     "next": "Next"
   },
   "news": {
     "hero": "News",
+    "heroSub": "展会消息",
     "back": "Back",
     "notFound": "Article not found"
   },
@@ -181,5 +184,18 @@
     "title": "Prance The Night",
     "desc": "In the pursuit of our own brony music scene, we found one of the most specialized brony concert in Asia.\nEnjoy the night brought by amazing brony musicians from China and other countries.",
     "credit": "Photo by Ryazen"
+  },
+  "contact": {
+    "hero": "Contact Us",
+    "heroSub": "联系我们",
+    "qqTitle": "QQ Group",
+    "qqDesc": "Real-time event updates",
+    "qqBtn": "Join QQ Group",
+    "biliTitle": "Bilibili",
+    "biliDesc": "Event info & recordings",
+    "biliBtn": "View",
+    "discordTitle": "Discord",
+    "discordDesc": "Real-time chat",
+    "discordBtn": "Join Server"
   }
 }
