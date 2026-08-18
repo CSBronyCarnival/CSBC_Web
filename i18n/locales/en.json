@@ -211,5 +211,15 @@
     "discordTitle": "Discord",
     "discordDesc": "Real-time chat",
     "discordBtn": "Join Server"
+  },
+  "history": {
+    "ariaLabel": "Event history",
+    "photoAlt": "group photo",
+    "attendees": "Attendees",
+    "pending": "Pending",
+    "period": {
+      "winter": "Winter",
+      "summer": "Summer"
+    }
   }
 }

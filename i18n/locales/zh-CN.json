@@ -211,5 +211,15 @@
     "discordTitle": "Discord",
     "discordDesc": "查看展会实时动态",
     "discordBtn": "加入服务器"
+  },
+  "history": {
+    "ariaLabel": "历届展会",
+    "photoAlt": "合照",
+    "attendees": "到场人数",
+    "pending": "待统计",
+    "period": {
+      "winter": "冬季场",
+      "summer": "夏季场"
+    }
   }
 }

@@ -2,7 +2,7 @@
   <section
     ref="sectionRef"
     class="history-section"
-    :aria-label="locale === 'zh' ? '历届展会' : 'Event history'"
+    :aria-label="$t('history.ariaLabel')"
   >
     <div class="history-sticky">
       <div
@@ -14,7 +14,7 @@
           <div class="history-year-row">
             <span class="history-year">{{ node.year }}</span>
             <span v-if="node.period" class="history-period">
-              {{ locale === 'zh' ? node.period.zh : node.period.en }}
+              {{ $t('history.period.' + node.period) }}
             </span>
           </div>
 
@@ -22,12 +22,12 @@
             <div class="history-photo">
               <ImgLazy
                 :src="node.image"
-                :alt="`${node.year} ${locale === 'zh' ? '合照' : 'group photo'}`"
+                :alt="`${node.year} ${$t('history.photoAlt')}`"
               />
             </div>
             <div class="history-attendance">
-              <span>{{ locale === 'zh' ? '到场人数' : 'Attendees' }}</span>
-              <strong>{{ node.attendees ?? (locale === 'zh' ? '待统计' : 'Pending') }}</strong>
+              <span>{{ $t('history.attendees') }}</span>
+              <strong>{{ node.attendees ?? $t('history.pending') }}</strong>
             </div>
           </div>
         </article>
@@ -42,9 +42,7 @@
 
 <script setup>
 import { nextTick, onMounted, onUnmounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-const { locale } = useI18n()
 const sectionRef = ref(null)
 const trackRef = ref(null)
 const trackOffset = ref(0)
@@ -57,13 +55,13 @@ const historyNodes = [
     id: '2024-winter',
     year: '2024',
     image: '/img/gallery/group_photo/2024-d.webp',
-    period: { zh: '冬季场', en: 'Winter' },
+    period: 'winter',
   },
   {
     id: '2024-summer',
     year: '2024',
     image: '/img/gallery/group_photo/2024.webp',
-    period: { zh: '夏季场', en: 'Summer' },
+    period: 'summer',
   },
   { id: '2025', year: '2025', image: '/img/gallery/group_photo/2025.webp' },
   { id: '2026', year: '2026', image: '/img/gallery/group_photo/2026.webp' },
