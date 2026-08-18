@@ -21,7 +21,6 @@ const teamMembers = [
 
       <section class="about-section" id="about">
         <div class="container">
-          <SectionTitle :title="$t('sections.about')" />
           <AppAbout />
         </div>
       </section>

@@ -41,8 +41,13 @@
   text-align: left;
 }
 .about-image {
+  position: relative;
+  z-index: 2;
   flex: 0 0 auto;
   width: 500px;
+  transform: translateY(-160px);
+  margin-bottom: -160px;
+  will-change: transform;
 }
 .about-image :deep(.lazy-img) {
   width: 100%;
@@ -60,7 +65,10 @@
     gap: 20px;
   }
   .about-image {
+    order: -1;
     width: 250px;
+    transform: translateY(-130px);
+    margin-bottom: -130px;
   }
 }
 </style>

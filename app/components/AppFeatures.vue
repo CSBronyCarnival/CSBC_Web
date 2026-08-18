@@ -209,7 +209,7 @@ onUnmounted(() => {
   min-height: 100vh;
   min-height: 100svh;
   margin: 0 auto;
-  padding: clamp(72px, 9vh, 112px) 20px clamp(56px, 7vh, 88px);
+  padding: clamp(72px, 9vh, 112px) 20px clamp(160px, 18vh, 240px);
   display: flex;
   flex-direction: column;
 }
@@ -244,6 +244,7 @@ onUnmounted(() => {
   text-align: left;
   margin-bottom: clamp(260px, 34vh, 390px);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
+  margin-top: 40px;
 }
 .features-subtitle {
   font-size: 1.1rem;
@@ -252,7 +253,7 @@ onUnmounted(() => {
   font-weight: 600;
 }
 .features-header h2 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: #fff;
   margin-bottom: 5px;
   font-weight: 700;
@@ -305,14 +306,15 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .container {
-    padding: 64px 20px 72px;
+    padding: 64px 20px 160px;
   }
   .features-header {
     width: 100%;
     margin-bottom: clamp(260px, 45vh, 360px);
   }
   .features-header h2 {
-    font-size: 2rem;
+    font-size: 2.35rem;
+    margin-top: 14px;
   }
   .features-list {
     grid-template-columns: 1fr;
