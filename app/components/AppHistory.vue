@@ -1,0 +1,250 @@
+<template>
+  <section
+    ref="sectionRef"
+    class="history-section"
+    :aria-label="locale === 'zh' ? '历届展会' : 'Event history'"
+  >
+    <div class="history-sticky">
+      <div
+        ref="trackRef"
+        class="history-track"
+        :style="{ transform: `translate3d(${trackOffset}px, 0, 0)` }"
+      >
+        <article v-for="node in historyNodes" :key="node.id" class="history-node">
+          <div class="history-year-row">
+            <span class="history-year">{{ node.year }}</span>
+            <span v-if="node.period" class="history-period">
+              {{ locale === 'zh' ? node.period.zh : node.period.en }}
+            </span>
+          </div>
+
+          <div class="history-card">
+            <div class="history-photo">
+              <ImgLazy
+                :src="node.image"
+                :alt="`${node.year} ${locale === 'zh' ? '合照' : 'group photo'}`"
+              />
+            </div>
+            <div class="history-attendance">
+              <span>{{ locale === 'zh' ? '到场人数' : 'Attendees' }}</span>
+              <strong>{{ node.attendees ?? (locale === 'zh' ? '待统计' : 'Pending') }}</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="history-progress" aria-hidden="true">
+        <span :style="{ transform: `scaleX(${progress})` }"></span>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { locale } = useI18n()
+const sectionRef = ref(null)
+const trackRef = ref(null)
+const trackOffset = ref(0)
+const progress = ref(0)
+
+const historyNodes = [
+  { id: '2022', year: '2022', image: '/img/gallery/group_photo/2022.webp' },
+  { id: '2023', year: '2023', image: '/img/gallery/group_photo/2023.webp' },
+  {
+    id: '2024-winter',
+    year: '2024',
+    image: '/img/gallery/group_photo/2024-d.webp',
+    period: { zh: '冬季场', en: 'Winter' },
+  },
+  {
+    id: '2024-summer',
+    year: '2024',
+    image: '/img/gallery/group_photo/2024.webp',
+    period: { zh: '夏季场', en: 'Summer' },
+  },
+  { id: '2025', year: '2025', image: '/img/gallery/group_photo/2025.webp' },
+  { id: '2026', year: '2026', image: '/img/gallery/group_photo/2026.webp' },
+]
+
+let scrollFrame = 0
+let resizeObserver = null
+let horizontalDistance = 0
+
+function updateDimensions() {
+  const section = sectionRef.value
+  const track = trackRef.value
+  if (!section || !track) return
+
+  horizontalDistance = Math.max(track.scrollWidth - window.innerWidth, 0)
+  section.style.height = `${horizontalDistance + window.innerHeight}px`
+  updateScrollPosition()
+}
+
+function updateScrollPosition() {
+  if (scrollFrame) return
+
+  scrollFrame = window.requestAnimationFrame(() => {
+    scrollFrame = 0
+    const section = sectionRef.value
+    if (!section) return
+
+    const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1)
+    const sectionProgress = Math.min(Math.max(-section.getBoundingClientRect().top / scrollRange, 0), 1)
+    progress.value = sectionProgress
+    trackOffset.value = -horizontalDistance * sectionProgress
+  })
+}
+
+onMounted(async () => {
+  await nextTick()
+  updateDimensions()
+  window.addEventListener('scroll', updateScrollPosition, { passive: true })
+  window.addEventListener('resize', updateDimensions)
+
+  resizeObserver = new ResizeObserver(updateDimensions)
+  if (trackRef.value) resizeObserver.observe(trackRef.value)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', updateScrollPosition)
+  window.removeEventListener('resize', updateDimensions)
+  resizeObserver?.disconnect()
+  if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+})
+</script>
+
+<style scoped>
+.history-section {
+  position: relative;
+  min-height: 100vh;
+  background: #fff;
+  color: #2c3e50;
+  isolation: isolate;
+}
+
+.history-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: #fff;
+}
+
+.history-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 5vw, 80px);
+  width: max-content;
+  padding: 0 max(20px, calc((100vw - 1200px) / 2));
+  will-change: transform;
+}
+
+.history-node {
+  flex: 0 0 clamp(300px, 43vw, 560px);
+}
+
+.history-year-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-height: 84px;
+  margin-bottom: 18px;
+}
+
+.history-year {
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  line-height: 0.95;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #2c3e50;
+}
+
+.history-period {
+  color: #4a90d9;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.history-photo {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f0f2f5;
+}
+
+.history-photo :deep(.lazy-img) {
+  width: 100%;
+  height: 100%;
+}
+
+.history-attendance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 22px 20px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.history-attendance strong {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.history-progress {
+  position: absolute;
+  right: max(20px, calc((100vw - 1200px) / 2));
+  bottom: 28px;
+  left: max(20px, calc((100vw - 1200px) / 2));
+  height: 2px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.history-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: #4a90d9;
+}
+
+@media (max-width: 768px) {
+  .history-track {
+    gap: 24px;
+    padding: 0 20px;
+  }
+
+  .history-node {
+    flex-basis: min(82vw, 420px);
+  }
+
+  .history-year-row {
+    min-height: 64px;
+    margin-bottom: 14px;
+  }
+
+  .history-year {
+    font-size: 3.5rem;
+  }
+
+  .history-attendance {
+    padding: 15px 17px 17px;
+  }
+
+  .history-progress {
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+}
+</style>

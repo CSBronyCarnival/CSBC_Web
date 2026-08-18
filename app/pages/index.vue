@@ -25,6 +25,8 @@ const teamMembers = [
         </div>
       </section>
 
+      <AppHistory />
+
       <section class="venue-section" id="venue">
         <div class="container">
           <SectionTitle :title="$t('sections.venue')" />
