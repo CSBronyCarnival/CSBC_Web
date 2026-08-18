@@ -122,7 +122,8 @@ function updateDimensions() {
   const track = trackRef.value
   if (!section || !track) return
 
-  horizontalDistance = Math.max(track.scrollWidth - window.innerWidth, 0)
+  const viewportWidth = section.clientWidth || window.innerWidth
+  horizontalDistance = Math.max(track.scrollWidth - viewportWidth, 0)
   section.style.height = `${horizontalDistance + window.innerHeight}px`
   updatePhotoMetrics()
   updateScrollPosition()
