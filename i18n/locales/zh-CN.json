@@ -200,7 +200,11 @@
     "credit": "摄影：Ryazen",
     "musiciansTitle": "音乐阵容",
     "musiciansSubtitle": "因音乐而相聚",
-    "musiciansTagline": "完全放电"
+    "musiciansTagline": "完全放电",
+    "moreTitle": "想了解更多吗？",
+    "moreSubtitle": "查看我们的社交媒体来了解！",
+    "youtube": "YouTube",
+    "bilibili": "Bilibili"
   },
   "contact": {
     "hero": "联系我们",

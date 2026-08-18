@@ -200,7 +200,11 @@
     "credit": "Photo by Ryazen",
     "musiciansTitle": "Musicians",
     "musiciansSubtitle": "United by music",
-    "musiciansTagline": "Discharge In One Burst"
+    "musiciansTagline": "Discharge In One Burst",
+    "moreTitle": "Want to know more?",
+    "moreSubtitle": "Follow our social media to learn more!",
+    "youtube": "YouTube",
+    "bilibili": "Bilibili"
   },
   "contact": {
     "hero": "Contact Us",

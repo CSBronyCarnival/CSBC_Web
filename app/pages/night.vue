@@ -20,6 +20,7 @@ const nightHeroRef = ref(null)
 
     <NightAbout />
     <NightMusicians />
+    <NightMore />
   </div>
 </template>
 
