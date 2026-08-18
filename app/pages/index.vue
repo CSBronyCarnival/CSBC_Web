@@ -16,69 +16,70 @@ const teamMembers = [
 <template>
   <div class="home">
     <AppHero />
-    <AppFeatures />
+    <main class="home-content">
+      <AppFeatures />
 
-    <section class="about-section" id="about">
-      <div class="container">
-        <SectionTitle :title="$t('sections.about')" />
-        <AppAbout />
-      </div>
-    </section>
-
-    <section class="venue-section" id="venue">
-      <div class="container">
-        <SectionTitle :title="$t('sections.venue')" />
-        <AppVenue />
-      </div>
-    </section>
-
-    <section class="team-section" id="team">
-      <div class="container">
-        <SectionTitle :title="$t('sections.team')" />
-        <div class="team-content">
-          <TeamMember
-            v-for="member in teamMembers"
-            :key="member.name"
-            :name="member.name"
-            :avatar="member.avatar"
-            :description="$t('team.' + member.roleKey)"
-          />
+      <section class="about-section" id="about">
+        <div class="container">
+          <SectionTitle :title="$t('sections.about')" />
+          <AppAbout />
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="qa-section" id="qa">
-      <div class="container">
-        <SectionTitle :title="$t('sections.faq')" />
-        <div class="qa-content">
-          <div class="qa-column">
-            <FAQItem
-              :question="$t('faq.0.q')"
-              :answer="$t('faq.0.a')"
-            />
-            <FAQItem
-              :question="$t('faq.1.q')"
-              :answer="$t('faq.1.a')"
-            />
-            <FAQItem
-              :question="$t('faq.2.q')"
-              :answer="$t('faq.2.a')"
-            />
-          </div>
-          <div class="qa-column">
-            <FAQItem
-              :question="$t('faq.3.q')"
-              :answer="$t('faq.3.a')"
-            />
-            <FAQItem
-              :question="$t('faq.4.q')"
-              :answer="$t('faq.4.a')"
+      <section class="venue-section" id="venue">
+        <div class="container">
+          <SectionTitle :title="$t('sections.venue')" />
+          <AppVenue />
+        </div>
+      </section>
+
+      <section class="team-section" id="team">
+        <div class="container">
+          <SectionTitle :title="$t('sections.team')" />
+          <div class="team-content">
+            <TeamMember
+              v-for="member in teamMembers"
+              :key="member.name"
+              :name="member.name"
+              :avatar="member.avatar"
+              :description="$t('team.' + member.roleKey)"
             />
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
+      <section class="qa-section" id="qa">
+        <div class="container">
+          <SectionTitle :title="$t('sections.faq')" />
+          <div class="qa-content">
+            <div class="qa-column">
+              <FAQItem
+                :question="$t('faq.0.q')"
+                :answer="$t('faq.0.a')"
+              />
+              <FAQItem
+                :question="$t('faq.1.q')"
+                :answer="$t('faq.1.a')"
+              />
+              <FAQItem
+                :question="$t('faq.2.q')"
+                :answer="$t('faq.2.a')"
+              />
+            </div>
+            <div class="qa-column">
+              <FAQItem
+                :question="$t('faq.3.q')"
+                :answer="$t('faq.3.a')"
+              />
+              <FAQItem
+                :question="$t('faq.4.q')"
+                :answer="$t('faq.4.a')"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -87,6 +88,12 @@ const teamMembers = [
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.home-content {
+  position: relative;
+  z-index: 1;
+  background: #fff;
 }
 
 .about-section {
