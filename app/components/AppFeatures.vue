@@ -3,9 +3,25 @@
     <div ref="sceneHostRef" class="features-scene" aria-hidden="true"></div>
     <div class="container">
       <div class="features-header">
-        <div class="features-subtitle">{{ $t('features.subtitle') }}</div>
-        <h2>{{ $t('features.title') }}</h2>
-        <p class="features-description" v-html="$t('features.desc')"></p>
+        <ScrollColorText
+          as="div"
+          class="features-subtitle"
+          color1="#ebebeb34"
+          color2="#72c2ff"
+        >
+          {{ $t('features.subtitle') }}
+        </ScrollColorText>
+        <ScrollColorText as="h2" color1="#ebebeb34" color2="#ffffff">
+          {{ $t('features.title') }}
+        </ScrollColorText>
+        <ScrollColorText
+          as="p"
+          class="features-description"
+          color1="#ebebeb34"
+          color2="#ffffff"
+        >
+          <span v-html="$t('features.desc')"></span>
+        </ScrollColorText>
       </div>
       <div class="features-list">
         <div v-for="(item, idx) in featureItems" :key="idx" class="feature-item">
