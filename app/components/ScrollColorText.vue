@@ -62,18 +62,52 @@ function updateClipPath(value) {
   clipPath.value = `polygon(${points.join(', ')})`
 }
 
+function measureWithoutTransforms(element, callback) {
+  const transformedElements = []
+  let current = element
+
+  while (current instanceof HTMLElement) {
+    if (window.getComputedStyle(current).transform !== 'none') {
+      transformedElements.push({
+        element: current,
+        value: current.style.getPropertyValue('transform'),
+        priority: current.style.getPropertyPriority('transform'),
+      })
+      current.style.setProperty('transform', 'none', 'important')
+    }
+    current = current.parentElement
+  }
+
+  try {
+    return callback()
+  } finally {
+    transformedElements.forEach(({ element: transformedElement, value, priority }) => {
+      if (value) {
+        transformedElement.style.setProperty('transform', value, priority)
+      } else {
+        transformedElement.style.removeProperty('transform')
+      }
+    })
+  }
+}
+
 function measureLines() {
   const element = textRef.value
   const base = baseRef.value
   if (!element || !base) return
 
-  const elementRect = element.getBoundingClientRect()
-  const range = document.createRange()
-  range.selectNodeContents(base)
+  const { elementRect, rects } = measureWithoutTransforms(element, () => {
+    const measuredElementRect = element.getBoundingClientRect()
+    const range = document.createRange()
+    range.selectNodeContents(base)
 
-  const rects = Array.from(range.getClientRects())
-    .filter((rect) => rect.width > 0 && rect.height > 0)
-    .sort((a, b) => a.top - b.top || a.left - b.left)
+    const measuredRects = Array.from(range.getClientRects())
+      .filter((rect) => rect.width > 0 && rect.height > 0)
+      .sort((a, b) => a.top - b.top || a.left - b.left)
+
+    range.detach?.()
+    return { elementRect: measuredElementRect, rects: measuredRects }
+  })
 
   const nextLines = []
   rects.forEach((rect) => {
@@ -101,7 +135,6 @@ function measureLines() {
     width: Math.max(line.right - line.left, 0),
   }))
   updateClipPath(progress.value)
-  range.detach?.()
 }
 
 function updateProgress() {

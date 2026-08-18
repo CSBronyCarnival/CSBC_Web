@@ -19,6 +19,7 @@ const nightHeroRef = ref(null)
     </section>
 
     <NightAbout />
+    <NightMusicians />
   </div>
 </template>
 

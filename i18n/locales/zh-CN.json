@@ -197,7 +197,9 @@
     "hero": "夜下扬蹄",
     "title": "夜下扬蹄",
     "desc": "我们追求梦想中的小马音乐现场，志在成为亚洲地区最为专门化的小马音乐会。\n来自五湖四海的小马音乐人相聚一堂，他们用音乐创造了一个又一个难忘的夜晚。",
-    "credit": "摄影：Ryazen"
+    "credit": "摄影：Ryazen",
+    "musiciansTitle": "音乐阵容",
+    "musiciansSubtitle": "因音乐而相聚"
   },
   "contact": {
     "hero": "联系我们",
