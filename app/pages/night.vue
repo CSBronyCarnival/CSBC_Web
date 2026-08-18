@@ -1,13 +1,18 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
 useHead({ title: computed(() => t('pageTitle.night')) })
+
+const nightHeroRef = ref(null)
 </script>
 
 <template>
   <div class="night-page">
-    <section class="night-hero">
+    <NightStarBackground :scroll-target="nightHeroRef" />
+
+    <section ref="nightHeroRef" class="night-hero">
       <div class="hero-content">
         <img src="/img/night/stickshort.webp" :alt="$t('night.hero')" class="hero-logo" />
       </div>
@@ -19,22 +24,27 @@ useHead({ title: computed(() => t('pageTitle.night')) })
 
 <style scoped>
 .night-page {
-  background: #121212;
+  position: relative;
   min-height: 100vh;
+  background: #121212;
 }
 
 .night-hero {
-  height: 100vh;
   position: relative;
+  z-index: 1;
+  height: 100vh;
   overflow: hidden;
-  background: #1b1b1b;
+  background: transparent;
 }
+
 .hero-content {
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 1;
   transform: translate(-50%, -50%);
 }
+
 .hero-logo {
   width: 350px;
   height: auto;
