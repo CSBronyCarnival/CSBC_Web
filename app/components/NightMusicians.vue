@@ -59,6 +59,10 @@
         </div>
       </div>
     </div>
+
+    <div class="musicians-tagline">
+      {{ $t('night.musiciansTagline') }}
+    </div>
   </section>
 </template>
 
@@ -201,6 +205,44 @@ const musicians = musicianNames.map((name) => ({
   background: #1e1e1e;
 }
 
+.musicians-tagline {
+  position: absolute;
+  right: clamp(96px, 14vw, 220px);
+  bottom: clamp(34px, 5vw, 72px);
+  z-index: 2;
+  text-align: right;
+  transform: rotate(-4deg);
+  transform-origin: right bottom;
+  color: transparent;
+  font-size: clamp(0.5rem, 0.85vw, 0.85rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: linear-gradient(
+    90deg,
+    #ff5f6d,
+    #ffc371,
+    #fff06a,
+    #72f1b8,
+    #72c2ff,
+    #a78bfa,
+    #ff7ac6,
+    #ff5f6d
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+  animation: musicians-tagline-rainbow 4s linear infinite;
+}
+
+@keyframes musicians-tagline-rainbow {
+  to {
+    background-position: 300% 50%;
+  }
+}
+
 @keyframes musicians-scroll {
   from {
     transform: translate3d(0, 0, 0);
@@ -221,6 +263,10 @@ const musicians = musicianNames.map((name) => ({
 
 @media (prefers-reduced-motion: reduce) {
   .musicians-track {
+    animation-play-state: paused;
+  }
+
+  .musicians-tagline {
     animation-play-state: paused;
   }
 }
@@ -261,6 +307,12 @@ const musicians = musicianNames.map((name) => ({
   .musicians-group {
     gap: 14px;
     padding-right: 14px;
+  }
+
+  .musicians-tagline {
+    right: 72px;
+    bottom: 28px;
+    font-size: 0.5rem;
   }
 }
 </style>
