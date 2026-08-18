@@ -144,18 +144,5 @@
   .night-more__copy h2 {
     font-size: 2.6rem;
   }
-
-  .night-more__links {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .night-more__tilt {
-    width: min(100%, 320px);
-  }
-
-  .night-more__link {
-    width: 100%;
-  }
 }
 </style>

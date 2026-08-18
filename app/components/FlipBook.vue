@@ -2,10 +2,8 @@
   <ClientOnly>
     <div class="flipbook-outer">
       <div v-if="loading" class="flipbook-status">
-        <div class="flipbook-dots">
-          <span class="flipbook-dot"></span>
-          <span class="flipbook-dot"></span>
-          <span class="flipbook-dot"></span>
+        <div class="flipbook-spinner-slot">
+          <LoadingSpinner :visible="loading" />
         </div>
         <p>正在加载场刊… {{ progress }}%</p>
       </div>
@@ -295,6 +293,7 @@ onUnmounted(() => {
 }
 
 .flipbook-status {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -309,23 +308,11 @@ onUnmounted(() => {
   opacity: 0.7;
   margin-top: 4px;
 }
-.flipbook-dots {
-  display: flex;
-  gap: 10px;
+.flipbook-spinner-slot {
+  position: relative;
+  width: 24px;
+  height: 24px;
   margin-bottom: 16px;
-}
-.flipbook-dot {
-  width: 12px;
-  height: 12px;
-  background: #4fa7ff;
-  animation: dot-blink 1.4s ease-in-out infinite both;
-}
-.flipbook-dot:nth-child(1) { animation-delay: 0s; }
-.flipbook-dot:nth-child(2) { animation-delay: 0.2s; }
-.flipbook-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes dot-blink {
-  0%, 80%, 100% { opacity: 0.2; }
-  40% { opacity: 1; }
 }
 
 .flipbook-stage {

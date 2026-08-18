@@ -17,7 +17,20 @@
         </ClickTilt>
         <span class="nav-divider"></span>
         <ClickTilt>
-          <button class="lang-btn" @click="toggleLang">{{ locale === 'zh' ? 'EN' : '中文' }}</button>
+          <button
+            class="lang-btn"
+            :disabled="localeLoading"
+            :aria-busy="localeLoading"
+            :aria-label="localeLoading ? $t('lang.loading') : $t('lang.switchTo')"
+            @click="toggleLang"
+          >
+            <span v-if="localeLoading" class="lang-dots" aria-hidden="true">
+              <span class="lang-dot"></span>
+              <span class="lang-dot"></span>
+              <span class="lang-dot"></span>
+            </span>
+            <span v-else>{{ $t('lang.switchTo') }}</span>
+          </button>
         </ClickTilt>
       </div>
 
@@ -55,8 +68,19 @@
           </ClickTilt>
         </div>
 
-        <button class="mobile-lang-btn" @click="handleMobileLangToggle">
-          {{ locale === 'zh' ? 'EN' : '中文' }}
+        <button
+          class="mobile-lang-btn"
+          :disabled="localeLoading"
+          :aria-busy="localeLoading"
+          :aria-label="localeLoading ? $t('lang.loading') : $t('lang.switchTo')"
+          @click="handleMobileLangToggle"
+        >
+          <span v-if="localeLoading" class="lang-dots" aria-hidden="true">
+            <span class="lang-dot"></span>
+            <span class="lang-dot"></span>
+            <span class="lang-dot"></span>
+          </span>
+          <span v-else>{{ $t('lang.switchTo') }}</span>
         </button>
       </div>
     </Transition>
@@ -88,6 +112,7 @@ const { t, locale, setLocale } = useI18n()
 
 const mobileOpen = ref(false)
 const scrollY = ref(0)
+const localeLoading = ref(false)
 
 const isCollapsed = computed(() => {
   const isHomePage = route.path === '/'
@@ -102,8 +127,16 @@ function onScroll() {
 }
 
 async function toggleLang() {
+  if (localeLoading.value) return
+
   const target = locale.value === 'zh' ? 'en' : 'zh'
-  await setLocale(target)
+  localeLoading.value = true
+
+  try {
+    await setLocale(target)
+  } finally {
+    localeLoading.value = false
+  }
 }
 
 async function handleMobileLangToggle() {
@@ -409,9 +442,39 @@ watch(() => route.path, () => {
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
   flex-shrink: 0;
+  min-width: 44px;
 }
 .lang-btn:hover {
   background: rgba(0, 0, 0, 0.05);
+}
+.lang-btn:disabled:hover {
+  background: transparent;
+}
+.lang-btn:disabled,
+.mobile-lang-btn:disabled {
+  cursor: wait;
+}
+
+.lang-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lang-dot {
+  width: 6px;
+  height: 6px;
+  background: #4fa7ff;
+  animation: lang-dot-blink 1.4s ease-in-out infinite both;
+}
+
+.lang-dot:nth-child(1) { animation-delay: 0s; }
+.lang-dot:nth-child(2) { animation-delay: 0.2s; }
+.lang-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes lang-dot-blink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
 }
 
 .top-nav.night .nav-divider {
@@ -444,10 +507,14 @@ watch(() => route.path, () => {
   transition: background 0.2s ease;
   z-index: 1000;
   animation: fadeInUp 0.35s ease forwards;
+  min-width: 76px;
 }
 .mobile-lang-btn:hover {
   background: rgba(79, 167, 255, 0.7);
   border-color: rgba(79, 167, 255, 0.8);
+}
+.mobile-lang-btn:disabled:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(12px); }

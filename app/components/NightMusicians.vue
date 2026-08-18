@@ -367,9 +367,9 @@ const musicianRows = useState('night-musician-rows', () =>
   }
 
   .musicians-tagline {
-    right: 72px;
-    bottom: 64px;
-    font-size: 0.5rem;
+    right: 32px;
+    bottom: 54px;
+    font-size: 0.8rem;
   }
 }
 </style>

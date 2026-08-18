@@ -89,7 +89,8 @@
     }
   ],
   "lang": {
-    "switchTo": "中文"
+    "switchTo": "中文",
+    "loading": "Switching language"
   },
   "footer": {
     "sourceCode": "View source on GitHub",

@@ -89,7 +89,8 @@
     }
   ],
   "lang": {
-    "switchTo": "EN"
+    "switchTo": "EN",
+    "loading": "正在切换语言"
   },
   "footer": {
     "sourceCode": "在 GitHub 上查看源代码",
