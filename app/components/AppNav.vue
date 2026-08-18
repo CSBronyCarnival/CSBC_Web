@@ -90,7 +90,9 @@ const mobileOpen = ref(false)
 const scrollY = ref(0)
 
 const isCollapsed = computed(() => {
-  return route.path === '/' && scrollY.value < 10
+  const isHomePage = route.path === '/'
+  const isNightPage = route.path.startsWith('/night')
+  return (isHomePage || isNightPage) && scrollY.value < 10
 })
 
 const isNight = computed(() => route.path.startsWith('/night'))
