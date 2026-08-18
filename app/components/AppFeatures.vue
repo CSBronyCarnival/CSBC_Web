@@ -53,9 +53,9 @@ const sectionRef = ref(null)
 const sceneHostRef = ref(null)
 
 const BASE_ORBIT_ANGLE = -0.45
-const AUTO_ORBIT_SPEED = 0.12
 const SCROLL_ORBIT_SPAN = Math.PI
 const SCROLL_ORBIT_FOLLOW = 5
+const SCROLL_ORBIT_LEAD = -0.1
 const MODEL_SIZE = 2.8
 const MODEL_Y_OFFSET = -0.2
 
@@ -66,13 +66,10 @@ let modelRoot = null
 let cameraRadius = 6.8
 let resizeObserver = null
 let intersectionObserver = null
-let motionQuery = null
 let clock = null
 let animationFrame = 0
-let autoOrbitAngle = 0
 let scrollOrbitAngle = 0
 let lastRenderedAngle = null
-let prefersReducedMotion = false
 let sceneActive = false
 const disposableResources = []
 const disposablePasses = []
@@ -110,20 +107,21 @@ function readScrollOrbitAngle() {
 
   const rect = section.getBoundingClientRect()
   const travel = rect.height + window.innerHeight
-  const progress = Math.min(Math.max((window.innerHeight - rect.top) / travel, 0), 1)
+  const progress = Math.min(
+    Math.max((window.innerHeight - rect.top) / travel + SCROLL_ORBIT_LEAD, 0),
+    1,
+  )
   return progress * SCROLL_ORBIT_SPAN
 }
 
 function updateScene(delta) {
   if (!camera || !modelRoot || !composer) return
 
-  if (!prefersReducedMotion) autoOrbitAngle += delta * AUTO_ORBIT_SPEED
-
   const targetScrollAngle = readScrollOrbitAngle()
   const follow = delta > 0 ? 1 - Math.exp(-SCROLL_ORBIT_FOLLOW * delta) : 1
   scrollOrbitAngle += (targetScrollAngle - scrollOrbitAngle) * follow
 
-  const orbitAngle = BASE_ORBIT_ANGLE + autoOrbitAngle + scrollOrbitAngle
+  const orbitAngle = BASE_ORBIT_ANGLE + scrollOrbitAngle
   if (lastRenderedAngle !== null && Math.abs(orbitAngle - lastRenderedAngle) < 1e-4) return
 
   camera.position.set(
@@ -155,10 +153,6 @@ function stopSceneLoop() {
   window.cancelAnimationFrame(animationFrame)
   animationFrame = 0
   clock.stop()
-}
-
-function handleMotionPreference(event) {
-  prefersReducedMotion = event.matches
 }
 
 function disposeModel(model) {
@@ -311,10 +305,6 @@ function createScene() {
 }
 
 onMounted(() => {
-  motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-  prefersReducedMotion = motionQuery.matches
-  motionQuery.addEventListener('change', handleMotionPreference)
-
   createScene()
 
   const section = sectionRef.value
@@ -333,7 +323,6 @@ onMounted(() => {
 onUnmounted(() => {
   sceneActive = false
   stopSceneLoop()
-  motionQuery?.removeEventListener('change', handleMotionPreference)
   intersectionObserver?.disconnect()
   resizeObserver?.disconnect()
 
@@ -429,7 +418,7 @@ onUnmounted(() => {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
 }
 .model-credit__noah {
-  color: #3C5B7C;
+  color: #365575;
 }
 .model-credit__chen {
   color: #4DC0F2;
