@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div class="musicians-tagline">
+    <div class="musicians-tagline" :data-text="$t('night.musiciansTagline')">
       {{ $t('night.musiciansTagline') }}
     </div>
   </section>
@@ -208,9 +208,10 @@ const musicians = musicianNames.map((name) => ({
 .musicians-tagline {
   position: absolute;
   right: clamp(96px, 14vw, 220px);
-  bottom: clamp(34px, 5vw, 72px);
+  bottom: clamp(96px, 10vw, 150px);
   z-index: 2;
   text-align: right;
+  white-space: nowrap;
   transform: rotate(-4deg);
   transform-origin: right bottom;
   color: transparent;
@@ -235,6 +236,37 @@ const musicians = musicianNames.map((name) => ({
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
   animation: musicians-tagline-rainbow 4s linear infinite;
+}
+
+.musicians-tagline::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: attr(data-text);
+  color: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  background: linear-gradient(
+    90deg,
+    #ff5f6d,
+    #ffc371,
+    #fff06a,
+    #72f1b8,
+    #72c2ff,
+    #a78bfa,
+    #ff7ac6,
+    #ff5f6d
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: blur(8px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: musicians-tagline-rainbow 4s linear infinite;
+  animation-delay: -1.5s;
 }
 
 @keyframes musicians-tagline-rainbow {
@@ -267,6 +299,10 @@ const musicians = musicianNames.map((name) => ({
   }
 
   .musicians-tagline {
+    animation-play-state: paused;
+  }
+
+  .musicians-tagline::after {
     animation-play-state: paused;
   }
 }
@@ -311,7 +347,7 @@ const musicians = musicianNames.map((name) => ({
 
   .musicians-tagline {
     right: 72px;
-    bottom: 28px;
+    bottom: 64px;
     font-size: 0.5rem;
   }
 }
