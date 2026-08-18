@@ -3,8 +3,12 @@
     <div class="container">
       <div class="about-row">
         <div class="about-text">
-          <h3>{{ $t('night.title') }}</h3>
-          <p v-html="$t('night.desc')"></p>
+          <ScrollColorText as="h3" color1="#ebebeb34" color2="#e0e0e0">
+            {{ $t('night.title') }}
+          </ScrollColorText>
+          <ScrollColorText as="p" color1="#ebebeb34" color2="#b0b0b0">
+            <span v-html="$t('night.desc')"></span>
+          </ScrollColorText>
         </div>
         <div class="about-img">
           <ImgLazy src="/img/night/about.webp" :alt="$t('night.title')" />
@@ -58,7 +62,7 @@
 }
 .about-text h3 {
   color: #e0e0e0;
-  font-size: 2.2rem;
+  font-size: 3rem;
   margin-bottom: 20px;
   font-weight: 600;
 }
@@ -84,7 +88,7 @@
     font-size: 1.1rem;
   }
   .about-text h3 {
-    font-size: 1.8rem;
+    font-size: 2.25rem;
   }
   .about-text p {
     font-size: 1.1rem;
