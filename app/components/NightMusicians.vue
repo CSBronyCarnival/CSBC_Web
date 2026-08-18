@@ -19,7 +19,7 @@
     </div>
 
     <div
-      v-for="row in rows"
+      v-for="(rowMusicians, row) in musicianRows"
       :key="row"
       class="musicians-row"
       :class="{ 'musicians-row--reverse': row % 2 === 1 }"
@@ -27,7 +27,7 @@
       <div class="musicians-track">
         <div class="musicians-group">
           <figure
-            v-for="musician in musicians"
+            v-for="musician in rowMusicians"
             :key="`${row}-${musician.name}`"
             class="musician-avatar"
           >
@@ -43,7 +43,7 @@
         </div>
         <div class="musicians-group" aria-hidden="true">
           <figure
-            v-for="musician in musicians"
+            v-for="musician in rowMusicians"
             :key="`${row}-duplicate-${musician.name}`"
             class="musician-avatar"
           >
@@ -67,8 +67,6 @@
 </template>
 
 <script setup>
-const rows = [0, 1, 2]
-
 const musicianNames = [
   'aeotyr',
   'Allink',
@@ -95,12 +93,30 @@ const musicianNames = [
   '海冰',
   '翊帆',
   '韵华',
+  '7points',
 ]
 
 const musicians = musicianNames.map((name) => ({
   name,
   src: `/img/night/musician/${name}.webp`,
 }))
+
+const shuffleMusicians = () => {
+  const shuffled = [...musicians]
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1))
+    const currentMusician = shuffled[index]
+    shuffled[index] = shuffled[randomIndex]
+    shuffled[randomIndex] = currentMusician
+  }
+
+  return shuffled
+}
+
+const musicianRows = useState('night-musician-rows', () =>
+  Array.from({ length: 3 }, shuffleMusicians),
+)
 </script>
 
 <style scoped>

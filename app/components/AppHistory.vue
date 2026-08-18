@@ -19,11 +19,14 @@
           </div>
 
           <div class="history-card">
-            <div class="history-photo">
+            <div
+              :ref="(element) => setPhotoRef(node.id, element)"
+              class="history-photo"
+              :style="{ '--history-photo-parallax': `${imageParallax[node.id] ?? 0}px` }"
+            >
               <ImgLazy
                 :src="node.image"
                 :alt="`${node.year} ${$t('history.photoAlt')}`"
-                :style="{ transform: `translate3d(${imgParallax}px, 0, 0) scale(1.25)` }"
               />
             </div>
             <div class="history-attendance">
@@ -42,14 +45,13 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 
 const sectionRef = ref(null)
 const trackRef = ref(null)
 const trackOffset = ref(0)
 const progress = ref(0)
-
-const imgParallax = computed(() => -trackOffset.value * 0.025)
+const imageParallax = ref({})
 
 const historyNodes = [
   { id: '2022', year: '2022', image: '/img/gallery/group_photo/2022.webp', attendees: '100+' },
@@ -75,6 +77,50 @@ const historyNodes = [
 let scrollFrame = 0
 let resizeObserver = null
 let horizontalDistance = 0
+const photoRefs = new Map()
+const photoMetrics = new Map()
+
+function setPhotoRef(id, element) {
+  if (element) {
+    photoRefs.set(id, element)
+    return
+  }
+
+  photoRefs.delete(id)
+  photoMetrics.delete(id)
+}
+
+function updatePhotoMetrics() {
+  photoMetrics.clear()
+
+  historyNodes.forEach((node) => {
+    const photo = photoRefs.get(node.id)
+    if (!photo) return
+
+    const rect = photo.getBoundingClientRect()
+    photoMetrics.set(node.id, {
+      center: rect.left + rect.width / 2 - trackOffset.value,
+      width: rect.width,
+    })
+  })
+}
+
+function updateImageParallax(offset) {
+  const viewportCenter = window.innerWidth / 2
+  const offsets = {}
+
+  historyNodes.forEach((node) => {
+    const metric = photoMetrics.get(node.id)
+    if (!metric) return
+
+    const centeredTrackOffset = viewportCenter - metric.center
+    const maxOffset = metric.width * 0.11
+    const rawOffset = -(offset - centeredTrackOffset) * 0.05
+    offsets[node.id] = Math.min(Math.max(rawOffset, -maxOffset), maxOffset)
+  })
+
+  imageParallax.value = offsets
+}
 
 function updateDimensions() {
   const section = sectionRef.value
@@ -83,6 +129,7 @@ function updateDimensions() {
 
   horizontalDistance = Math.max(track.scrollWidth - window.innerWidth, 0)
   section.style.height = `${horizontalDistance + window.innerHeight}px`
+  updatePhotoMetrics()
   updateScrollPosition()
 }
 
@@ -96,8 +143,10 @@ function updateScrollPosition() {
 
     const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1)
     const sectionProgress = Math.min(Math.max(-section.getBoundingClientRect().top / scrollRange, 0), 1)
+    const nextTrackOffset = -horizontalDistance * sectionProgress
     progress.value = sectionProgress
-    trackOffset.value = -horizontalDistance * sectionProgress
+    trackOffset.value = nextTrackOffset
+    updateImageParallax(nextTrackOffset)
   })
 }
 
@@ -185,6 +234,9 @@ onUnmounted(() => {
 .history-photo :deep(.lazy-img) {
   width: 100%;
   height: 100%;
+  transform: translate3d(var(--history-photo-parallax, 0), 0, 0) scale(1.25);
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .history-attendance {
