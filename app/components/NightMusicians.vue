@@ -31,9 +31,11 @@
             :key="`${row}-${musician.name}`"
             class="musician-avatar"
           >
-            <img
+            <ImgLazy
               :src="musician.src"
               :alt="musician.name"
+              eager
+              no-spinner
               loading="eager"
               decoding="async"
             />
@@ -45,9 +47,11 @@
             :key="`${row}-duplicate-${musician.name}`"
             class="musician-avatar"
           >
-            <img
+            <ImgLazy
               :src="musician.src"
               alt=""
+              eager
+              no-spinner
               loading="eager"
               decoding="async"
             />
@@ -181,17 +185,20 @@ const musicians = musicianNames.map((name) => ({
   aspect-ratio: 1;
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(235, 235, 235, 0.2);
   border-radius: 8px;
   background: #1e1e1e;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
 }
 
-.musician-avatar img {
-  display: block;
+.musician-avatar :deep(.lazy-img),
+.musician-avatar :deep(.lazy-img-el) {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.musician-avatar :deep(.lazy-img) {
+  background: #1e1e1e;
 }
 
 @keyframes musicians-scroll {

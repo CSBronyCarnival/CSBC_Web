@@ -22,13 +22,14 @@ import LoadingSpinner from './LoadingSpinner.vue'
 const props = defineProps({
   src: { type: String, required: true },
   alt: { type: String, default: '' },
-  noSpinner: { type: Boolean, default: false }
+  noSpinner: { type: Boolean, default: false },
+  eager: { type: Boolean, default: false }
 })
 
 const rootRef = ref(null)
 const loaded = ref(false)
 const spinnerVisible = ref(false)
-const resolvedSrc = ref('')
+const resolvedSrc = ref(props.eager ? props.src : '')
 let observer = null
 let spinnerTimer = null
 
@@ -54,6 +55,8 @@ function onError() {
 }
 
 onMounted(() => {
+  if (props.eager) return
+
   observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

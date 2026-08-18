@@ -322,7 +322,7 @@ onUnmounted(() => {
 .features-header {
   width: min(620px, 72%);
   text-align: left;
-  margin-bottom: clamp(260px, 34vh, 390px);
+  margin-bottom: clamp(510px, 60vh, 705px);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
   margin-top: 40px;
 }
@@ -389,7 +389,7 @@ onUnmounted(() => {
   }
   .features-header {
     width: 100%;
-    margin-bottom: clamp(260px, 45vh, 360px);
+    margin-bottom: clamp(480px, 78vh, 630px);
   }
   .features-header h2 {
     font-size: 2.35rem;
