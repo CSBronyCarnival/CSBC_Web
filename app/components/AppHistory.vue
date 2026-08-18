@@ -36,10 +36,6 @@
           </div>
         </article>
       </div>
-
-      <div class="history-progress" aria-hidden="true">
-        <span :style="{ transform: `scaleX(${progress})` }"></span>
-      </div>
     </div>
   </section>
 </template>
@@ -50,7 +46,6 @@ import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 const sectionRef = ref(null)
 const trackRef = ref(null)
 const trackOffset = ref(0)
-const progress = ref(0)
 const imageParallax = ref({})
 
 const historyNodes = [
@@ -144,7 +139,6 @@ function updateScrollPosition() {
     const scrollRange = Math.max(section.offsetHeight - window.innerHeight, 1)
     const sectionProgress = Math.min(Math.max(-section.getBoundingClientRect().top / scrollRange, 0), 1)
     const nextTrackOffset = -horizontalDistance * sectionProgress
-    progress.value = sectionProgress
     trackOffset.value = nextTrackOffset
     updateImageParallax(nextTrackOffset)
   })
@@ -255,24 +249,6 @@ onUnmounted(() => {
   font-weight: 700;
 }
 
-.history-progress {
-  position: absolute;
-  right: max(20px, calc((100vw - 1200px) / 2));
-  bottom: 28px;
-  left: max(20px, calc((100vw - 1200px) / 2));
-  height: 2px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.history-progress span {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transform-origin: left center;
-  background: #4a90d9;
-}
-
 @media (max-width: 768px) {
   .history-track {
     gap: 24px;
@@ -294,12 +270,6 @@ onUnmounted(() => {
 
   .history-attendance {
     padding: 15px 17px 17px;
-  }
-
-  .history-progress {
-    right: 20px;
-    bottom: 20px;
-    left: 20px;
   }
 }
 </style>
