@@ -38,6 +38,8 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
@@ -51,11 +53,13 @@ const BASE_ORBIT_ANGLE = -0.45
 const AUTO_ORBIT_SPEED = 0.12
 const SCROLL_ORBIT_SPAN = Math.PI
 const SCROLL_ORBIT_FOLLOW = 5
+const MODEL_SIZE = 2.8
+const MODEL_Y_OFFSET = -0.2
 
 let renderer = null
 let composer = null
 let camera = null
-let cube = null
+let modelRoot = null
 let cameraRadius = 6.8
 let resizeObserver = null
 let intersectionObserver = null
@@ -66,6 +70,7 @@ let autoOrbitAngle = 0
 let scrollOrbitAngle = 0
 let lastRenderedAngle = null
 let prefersReducedMotion = false
+let sceneActive = false
 const disposableResources = []
 const disposablePasses = []
 
@@ -107,7 +112,7 @@ function readScrollOrbitAngle() {
 }
 
 function updateScene(delta) {
-  if (!camera || !cube || !composer) return
+  if (!camera || !modelRoot || !composer) return
 
   if (!prefersReducedMotion) autoOrbitAngle += delta * AUTO_ORBIT_SPEED
 
@@ -123,7 +128,7 @@ function updateScene(delta) {
     2.4,
     Math.cos(orbitAngle) * cameraRadius,
   )
-  camera.lookAt(cube.position)
+  camera.lookAt(modelRoot.position)
   composer.render()
   lastRenderedAngle = orbitAngle
 }
@@ -153,10 +158,83 @@ function handleMotionPreference(event) {
   prefersReducedMotion = event.matches
 }
 
+function disposeModel(model) {
+  const geometries = new Set()
+  const materials = new Set()
+  const textures = new Set()
+
+  model.traverse((object) => {
+    if (!object.isMesh) return
+
+    if (object.geometry && !geometries.has(object.geometry)) {
+      geometries.add(object.geometry)
+      object.geometry.dispose()
+    }
+
+    const objectMaterials = Array.isArray(object.material) ? object.material : [object.material]
+    objectMaterials.forEach((material) => {
+      if (!material || materials.has(material)) return
+
+      materials.add(material)
+      Object.values(material).forEach((value) => {
+        if (value?.isTexture && !textures.has(value)) {
+          textures.add(value)
+          value.dispose()
+        }
+      })
+      material.dispose()
+    })
+  })
+}
+
+function loadModel() {
+  const loader = new GLTFLoader()
+  loader.setMeshoptDecoder(MeshoptDecoder)
+
+  loader.load(
+    '/three/miemie.glb',
+    (gltf) => {
+      if (!sceneActive || !modelRoot) {
+        disposeModel(gltf.scene)
+        return
+      }
+
+      const model = gltf.scene
+      const bounds = new THREE.Box3().setFromObject(model)
+      const size = bounds.getSize(new THREE.Vector3())
+      const center = bounds.getCenter(new THREE.Vector3())
+      const maxDimension = Math.max(size.x, size.y, size.z)
+
+      if (!maxDimension) {
+        disposeModel(model)
+        return
+      }
+
+      const scale = MODEL_SIZE / maxDimension
+      const normalizedModel = new THREE.Group()
+      normalizedModel.add(model)
+      normalizedModel.scale.setScalar(scale)
+      normalizedModel.position.set(
+        -center.x * scale,
+        -center.y * scale + MODEL_Y_OFFSET,
+        -center.z * scale,
+      )
+      modelRoot.add(normalizedModel)
+      lastRenderedAngle = null
+      if (!animationFrame) updateScene(0)
+    },
+    undefined,
+    (error) => {
+      console.error('Failed to load features model.', error)
+    },
+  )
+}
+
 function createScene() {
   const host = sceneHostRef.value
   if (!host) return
 
+  sceneActive = true
   clock = new THREE.Clock(false)
 
   const scene = new THREE.Scene()
@@ -175,24 +253,9 @@ function createScene() {
   renderer.toneMappingExposure = 1
   host.appendChild(renderer.domElement)
 
-  const geometry = new THREE.BoxGeometry(1.25, 1.25, 1.25)
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x4d8fc2,
-    metalness: 0.28,
-    roughness: 0.32,
-  })
-  const edgeGeometry = new THREE.EdgesGeometry(geometry)
-  const edgeMaterial = new THREE.LineBasicMaterial({
-    color: 0x9fcff0,
-    transparent: true,
-    opacity: 0.55,
-  })
-  disposableResources.push(geometry, material, edgeGeometry, edgeMaterial)
-
-  cube = new THREE.Group()
-  cube.add(new THREE.Mesh(geometry, material))
-  cube.add(new THREE.LineSegments(edgeGeometry, edgeMaterial))
-  scene.add(cube)
+  modelRoot = new THREE.Group()
+  scene.add(modelRoot)
+  loadModel()
 
   const grid = new THREE.GridHelper(24, 48, 0xffffff, 0xffffff)
   grid.position.y = -0.68
@@ -265,6 +328,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  sceneActive = false
   stopSceneLoop()
   motionQuery?.removeEventListener('change', handleMotionPreference)
   intersectionObserver?.disconnect()
@@ -272,6 +336,7 @@ onUnmounted(() => {
 
   disposableResources.forEach((resource) => resource.dispose())
   disposableResources.length = 0
+  if (modelRoot) disposeModel(modelRoot)
   disposablePasses.forEach((pass) => pass.dispose())
   disposablePasses.length = 0
   composer?.dispose()
