@@ -51,7 +51,7 @@
 .night-more {
   position: relative;
   z-index: 1;
-  padding: 0 0 clamp(120px, 16vw, 220px);
+  padding: clamp(64px, 9vw, 128px) 0 clamp(120px, 16vw, 220px);
   background: transparent;
 }
 
@@ -130,7 +130,7 @@
 
 @media (max-width: 768px) {
   .night-more {
-    padding-bottom: 120px;
+    padding: 64px 0 120px;
   }
 
   .night-more__container {

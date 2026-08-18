@@ -31,7 +31,7 @@
         </div>
       </div>
       <p class="model-credit">
-        模型制作：<span class="model-credit__noah">Noah</span><span class="model-credit__chen">Chen</span>
+        <span class="model-credit__label">{{ $t('features.modelCredit') }}</span><span class="model-credit__noah">Noah</span><span class="model-credit__chen">Chen</span>
       </p>
     </div>
   </section>
@@ -416,6 +416,9 @@ onUnmounted(() => {
   line-height: 1.5;
   color: #b7c0ca;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+.model-credit__label {
+  margin-right: 0.25em;
 }
 .model-credit__noah {
   color: #365575;
