@@ -359,7 +359,6 @@ onUnmounted(() => {
 .feature-icon {
   width: 80px; height: 80px;
   background: rgba(79, 167, 255, 0.14);
-  border: 1px solid rgba(126, 198, 255, 0.32);
   border-radius: 50%;
   display: flex;
   align-items: center;

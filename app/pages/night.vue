@@ -24,7 +24,7 @@ useHead({ title: computed(() => t('pageTitle.night')) })
 }
 
 .night-hero {
-  height: 750px;
+  height: 100vh;
   position: relative;
   overflow: hidden;
   background: #1b1b1b;
@@ -41,7 +41,7 @@ useHead({ title: computed(() => t('pageTitle.night')) })
 }
 
 @media (max-width: 768px) {
-  .night-hero { height: 500px; }
+  .night-hero { height: 100vh; }
   .hero-logo { width: 260px; }
 }
 </style>
