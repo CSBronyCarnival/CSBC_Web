@@ -23,6 +23,7 @@
               <ImgLazy
                 :src="node.image"
                 :alt="`${node.year} ${$t('history.photoAlt')}`"
+                :style="{ transform: `translate3d(${imgParallax}px, 0, 0) scale(1.25)` }"
               />
             </div>
             <div class="history-attendance">
@@ -41,30 +42,34 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 
 const sectionRef = ref(null)
 const trackRef = ref(null)
 const trackOffset = ref(0)
 const progress = ref(0)
 
+const imgParallax = computed(() => -trackOffset.value * 0.025)
+
 const historyNodes = [
-  { id: '2022', year: '2022', image: '/img/gallery/group_photo/2022.webp' },
-  { id: '2023', year: '2023', image: '/img/gallery/group_photo/2023.webp' },
+  { id: '2022', year: '2022', image: '/img/gallery/group_photo/2022.webp', attendees: '100+' },
+  { id: '2023', year: '2023', image: '/img/gallery/group_photo/2023.webp', attendees: '260+' },
   {
     id: '2024-winter',
     year: '2024',
     image: '/img/gallery/group_photo/2024-d.webp',
     period: 'winter',
+    attendees: '120+',
   },
   {
     id: '2024-summer',
     year: '2024',
     image: '/img/gallery/group_photo/2024.webp',
     period: 'summer',
+    attendees: '350+',
   },
-  { id: '2025', year: '2025', image: '/img/gallery/group_photo/2025.webp' },
-  { id: '2026', year: '2026', image: '/img/gallery/group_photo/2026.webp' },
+  { id: '2025', year: '2025', image: '/img/gallery/group_photo/2025.webp', attendees: '460+' },
+  { id: '2026', year: '2026', image: '/img/gallery/group_photo/2026.webp', attendees: '670+' },
 ]
 
 let scrollFrame = 0

@@ -31,13 +31,25 @@ const { t } = useI18n()
 const sectionRef = ref(null)
 const sceneHostRef = ref(null)
 
+const BASE_ORBIT_ANGLE = -0.45
+const AUTO_ORBIT_SPEED = 0.12
+const SCROLL_ORBIT_SPAN = Math.PI
+const SCROLL_ORBIT_FOLLOW = 5
+
 let renderer = null
 let composer = null
 let camera = null
 let cube = null
 let cameraRadius = 6.8
 let resizeObserver = null
-let scrollFrame = 0
+let intersectionObserver = null
+let motionQuery = null
+let clock = null
+let animationFrame = 0
+let autoOrbitAngle = 0
+let scrollOrbitAngle = 0
+let lastRenderedAngle = null
+let prefersReducedMotion = false
 const disposableResources = []
 const disposablePasses = []
 
@@ -68,15 +80,27 @@ function resizeScene() {
   composer.setSize(width, height)
 }
 
-function renderFromScroll() {
-  scrollFrame = 0
+function readScrollOrbitAngle() {
   const section = sectionRef.value
-  if (!section || !cube || !composer) return
+  if (!section) return scrollOrbitAngle
 
   const rect = section.getBoundingClientRect()
   const travel = rect.height + window.innerHeight
   const progress = Math.min(Math.max((window.innerHeight - rect.top) / travel, 0), 1)
-  const orbitAngle = -0.45 + progress * Math.PI
+  return progress * SCROLL_ORBIT_SPAN
+}
+
+function updateScene(delta) {
+  if (!camera || !cube || !composer) return
+
+  if (!prefersReducedMotion) autoOrbitAngle += delta * AUTO_ORBIT_SPEED
+
+  const targetScrollAngle = readScrollOrbitAngle()
+  const follow = delta > 0 ? 1 - Math.exp(-SCROLL_ORBIT_FOLLOW * delta) : 1
+  scrollOrbitAngle += (targetScrollAngle - scrollOrbitAngle) * follow
+
+  const orbitAngle = BASE_ORBIT_ANGLE + autoOrbitAngle + scrollOrbitAngle
+  if (lastRenderedAngle !== null && Math.abs(orbitAngle - lastRenderedAngle) < 1e-4) return
 
   camera.position.set(
     Math.sin(orbitAngle) * cameraRadius,
@@ -85,16 +109,39 @@ function renderFromScroll() {
   )
   camera.lookAt(cube.position)
   composer.render()
+  lastRenderedAngle = orbitAngle
 }
 
-function requestSceneRender() {
-  if (scrollFrame) return
-  scrollFrame = window.requestAnimationFrame(renderFromScroll)
+function animateScene() {
+  animationFrame = window.requestAnimationFrame(animateScene)
+  updateScene(Math.min(clock.getDelta(), 0.1))
+}
+
+function startSceneLoop() {
+  if (animationFrame || !composer) return
+
+  scrollOrbitAngle = readScrollOrbitAngle()
+  clock.start()
+  animationFrame = window.requestAnimationFrame(animateScene)
+}
+
+function stopSceneLoop() {
+  if (!animationFrame) return
+
+  window.cancelAnimationFrame(animationFrame)
+  animationFrame = 0
+  clock.stop()
+}
+
+function handleMotionPreference(event) {
+  prefersReducedMotion = event.matches
 }
 
 function createScene() {
   const host = sceneHostRef.value
   if (!host) return
+
+  clock = new THREE.Clock(false)
 
   const scene = new THREE.Scene()
   scene.background = new THREE.Color(0x020204)
@@ -172,23 +219,40 @@ function createScene() {
 
   resizeObserver = new ResizeObserver(() => {
     resizeScene()
-    requestSceneRender()
+    lastRenderedAngle = null
+    if (!animationFrame) updateScene(0)
   })
   resizeObserver.observe(host)
 
   resizeScene()
-  renderFromScroll()
+  updateScene(0)
 }
 
 onMounted(() => {
+  motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  prefersReducedMotion = motionQuery.matches
+  motionQuery.addEventListener('change', handleMotionPreference)
+
   createScene()
-  window.addEventListener('scroll', requestSceneRender, { passive: true })
+
+  const section = sectionRef.value
+  if (!section) return
+
+  intersectionObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) startSceneLoop()
+      else stopSceneLoop()
+    },
+    { rootMargin: '10% 0px' },
+  )
+  intersectionObserver.observe(section)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', requestSceneRender)
+  stopSceneLoop()
+  motionQuery?.removeEventListener('change', handleMotionPreference)
+  intersectionObserver?.disconnect()
   resizeObserver?.disconnect()
-  if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
 
   disposableResources.forEach((resource) => resource.dispose())
   disposableResources.length = 0
