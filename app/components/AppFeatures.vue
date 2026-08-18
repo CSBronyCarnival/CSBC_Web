@@ -160,7 +160,7 @@ function createScene() {
   clock = new THREE.Clock(false)
 
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color(0x020204)
+  scene.background = new THREE.Color(0x121212)
 
   camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100)
   camera.position.set(0, 2.4, cameraRadius)
@@ -298,7 +298,7 @@ onUnmounted(() => {
   min-height: 100vh;
   min-height: 100svh;
   overflow: clip;
-  background: #020204;
+  background: #121212;
   color: #fff;
   isolation: isolate;
 }
