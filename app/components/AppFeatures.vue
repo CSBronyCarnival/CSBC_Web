@@ -30,6 +30,9 @@
           <p>{{ item.desc }}</p>
         </div>
       </div>
+      <p class="model-credit">
+        模型制作：<span class="model-credit__noah">Noah</span><span class="model-credit__chen">Chen</span>
+      </p>
     </div>
   </section>
 </template>
@@ -416,6 +419,21 @@ onUnmounted(() => {
   gap: 24px;
   margin-top: auto;
 }
+.model-credit {
+  position: absolute;
+  left: 20px;
+  bottom: clamp(28px, 4vh, 56px);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #b7c0ca;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+}
+.model-credit__noah {
+  color: #3C5B7C;
+}
+.model-credit__chen {
+  color: #4DC0F2;
+}
 .feature-item {
   padding: 20px 12px;
   text-align: center;
@@ -451,6 +469,12 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .container {
     padding: 64px 20px 160px;
+  }
+  .model-credit {
+    left: 50%;
+    bottom: clamp(72px, 10vh, 120px);
+    transform: translateX(-50%);
+    white-space: nowrap;
   }
   .features-header {
     width: 100%;
