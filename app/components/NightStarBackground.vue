@@ -1,5 +1,10 @@
 <template>
-  <div ref="sceneHostRef" class="night-star-background" aria-hidden="true"></div>
+  <div
+    ref="sceneHostRef"
+    class="night-star-background"
+    :class="{ 'is-ready': sceneReady }"
+    aria-hidden="true"
+  ></div>
 </template>
 
 <script setup>
@@ -12,6 +17,7 @@ const props = defineProps({
 })
 
 const sceneHostRef = ref(null)
+const sceneReady = ref(false)
 
 const STAR_VERTEX_SHADER = `
   attribute float aSize;
@@ -86,14 +92,14 @@ function updateScrollTarget() {
 }
 
 function createStarField(image) {
-  if (!scene || !image) return
+  if (!scene || !image) return false
 
   const sampleSize = window.innerWidth < 768 ? 108 : 148
   const sampleCanvas = document.createElement('canvas')
   sampleCanvas.width = sampleSize
   sampleCanvas.height = sampleSize
   const context = sampleCanvas.getContext('2d', { willReadFrequently: true })
-  if (!context) return
+  if (!context) return false
 
   context.clearRect(0, 0, sampleSize, sampleSize)
   context.drawImage(image, 0, 0, sampleSize, sampleSize)
@@ -124,7 +130,7 @@ function createStarField(image) {
     }
   }
 
-  if (!basePositions.length) return
+  if (!basePositions.length) return false
 
   starGeometry = new THREE.BufferGeometry()
   starGeometry.setAttribute(
@@ -154,6 +160,7 @@ function createStarField(image) {
   stars.frustumCulled = false
   scene.add(stars)
   updateStarPositions(0)
+  return true
 }
 
 function updateStarPositions(time) {
@@ -238,6 +245,7 @@ function createScene() {
 
 onMounted(() => {
   disposed = false
+  sceneReady.value = false
   motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   prefersReducedMotion = motionQuery.matches
   motionQuery.addEventListener('change', handleMotionPreference)
@@ -248,7 +256,12 @@ onMounted(() => {
   logoImage = new Image()
   logoImage.decoding = 'async'
   logoImage.onload = () => {
-    if (!disposed) createStarField(logoImage)
+    if (disposed || !createStarField(logoImage)) return
+
+    renderer?.render(scene, camera)
+    window.requestAnimationFrame(() => {
+      if (!disposed) sceneReady.value = true
+    })
   }
   logoImage.src = props.logoSrc
 
@@ -294,12 +307,25 @@ onUnmounted(() => {
   position: fixed;
   inset: 0;
   z-index: 0;
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 1s ease;
+  will-change: opacity;
+}
+
+.night-star-background.is-ready {
+  opacity: 1;
 }
 
 .night-star-background :deep(canvas) {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night-star-background {
+    transition-duration: 0.01ms;
+  }
 }
 </style>
