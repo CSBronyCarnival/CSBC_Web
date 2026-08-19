@@ -1,7 +1,8 @@
 <template>
   <div class="venue-content">
     <div class="venue-image">
-      <ImgLazy src="/img/venue/main.webp" alt="广州瑞士酒店" class="venue-img" />
+      <ImgLazy src="/img/venue/full.webp" alt="广州瑞士酒店" class="venue-img-wide" />
+      <ImgLazy src="/img/venue/main.webp" alt="广州瑞士酒店" class="venue-img-portrait" />
     </div>
     <div class="venue-description">
       <h3>{{ $t('venue.name') }} <span>{{ $t('venue.subtitle') }}</span></h3>
@@ -16,26 +17,32 @@
 <style scoped>
 .venue-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 50px;
   max-width: 1200px;
   margin: 0 auto;
 }
 .venue-image {
-  flex: 1;
-  max-width: 500px;
+  position: relative;
+  width: min(760px, 100%);
 }
-.venue-image :deep(.lazy-img) {
+.venue-image :deep(.lazy-img:first-child) {
   width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+}
+.venue-image :deep(.lazy-img:last-child) {
+  position: absolute;
+  right: -48px;
+  bottom: -70px;
+  width: 38%;
   aspect-ratio: 3 / 4;
   border-radius: 10px;
-}
-.venue-image :deep(.lazy-img-el) {
-  width: 100%;
-  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
 }
 .venue-description {
-  flex: 1;
+  margin-top: 110px;
 }
 .venue-description h3 {
   font-size: 1.8rem;
@@ -71,12 +78,15 @@
 
 @media (max-width: 768px) {
   .venue-content {
-    flex-direction: column;
     gap: 30px;
   }
-  .venue-image {
-    max-width: 100%;
-    order: -1;
+  .venue-image :deep(.lazy-img:last-child) {
+    width: 45%;
+    bottom: -50px;
+    right: 0;
+  }
+  .venue-description {
+    margin-top: 80px;
   }
 }
 </style>
