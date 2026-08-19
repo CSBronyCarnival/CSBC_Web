@@ -1,11 +1,25 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 useHead({ title: computed(() => t('pageTitle.night')) })
 
 const nightHeroRef = ref(null)
+const isScrolled = ref(false)
+
+function updateScrollIndicator() {
+  isScrolled.value = window.scrollY > 16
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', updateScrollIndicator, { passive: true })
+  updateScrollIndicator()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', updateScrollIndicator)
+})
 </script>
 
 <template>
@@ -16,6 +30,10 @@ const nightHeroRef = ref(null)
       <div class="hero-content">
         <img src="/img/night/stickshort.webp" :alt="$t('night.hero')" class="hero-logo" />
       </div>
+      <HeroScrollIndicator
+        :hidden="isScrolled"
+        :label="$t('hero.scrollDown')"
+      />
     </section>
 
     <NightAbout />

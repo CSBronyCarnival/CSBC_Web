@@ -23,6 +23,10 @@
         </div>
       </div>
     </div>
+    <HeroScrollIndicator
+      :hidden="isScrolled || !showScrollIndicator"
+      :label="$t('hero.scrollDown')"
+    />
   </header>
 </template>
 
@@ -34,7 +38,11 @@ const heroRef = ref(null)
 const heroImageRef = ref(null)
 const heroContentRef = ref(null)
 const heroImgElRef = ref(null)
+const isScrolled = ref(false)
+const showScrollIndicator = ref(false)
+const SCROLL_INDICATOR_DELAY = 3000
 let scrollFrame = 0
+let scrollIndicatorTimer = 0
 
 function handleMouseMove(e) {
   const isMobile = window.innerWidth < 768
@@ -89,6 +97,7 @@ function updateScrollProgress() {
 
     const progress = Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1)
     hero.style.setProperty('--hero-scroll-progress', progress.toFixed(3))
+    isScrolled.value = window.scrollY > 16
   })
 }
 
@@ -96,12 +105,17 @@ onMounted(() => {
   document.addEventListener('mousemove', handleMouseMove)
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
   updateScrollProgress()
+
+  scrollIndicatorTimer = window.setTimeout(() => {
+    showScrollIndicator.value = true
+  }, SCROLL_INDICATOR_DELAY)
 })
 
 onUnmounted(() => {
   document.removeEventListener('mousemove', handleMouseMove)
   window.removeEventListener('scroll', updateScrollProgress)
   if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+  if (scrollIndicatorTimer) window.clearTimeout(scrollIndicatorTimer)
 })
 </script>
 
@@ -267,4 +281,5 @@ onUnmounted(() => {
     object-position: 83% center;
   }
 }
+
 </style>
