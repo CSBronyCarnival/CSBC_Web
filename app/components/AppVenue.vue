@@ -124,6 +124,12 @@ onUnmounted(() => {
   .venue-content {
     gap: 30px;
   }
+  .venue-image {
+    left: 12px;
+  }
+  .venue-image :deep(.lazy-img:first-child) {
+    width: 90%;
+  }
   .venue-portrait {
     width: 45%;
     bottom: -50px;
