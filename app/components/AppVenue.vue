@@ -1,8 +1,10 @@
 <template>
   <div class="venue-content">
-    <div class="venue-image">
+    <div class="venue-image" ref="imageRef">
       <ImgLazy src="/img/venue/full.webp" alt="广州瑞士酒店" class="venue-img-wide" />
-      <ImgLazy src="/img/venue/main.webp" alt="广州瑞士酒店" class="venue-img-portrait" />
+      <div class="venue-portrait" ref="portraitRef">
+        <ImgLazy src="/img/venue/main.webp" alt="广州瑞士酒店" class="venue-img-portrait" />
+      </div>
     </div>
     <div class="venue-description">
       <h3>{{ $t('venue.name') }} <span>{{ $t('venue.subtitle') }}</span></h3>
@@ -13,6 +15,43 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
+const imageRef = ref(null)
+const portraitRef = ref(null)
+let scrollFrame = 0
+
+function updateParallax() {
+  const image = imageRef.value
+  const portrait = portraitRef.value
+  if (!image || !portrait) return
+  const rect = image.getBoundingClientRect()
+  const center = rect.top + rect.height / 2
+  const progress = Math.max(-1, Math.min(1, (center - window.innerHeight / 2) / (window.innerHeight / 2)))
+  portrait.style.transform = `translateY(${progress * 14}px)`
+}
+
+function handleScroll() {
+  if (scrollFrame) return
+  scrollFrame = window.requestAnimationFrame(() => {
+    scrollFrame = 0
+    updateParallax()
+  })
+}
+
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  updateParallax()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+  if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
+})
+</script>
 
 <style scoped>
 .venue-content {
@@ -25,18 +64,23 @@
 }
 .venue-image {
   position: relative;
-  width: min(760px, 100%);
+  width: min(1000px, 100%);
 }
 .venue-image :deep(.lazy-img:first-child) {
   width: 100%;
   aspect-ratio: 4 / 3;
   border-radius: 10px;
 }
-.venue-image :deep(.lazy-img:last-child) {
+.venue-portrait {
   position: absolute;
   right: -48px;
   bottom: -70px;
   width: 38%;
+  will-change: transform;
+  transition: transform 0.15s ease-out;
+}
+.venue-portrait :deep(.lazy-img) {
+  width: 100%;
   aspect-ratio: 3 / 4;
   border-radius: 10px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
@@ -80,7 +124,7 @@
   .venue-content {
     gap: 30px;
   }
-  .venue-image :deep(.lazy-img:last-child) {
+  .venue-portrait {
     width: 45%;
     bottom: -50px;
     right: 0;
