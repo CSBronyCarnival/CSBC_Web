@@ -49,6 +49,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const route = useRoute()
 const footerImgRef = ref(null)
+const preloadedFriendLinkImages = []
 
 const isNight = computed(() => route.path.startsWith('/night'))
 
@@ -57,6 +58,20 @@ function nightSrc(src) {
   const replaced = src.replace(/_b\.([^.]+)$/, '_w.$1')
   if (replaced !== src) return replaced
   return src.replace(/\.([^.]+)$/, '_w.$1')
+}
+
+function preloadFriendLinkVariants(src) {
+  const variants = [
+    src,
+    src.replace(/\.([^.]+)$/, '_b.$1'),
+    src.replace(/\.([^.]+)$/, '_w.$1'),
+  ]
+
+  variants.forEach((variantSrc) => {
+    const image = new Image()
+    image.src = variantSrc
+    preloadedFriendLinkImages.push(image)
+  })
 }
 
 function handleFooterMove(e) {
@@ -81,8 +96,7 @@ onMounted(() => {
     const hoverSrc = img.getAttribute('data-hover-src')
     if (!hoverSrc || hoverSrc === originalSrc) return
 
-    const preload = new Image()
-    preload.src = hoverSrc
+    preloadFriendLinkVariants(hoverSrc)
 
     img.addEventListener('mouseenter', () => {
       img.style.transition = 'opacity 0.3s ease'

@@ -377,7 +377,7 @@ onUnmounted(() => {
   height: 100%;
 }
 .features-header {
-  width: min(620px, 72%);
+  width: min(740px, 72%);
   text-align: left;
   margin-bottom: clamp(510px, 60vh, 705px);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
