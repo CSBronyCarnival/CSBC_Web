@@ -31,7 +31,6 @@ defineProps({
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.8rem;
   letter-spacing: 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
   transform: translateX(-50%);
   opacity: 1;
   visibility: visible;
