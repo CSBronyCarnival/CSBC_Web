@@ -15,6 +15,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
+const props = defineProps({
+  disabled: { type: Boolean, default: false },
+})
+
 const el = ref<HTMLElement>()
 const rx = ref(0)
 const ry = ref(0)
@@ -31,6 +35,7 @@ const tx = computed(() => ({
 }))
 
 function onDown(e: MouseEvent) {
+  if (props.disabled) return
   const dom = el.value
   if (!dom) return
   const r = dom.getBoundingClientRect()

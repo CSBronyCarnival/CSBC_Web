@@ -16,7 +16,7 @@
           </NuxtLink>
         </ClickTilt>
         <span class="nav-divider"></span>
-        <ClickTilt>
+        <ClickTilt :disabled="localeLoading">
           <button
             class="lang-btn"
             :disabled="localeLoading"
@@ -444,14 +444,10 @@ watch(() => route.path, () => {
   flex-shrink: 0;
   min-width: 44px;
 }
-.lang-btn:hover {
+.lang-btn:not(:disabled):hover {
   background: rgba(0, 0, 0, 0.05);
 }
-.lang-btn:disabled:hover {
-  background: transparent;
-}
-.lang-btn:disabled,
-.mobile-lang-btn:disabled {
+.lang-btn:disabled {
   cursor: wait;
 }
 
@@ -483,7 +479,7 @@ watch(() => route.path, () => {
 .top-nav.night .lang-btn {
   color: rgba(255, 255, 255, 0.7);
 }
-.top-nav.night .lang-btn:hover {
+.top-nav.night .lang-btn:not(:disabled):hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
