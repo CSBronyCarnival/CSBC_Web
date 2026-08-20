@@ -1,6 +1,8 @@
 <template>
   <section ref="sectionRef" class="features-section">
-    <div ref="sceneHostRef" class="features-scene" aria-hidden="true"></div>
+    <div ref="sceneHostRef" class="features-scene" aria-hidden="true">
+      <LoadingSpinner :visible="modelLoading" />
+    </div>
     <div class="container">
       <div class="features-header">
         <ScrollColorText
@@ -43,10 +45,12 @@ import { useI18n } from 'vue-i18n'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
+import LoadingSpinner from './LoadingSpinner.vue'
 
 const { t } = useI18n()
 const sectionRef = ref(null)
 const sceneHostRef = ref(null)
+const modelLoading = ref(false)
 
 const BASE_ORBIT_ANGLE = -0.45
 const SCROLL_ORBIT_SPAN = Math.PI
@@ -98,6 +102,10 @@ let lastRenderedAngle = null
 let sceneActive = false
 let sceneInView = false
 const disposableResources = []
+let modelBufferPromise = null
+let modelPreloadController = null
+let modelPreloadIdleId = 0
+let modelPreloadTimer = 0
 
 const featureItems = computed(() =>
   [0, 1, 2, 3].map((i) => ({
@@ -272,13 +280,54 @@ function createAmbientLightPoints(scene) {
   disposableResources.push(geometry, lightPointMaterial)
 }
 
-function loadModel() {
+function getModelBuffer() {
+  if (modelBufferPromise) return modelBufferPromise
+
+  modelPreloadController = new AbortController()
+  modelBufferPromise = fetch('/three/miemie.glb', {
+    cache: 'force-cache',
+    signal: modelPreloadController.signal,
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Model request failed with status ${response.status}`)
+      return response.arrayBuffer()
+    })
+    .catch((error) => {
+      modelBufferPromise = null
+      throw error
+    })
+
+  return modelBufferPromise
+}
+
+function parseModel(buffer) {
   const loader = new GLTFLoader()
   loader.setMeshoptDecoder(MeshoptDecoder)
 
-  loader.load(
-    '/three/miemie.glb',
-    (gltf) => {
+  return new Promise((resolve, reject) => {
+    loader.parse(buffer, '/', resolve, reject)
+  })
+}
+
+function scheduleModelPreload() {
+  const preload = () => {
+    modelPreloadIdleId = 0
+    getModelBuffer().catch(() => {})
+  }
+
+  if ('requestIdleCallback' in window) {
+    modelPreloadIdleId = window.requestIdleCallback(preload, { timeout: 1500 })
+  } else {
+    modelPreloadTimer = window.setTimeout(preload, 500)
+  }
+}
+
+function loadModel() {
+  modelLoading.value = true
+
+  getModelBuffer()
+    .then(parseModel)
+    .then((gltf) => {
       if (!sceneActive || !modelRoot) {
         disposeModel(gltf.scene)
         return
@@ -305,14 +354,14 @@ function loadModel() {
         -center.z * scale,
       )
       modelRoot.add(normalizedModel)
+      modelLoading.value = false
       lastRenderedAngle = null
       if (!animationFrame && sceneInView) updateScene(0)
-    },
-    undefined,
-    (error) => {
+    })
+    .catch((error) => {
+      modelLoading.value = false
       console.error('Failed to load features model.', error)
-    },
-  )
+    })
 }
 
 function createScene() {
@@ -377,6 +426,7 @@ function createScene() {
 }
 
 onMounted(() => {
+  scheduleModelPreload()
   motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
   motionQuery.addEventListener('change', syncSceneLoop)
   document.addEventListener('visibilitychange', syncSceneLoop)
@@ -396,6 +446,14 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (modelPreloadIdleId && 'cancelIdleCallback' in window) {
+    window.cancelIdleCallback(modelPreloadIdleId)
+  }
+  if (modelPreloadTimer) window.clearTimeout(modelPreloadTimer)
+  modelPreloadController?.abort()
+  modelBufferPromise = null
+  modelLoading.value = false
+
   sceneActive = false
   sceneInView = false
   stopSceneLoop()
