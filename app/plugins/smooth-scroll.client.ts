@@ -29,7 +29,14 @@ export default defineNuxtPlugin((nuxtApp) => {
   window.history.scrollRestoration = 'manual'
   nuxtApp.provide('lenis', lenis)
 
+  let lastPageKey = ''
+
   nuxtApp.hook('page:finish', () => {
+    const pageKey = `${window.location.pathname}${window.location.search}${window.location.hash}`
+    if (pageKey === lastPageKey) return
+    const isInitialPage = !lastPageKey
+    lastPageKey = pageKey
+
     window.requestAnimationFrame(() => {
       const hash = window.location.hash
       if (hash) {
@@ -40,7 +47,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       }
 
-      lenis.scrollTo(0, { immediate: true })
+      if (!isInitialPage) {
+        lenis.scrollTo(0, { immediate: true })
+      }
     })
   })
 
