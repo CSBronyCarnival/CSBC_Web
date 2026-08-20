@@ -1,6 +1,8 @@
 <template>
   <section ref="sectionRef" class="features-section">
-    <div ref="sceneHostRef" class="features-scene" aria-hidden="true"></div>
+    <div ref="sceneHostRef" class="features-scene" aria-hidden="true">
+      <LoadingSpinner :visible="modelLoading" />
+    </div>
     <div class="container">
       <div class="features-header">
         <ScrollColorText
@@ -43,14 +45,12 @@ import { useI18n } from 'vue-i18n'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js'
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
-import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js'
+import LoadingSpinner from './LoadingSpinner.vue'
 
 const { t } = useI18n()
 const sectionRef = ref(null)
 const sceneHostRef = ref(null)
+const modelLoading = ref(false)
 
 const BASE_ORBIT_ANGLE = -0.45
 const SCROLL_ORBIT_SPAN = Math.PI
@@ -87,20 +87,25 @@ const LIGHT_POINT_FRAGMENT_SHADER = `
 `
 
 let renderer = null
-let composer = null
+let scene = null
 let camera = null
 let modelRoot = null
 let lightPointMaterial = null
 let cameraRadius = 6.8
 let resizeObserver = null
 let intersectionObserver = null
+let motionQuery = null
 let clock = null
 let animationFrame = 0
 let scrollOrbitAngle = 0
 let lastRenderedAngle = null
 let sceneActive = false
+let sceneInView = false
 const disposableResources = []
-const disposablePasses = []
+let modelBufferPromise = null
+let modelPreloadController = null
+let modelPreloadIdleId = 0
+let modelPreloadTimer = 0
 
 const featureItems = computed(() =>
   [0, 1, 2, 3].map((i) => ({
@@ -112,21 +117,19 @@ const featureItems = computed(() =>
 
 function resizeScene() {
   const host = sceneHostRef.value
-  if (!host || !renderer || !composer || !camera) return
+  if (!host || !renderer || !camera) return
 
   const width = host.clientWidth
   const height = host.clientHeight
   if (!width || !height) return
 
-  const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+  const pixelRatio = window.devicePixelRatio || 1
   camera.aspect = width / height
   cameraRadius = width < 640 ? 7.6 : 6.8
   camera.updateProjectionMatrix()
 
   renderer.setPixelRatio(pixelRatio)
   renderer.setSize(width, height, false)
-  composer.setPixelRatio(pixelRatio)
-  composer.setSize(width, height)
 }
 
 function readScrollOrbitAngle() {
@@ -143,7 +146,7 @@ function readScrollOrbitAngle() {
 }
 
 function updateScene(delta) {
-  if (!camera || !modelRoot || !composer) return
+  if (!scene || !camera || !modelRoot || !renderer) return
 
   const targetScrollAngle = readScrollOrbitAngle()
   const follow = delta > 0 ? 1 - Math.exp(-SCROLL_ORBIT_FOLLOW * delta) : 1
@@ -168,7 +171,7 @@ function updateScene(delta) {
   }
 
   if (!orbitChanged && !lightPointMaterial) return
-  composer.render()
+  renderer.render(scene, camera)
 }
 
 function animateScene() {
@@ -177,7 +180,7 @@ function animateScene() {
 }
 
 function startSceneLoop() {
-  if (animationFrame || !composer) return
+  if (animationFrame || !renderer || !clock) return
 
   scrollOrbitAngle = readScrollOrbitAngle()
   clock.start()
@@ -189,7 +192,16 @@ function stopSceneLoop() {
 
   window.cancelAnimationFrame(animationFrame)
   animationFrame = 0
-  clock.stop()
+  clock?.stop()
+}
+
+function syncSceneLoop() {
+  if (sceneInView && document.visibilityState === 'visible' && !motionQuery?.matches) {
+    startSceneLoop()
+    return
+  }
+
+  stopSceneLoop()
 }
 
 function disposeModel(model) {
@@ -268,13 +280,54 @@ function createAmbientLightPoints(scene) {
   disposableResources.push(geometry, lightPointMaterial)
 }
 
-function loadModel() {
+function getModelBuffer() {
+  if (modelBufferPromise) return modelBufferPromise
+
+  modelPreloadController = new AbortController()
+  modelBufferPromise = fetch('/three/miemie.glb', {
+    cache: 'force-cache',
+    signal: modelPreloadController.signal,
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Model request failed with status ${response.status}`)
+      return response.arrayBuffer()
+    })
+    .catch((error) => {
+      modelBufferPromise = null
+      throw error
+    })
+
+  return modelBufferPromise
+}
+
+function parseModel(buffer) {
   const loader = new GLTFLoader()
   loader.setMeshoptDecoder(MeshoptDecoder)
 
-  loader.load(
-    '/three/miemie.glb',
-    (gltf) => {
+  return new Promise((resolve, reject) => {
+    loader.parse(buffer, '/', resolve, reject)
+  })
+}
+
+function scheduleModelPreload() {
+  const preload = () => {
+    modelPreloadIdleId = 0
+    getModelBuffer().catch(() => {})
+  }
+
+  if ('requestIdleCallback' in window) {
+    modelPreloadIdleId = window.requestIdleCallback(preload, { timeout: 1500 })
+  } else {
+    modelPreloadTimer = window.setTimeout(preload, 500)
+  }
+}
+
+function loadModel() {
+  modelLoading.value = true
+
+  getModelBuffer()
+    .then(parseModel)
+    .then((gltf) => {
       if (!sceneActive || !modelRoot) {
         disposeModel(gltf.scene)
         return
@@ -301,24 +354,24 @@ function loadModel() {
         -center.z * scale,
       )
       modelRoot.add(normalizedModel)
+      modelLoading.value = false
       lastRenderedAngle = null
-      if (!animationFrame) updateScene(0)
-    },
-    undefined,
-    (error) => {
+      if (!animationFrame && sceneInView) updateScene(0)
+    })
+    .catch((error) => {
+      modelLoading.value = false
       console.error('Failed to load features model.', error)
-    },
-  )
+    })
 }
 
 function createScene() {
   const host = sceneHostRef.value
-  if (!host) return
+  if (!host || renderer) return
 
   sceneActive = true
   clock = new THREE.Clock(false)
 
-  const scene = new THREE.Scene()
+  scene = new THREE.Scene()
   scene.background = new THREE.Color(0x121212)
 
   camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100)
@@ -361,27 +414,10 @@ function createScene() {
   rimLight.position.set(2, 1, -3.5)
   scene.add(rimLight)
 
-  const sampleCount = Math.min(
-    window.innerWidth < 640 ? 2 : 4,
-    renderer.capabilities.maxSamples,
-  )
-  const renderTarget = new THREE.WebGLRenderTarget(1, 1, {
-    type: THREE.HalfFloatType,
-    samples: sampleCount,
-  })
-  composer = new EffectComposer(renderer, renderTarget)
-  const renderPass = new RenderPass(scene, camera)
-  const smaaPass = new SMAAPass()
-  const outputPass = new OutputPass()
-  disposablePasses.push(renderPass, smaaPass, outputPass)
-  composer.addPass(renderPass)
-  composer.addPass(smaaPass)
-  composer.addPass(outputPass)
-
   resizeObserver = new ResizeObserver(() => {
     resizeScene()
     lastRenderedAngle = null
-    if (!animationFrame) updateScene(0)
+    if (!animationFrame && sceneInView) updateScene(0)
   })
   resizeObserver.observe(host)
 
@@ -390,37 +426,53 @@ function createScene() {
 }
 
 onMounted(() => {
-  createScene()
+  scheduleModelPreload()
+  motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  motionQuery.addEventListener('change', syncSceneLoop)
+  document.addEventListener('visibilitychange', syncSceneLoop)
 
   const section = sectionRef.value
   if (!section) return
 
   intersectionObserver = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) startSceneLoop()
-      else stopSceneLoop()
+      sceneInView = entry.isIntersecting && entry.intersectionRatio > 0
+      if (sceneInView && !renderer) createScene()
+      syncSceneLoop()
     },
-    { rootMargin: '10% 0px' },
+    { threshold: 0.01 },
   )
   intersectionObserver.observe(section)
 })
 
 onUnmounted(() => {
+  if (modelPreloadIdleId && 'cancelIdleCallback' in window) {
+    window.cancelIdleCallback(modelPreloadIdleId)
+  }
+  if (modelPreloadTimer) window.clearTimeout(modelPreloadTimer)
+  modelPreloadController?.abort()
+  modelBufferPromise = null
+  modelLoading.value = false
+
   sceneActive = false
+  sceneInView = false
   stopSceneLoop()
   intersectionObserver?.disconnect()
   resizeObserver?.disconnect()
+  motionQuery?.removeEventListener('change', syncSceneLoop)
+  document.removeEventListener('visibilitychange', syncSceneLoop)
 
   disposableResources.forEach((resource) => resource.dispose())
   disposableResources.length = 0
   lightPointMaterial = null
   if (modelRoot) disposeModel(modelRoot)
-  disposablePasses.forEach((pass) => pass.dispose())
-  disposablePasses.length = 0
-  composer?.dispose()
   renderer?.dispose()
   renderer?.forceContextLoss()
   renderer?.domElement.remove()
+  renderer = null
+  scene = null
+  camera = null
+  modelRoot = null
 })
 </script>
 
