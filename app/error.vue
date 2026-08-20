@@ -71,6 +71,7 @@ let cubeTextures = []
 let cubeMaterials = []
 let roomMaterial = null
 let floorGeometry = null
+let floorMesh = null
 let disposed = false
 
 async function loadFont() {
@@ -416,8 +417,23 @@ function resizeScene() {
   const height = host.clientHeight
   if (!width || !height) return
   const aspect = width / height
-  const halfHeight = WORLD_HEIGHT / 2
-  const halfWidth = Math.max(WORLD_WIDTH / 2, halfHeight * aspect)
+  const worldAspect = WORLD_WIDTH / WORLD_HEIGHT
+  let halfWidth
+  let halfHeight
+  if (aspect > worldAspect) {
+    halfHeight = WORLD_HEIGHT / 2
+    halfWidth = halfHeight * aspect
+    floorMesh?.scale.set(1, 1, 1)
+    floorMesh?.position.set(0, -DIGIT_HEIGHT / 2, 2.5)
+    renderer.domElement.style.background = '#ffffff'
+  } else {
+    halfWidth = WORLD_WIDTH / 2
+    halfHeight = halfWidth / aspect
+    floorMesh?.scale.set(0.1, 0.1, 1)
+    floorMesh?.position.set(0, -DIGIT_HEIGHT / 2, 0)
+    const split = ((1 + 3.4488 / halfHeight) / 2) * 100
+    renderer.domElement.style.background = `linear-gradient(to bottom, #ffffff 0%, #ffffff ${split}%, #ececec ${split}%, #ececec 100%)`
+  }
   camera.left = -halfWidth
   camera.right = halfWidth
   camera.top = halfHeight
@@ -577,8 +593,8 @@ function createScene() {
     camera = new THREE.OrthographicCamera(-WORLD_WIDTH / 2, WORLD_WIDTH / 2, WORLD_HEIGHT / 2, -WORLD_HEIGHT / 2, 0.1, 100)
     camera.position.set(0, 2.4, 14)
     camera.lookAt(0, -0.35, 0)
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' })
-    renderer.setClearColor(0xffffff, 1)
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+    renderer.setClearColor(0xffffff, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.05
@@ -611,6 +627,7 @@ function createScene() {
     floor.rotation.x = -Math.PI / 2
     floor.receiveShadow = true
     scene.add(floor)
+    floorMesh = floor
 
     digitRoot = new THREE.Group()
     scene.add(digitRoot)
@@ -691,6 +708,7 @@ onUnmounted(() => {
   cubeTextures = []
   floorGeometry = null
   roomMaterial = null
+  floorMesh = null
   clock = null
   cubeDropTimer = 0
 })
