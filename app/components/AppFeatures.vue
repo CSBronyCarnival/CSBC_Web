@@ -372,7 +372,7 @@ function createScene() {
   clock = new THREE.Clock(false)
 
   scene = new THREE.Scene()
-  scene.background = new THREE.Color(0x121212)
+  scene.background = new THREE.Color(0x000000)
 
   camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100)
   camera.position.set(0, 2.4, cameraRadius)
