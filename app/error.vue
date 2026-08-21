@@ -431,8 +431,7 @@ function resizeScene() {
     halfHeight = halfWidth / aspect
     floorMesh?.scale.set(0.1, 0.1, 1)
     floorMesh?.position.set(0, -DIGIT_HEIGHT / 2, 0)
-    const split = ((1 + 3.4488 / halfHeight) / 2) * 100
-    renderer.domElement.style.background = `linear-gradient(to bottom, #ffffff 0%, #ffffff ${split}%, #ececec ${split}%, #ececec 100%)`
+    renderer.domElement.style.background = '#ececec'
   }
   camera.left = -halfWidth
   camera.right = halfWidth
