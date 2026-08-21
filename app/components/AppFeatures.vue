@@ -59,38 +59,10 @@ const SCROLL_ORBIT_LEAD = -0.1
 const MODEL_SIZE = 2.8
 const MODEL_Y_OFFSET = -0.2
 
-const LIGHT_POINT_VERTEX_SHADER = `
-  attribute float aSize;
-  attribute float aOpacity;
-  attribute float aPhase;
-  attribute float aTwinkleSpeed;
-  uniform float uTime;
-  varying float vOpacity;
-
-  void main() {
-    vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-    float twinkle = sin(uTime * aTwinkleSpeed + aPhase) * 0.5 + 0.5;
-    gl_Position = projectionMatrix * modelViewPosition;
-    gl_PointSize = aSize * (320.0 / max(-modelViewPosition.z, 0.1));
-    vOpacity = aOpacity * (0.45 + twinkle * 0.55);
-  }
-`
-
-const LIGHT_POINT_FRAGMENT_SHADER = `
-  varying float vOpacity;
-
-  void main() {
-    float distanceToCenter = length(gl_PointCoord - vec2(0.5));
-    float softness = smoothstep(0.5, 0.08, distanceToCenter);
-    gl_FragColor = vec4(vec3(1.0), softness * vOpacity);
-  }
-`
-
 let renderer = null
 let scene = null
 let camera = null
 let modelRoot = null
-let lightPointMaterial = null
 let cameraRadius = 6.8
 let resizeObserver = null
 let intersectionObserver = null
@@ -166,11 +138,7 @@ function updateScene(delta) {
     lastRenderedAngle = orbitAngle
   }
 
-  if (lightPointMaterial) {
-    lightPointMaterial.uniforms.uTime.value += delta
-  }
-
-  if (!orbitChanged && !lightPointMaterial) return
+  if (!orbitChanged) return
   renderer.render(scene, camera)
 }
 
@@ -231,53 +199,6 @@ function disposeModel(model) {
       material.dispose()
     })
   })
-}
-
-function createAmbientLightPoints(scene) {
-  const pointCount = window.innerWidth < 768 ? 90 : 150
-  const positions = []
-  const sizes = []
-  const opacities = []
-  const phases = []
-  const twinkleSpeeds = []
-
-  for (let index = 0; index < pointCount; index += 1) {
-    const angle = Math.random() * Math.PI * 2
-    const radius = 11 + Math.random() * 7
-
-    positions.push(
-      Math.cos(angle) * radius,
-      -0.15 + Math.random() * 8,
-      Math.sin(angle) * radius,
-    )
-    sizes.push(0.04 + Math.random() * 0.055)
-    opacities.push(0.12 + Math.random() * 0.28)
-    phases.push(Math.random() * Math.PI * 2)
-    twinkleSpeeds.push(0.7 + Math.random() * 1.6)
-  }
-
-  const geometry = new THREE.BufferGeometry()
-  geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3))
-  geometry.setAttribute('aSize', new THREE.Float32BufferAttribute(sizes, 1))
-  geometry.setAttribute('aOpacity', new THREE.Float32BufferAttribute(opacities, 1))
-  geometry.setAttribute('aPhase', new THREE.Float32BufferAttribute(phases, 1))
-  geometry.setAttribute('aTwinkleSpeed', new THREE.Float32BufferAttribute(twinkleSpeeds, 1))
-
-  lightPointMaterial = new THREE.ShaderMaterial({
-    vertexShader: LIGHT_POINT_VERTEX_SHADER,
-    fragmentShader: LIGHT_POINT_FRAGMENT_SHADER,
-    uniforms: {
-      uTime: { value: 0 },
-    },
-    transparent: true,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-  })
-
-  const lightPoints = new THREE.Points(geometry, lightPointMaterial)
-  lightPoints.frustumCulled = false
-  scene.add(lightPoints)
-  disposableResources.push(geometry, lightPointMaterial)
 }
 
 function getModelBuffer() {
@@ -390,7 +311,6 @@ function createScene() {
   modelRoot = new THREE.Group()
   scene.add(modelRoot)
   loadModel()
-  createAmbientLightPoints(scene)
 
   const grid = new THREE.GridHelper(24, 48, 0xffffff, 0xffffff)
   grid.position.y = -0.68
@@ -464,7 +384,6 @@ onUnmounted(() => {
 
   disposableResources.forEach((resource) => resource.dispose())
   disposableResources.length = 0
-  lightPointMaterial = null
   if (modelRoot) disposeModel(modelRoot)
   renderer?.dispose()
   renderer?.forceContextLoss()
