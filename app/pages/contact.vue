@@ -7,7 +7,7 @@ useHead({ title: computed(() => t('pageTitle.contact')) })
 
 <template>
   <div class="contact-page">
-    <SubpageHero :title="$t('contact.hero')" :subtitle="$t('contact.heroSub')" icon='<path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>' />
+    <SubpageHero :title="$t('contact.hero')" :subtitle="$t('contact.heroSub')" icon="/img/page/contact.svg" />
 
     <section class="contact-section">
       <div class="container">

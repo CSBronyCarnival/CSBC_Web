@@ -6,7 +6,7 @@
   >
     <span>{{ label }}</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="m6 9 6 6 6-6" />
+      <use href="/img/page/scroll-down.svg#icon" />
     </svg>
   </div>
 </template>

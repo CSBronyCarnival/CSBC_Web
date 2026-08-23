@@ -1,7 +1,9 @@
 <template>
   <header class="subpage-hero">
     <div class="subpage-hero-content">
-      <svg v-if="icon" class="subpage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" v-html="icon"></svg>
+      <svg v-if="icon" class="subpage-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <use :href="`${icon}#icon`" />
+      </svg>
       <h1>{{ title }}</h1>
       <p v-if="subtitle">{{ subtitle }}</p>
     </div>
