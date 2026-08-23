@@ -1,6 +1,11 @@
 <template>
   <ClientOnly>
-    <div class="flipbook-outer">
+    <div
+      class="flipbook-outer"
+      tabindex="0"
+      @keydown.left.prevent="goPrev"
+      @keydown.right.prevent="goNext"
+    >
       <div v-if="loading" class="flipbook-status">
         <div class="flipbook-spinner-slot">
           <LoadingSpinner :visible="loading" />
@@ -55,6 +60,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
 const props = defineProps({
   pdfUrl: { type: String, required: true }
@@ -73,11 +79,24 @@ const isMobile = ref(false)
 
 let $ = null
 let pdfDoc = null
+let pdfLoadingTask = null
 let turnReady = false
+let disposed = false
+let renderGeneration = 0
+let pageWindowRequest = 0
+let currentRenderScale = 1
+let wantedPages = new Set()
+const pageElements = new Map()
+const pageCanvases = new Map()
+const pageRenderPromises = new Map()
+const activeRenderTasks = new Map()
 
 function loadTurnJs() {
   return new Promise((resolve, reject) => {
-    if (turnReady) return resolve()
+    if (turnReady || $?.fn?.turn) {
+      turnReady = true
+      return resolve()
+    }
     const script = document.createElement('script')
     script.src = '/lib/js/turn.js'
     script.onload = () => { turnReady = true; resolve() }
@@ -86,15 +105,42 @@ function loadTurnJs() {
   })
 }
 
-async function renderPageToCanvas(page, scale) {
+async function renderPageToCanvas(pageNumber, scale, generation) {
+  const page = await pdfDoc.getPage(pageNumber)
+  if (disposed || generation !== renderGeneration || !wantedPages.has(pageNumber)) return null
+
   const viewport = page.getViewport({ scale })
   const canvas = document.createElement('canvas')
   canvas.width = viewport.width
   canvas.height = viewport.height
   const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('无法创建 PDF 画布')
   ctx.imageSmoothingEnabled = false
-  await page.render({ canvasContext: ctx, viewport }).promise
-  return { canvas, viewport }
+
+  const renderTask = page.render({ canvasContext: ctx, viewport })
+  activeRenderTasks.set(pageNumber, renderTask)
+
+  try {
+    await renderTask.promise
+  } catch (err) {
+    if (err?.name === 'RenderingCancelledException') return null
+    throw err
+  } finally {
+    if (activeRenderTasks.get(pageNumber) === renderTask) {
+      activeRenderTasks.delete(pageNumber)
+    }
+  }
+
+  if (disposed || generation !== renderGeneration || !wantedPages.has(pageNumber)) {
+    canvas.width = 0
+    canvas.height = 0
+    return null
+  }
+
+  canvas.style.width = '100%'
+  canvas.style.height = '100%'
+  canvas.style.objectFit = 'contain'
+  return canvas
 }
 
 function calcBookLayout(nativePageW, nativePageH, mobile) {
@@ -122,40 +168,132 @@ function calcBookLayout(nativePageW, nativePageH, mobile) {
   return { bookWidth, bookHeight, renderScale }
 }
 
-async function renderAllPages(scale, onProgress) {
-  const canvasPromises = []
-  for (let i = 1; i <= totalPages.value; i++) {
-    const promise = pdfDoc.getPage(i).then(p => renderPageToCanvas(p, scale))
-    if (onProgress) {
-      promise.then(() => onProgress(i))
-    }
-    canvasPromises.push(promise)
-  }
-  return (await Promise.all(canvasPromises)).map(r => r.canvas)
+function getPageRange(center, radius) {
+  const start = Math.max(1, center - radius)
+  const end = Math.min(totalPages.value, center + radius)
+  const pages = []
+  for (let page = start; page <= end; page++) pages.push(page)
+  return pages
 }
 
-function initTurn(bookW, bookH, canvases, mobile, startPage) {
+function getVisiblePages(page) {
+  if (isMobile.value || page <= 1) return [page]
+  const pairedPage = page % 2 === 0 ? page + 1 : page - 1
+  return [page, pairedPage].filter(value => value >= 1 && value <= totalPages.value)
+}
+
+function attachCanvas(pageNumber, canvas) {
+  const pageElement = pageElements.get(pageNumber)
+  if (!pageElement || canvas.parentElement === pageElement) return
+  pageElement.replaceChildren(canvas)
+}
+
+function evictUnwantedPages() {
+  pageCanvases.forEach((canvas, pageNumber) => {
+    if (wantedPages.has(pageNumber)) return
+    canvas.remove()
+    canvas.width = 0
+    canvas.height = 0
+    pageCanvases.delete(pageNumber)
+  })
+}
+
+function resetPageRendering(centerPage) {
+  renderGeneration += 1
+  pageWindowRequest += 1
+  wantedPages = new Set(getPageRange(centerPage, 4))
+
+  activeRenderTasks.forEach(task => task.cancel())
+  activeRenderTasks.clear()
+  pageRenderPromises.clear()
+
+  pageCanvases.forEach((canvas) => {
+    canvas.remove()
+    canvas.width = 0
+    canvas.height = 0
+  })
+  pageCanvases.clear()
+  pageElements.clear()
+}
+
+function ensurePageRendered(pageNumber, scale = currentRenderScale, generation = renderGeneration) {
+  if (
+    disposed
+    || pageNumber < 1
+    || pageNumber > totalPages.value
+    || generation !== renderGeneration
+    || !wantedPages.has(pageNumber)
+  ) return Promise.resolve(null)
+
+  const cachedCanvas = pageCanvases.get(pageNumber)
+  if (cachedCanvas) {
+    attachCanvas(pageNumber, cachedCanvas)
+    return Promise.resolve(cachedCanvas)
+  }
+
+  const pendingRender = pageRenderPromises.get(pageNumber)
+  if (pendingRender) return pendingRender
+
+  let renderPromise
+  renderPromise = renderPageToCanvas(pageNumber, scale, generation)
+    .then((canvas) => {
+      if (canvas && generation === renderGeneration && wantedPages.has(pageNumber)) {
+        pageCanvases.set(pageNumber, canvas)
+        attachCanvas(pageNumber, canvas)
+      }
+      return canvas
+    })
+    .finally(() => {
+      if (pageRenderPromises.get(pageNumber) === renderPromise) {
+        pageRenderPromises.delete(pageNumber)
+      }
+    })
+
+  pageRenderPromises.set(pageNumber, renderPromise)
+  return renderPromise
+}
+
+function schedulePagesAround(page) {
+  wantedPages = new Set(getPageRange(page, 4))
+  evictUnwantedPages()
+
+  const request = ++pageWindowRequest
+  const pages = getPageRange(page, isMobile.value ? 2 : 3)
+    .sort((a, b) => Math.abs(a - page) - Math.abs(b - page))
+
+  void (async () => {
+    for (const pageNumber of pages) {
+      if (disposed || request !== pageWindowRequest) return
+      await ensurePageRendered(pageNumber)
+    }
+  })().catch((err) => {
+    if (!disposed && err?.name !== 'RenderingCancelledException') {
+      console.error('FlipBook: 页面渲染失败', err)
+    }
+  })
+}
+
+function initTurn(bookW, bookH, mobile, startPage) {
   const bookEl = bookRef.value
   if (!bookEl) return
 
   bookEl.innerHTML = ''
   bookEl.style.width = bookW + 'px'
   bookEl.style.height = bookH + 'px'
+  pageElements.clear()
 
-  canvases.forEach((canvas) => {
+  for (let pageNumber = 1; pageNumber <= totalPages.value; pageNumber++) {
     const pageDiv = document.createElement('div')
     pageDiv.style.width = '100%'
     pageDiv.style.height = '100%'
     pageDiv.style.overflow = 'hidden'
     pageDiv.style.background = '#fff'
-
-    canvas.style.width = '100%'
-    canvas.style.height = '100%'
-    canvas.style.objectFit = 'contain'
-    pageDiv.appendChild(canvas)
-
     bookEl.appendChild(pageDiv)
-  })
+    pageElements.set(pageNumber, pageDiv)
+
+    const canvas = pageCanvases.get(pageNumber)
+    if (canvas) attachCanvas(pageNumber, canvas)
+  }
 
   $('#flipbook').turn({
     display: mobile ? 'single' : 'double',
@@ -168,17 +306,14 @@ function initTurn(bookW, bookH, canvases, mobile, startPage) {
     when: {
       turned: function (_e, page) {
         currentPage.value = page
+        schedulePagesAround(page)
       },
       turning: function (_e, page) {
         currentPage.value = page
+        schedulePagesAround(page)
       }
     }
   })
-}
-
-function onKeyDown(e) {
-  if (e.key === 'ArrowRight') goNext()
-  else if (e.key === 'ArrowLeft') goPrev()
 }
 
 function goNext() {
@@ -195,27 +330,42 @@ let resizeTimer = null
 function onResize() {
   clearTimeout(resizeTimer)
   resizeTimer = setTimeout(async () => {
-    const nowMobile = window.innerWidth < MOBILE_BP
-    if (nowMobile === isMobile.value) return
+    if (disposed || !pdfDoc) return
 
-    const savedPage = currentPage.value
-    isMobile.value = nowMobile
+    try {
+      const nowMobile = window.innerWidth < MOBILE_BP
+      if (nowMobile === isMobile.value) return
 
-    try { $('#flipbook').turn('destroy') } catch (_) { /* ignore */ }
+      const savedPage = currentPage.value
+      isMobile.value = nowMobile
 
-    const firstPage = await pdfDoc.getPage(1)
-    const nativeView = firstPage.getViewport({ scale: 1 })
-    const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile.value)
+      try { $('#flipbook').turn('destroy') } catch (_) { /* ignore */ }
 
-    const canvases = await renderAllPages(layout.renderScale)
+      const firstPage = await pdfDoc.getPage(1)
+      const nativeView = firstPage.getViewport({ scale: 1 })
+      const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile.value)
+      currentRenderScale = layout.renderScale
+      resetPageRendering(savedPage)
 
-    await nextTick()
-    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile.value, savedPage)
+      const generation = renderGeneration
+      for (const pageNumber of getVisiblePages(savedPage)) {
+        await ensurePageRendered(pageNumber, currentRenderScale, generation)
+      }
+      if (disposed || generation !== renderGeneration) return
+
+      await nextTick()
+      initTurn(layout.bookWidth, layout.bookHeight, isMobile.value, savedPage)
+      schedulePagesAround(savedPage)
+    } catch (err) {
+      if (!disposed && err?.name !== 'RenderingCancelledException') {
+        console.error('FlipBook: 调整尺寸失败', err)
+      }
+    }
   }, 300)
 }
 
 onMounted(async () => {
-  document.addEventListener('keydown', onKeyDown)
+  disposed = false
   window.addEventListener('resize', onResize)
 
   isMobile.value = window.innerWidth < MOBILE_BP
@@ -230,37 +380,39 @@ onMounted(async () => {
       import('pdfjs-dist')
     ])
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://unpkg.com/pdfjs-dist@6.1.200/build/pdf.worker.min.mjs'
+    pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl
 
-    const loadingTask = pdfjsLib.getDocument({ url: props.pdfUrl })
+    pdfLoadingTask = pdfjsLib.getDocument({ url: props.pdfUrl })
 
-    loadingTask.onProgress = (data) => {
+    pdfLoadingTask.onProgress = (data) => {
       if (data.total > 0) {
-        progress.value = Math.round((data.loaded / data.total) * 50)
+        progress.value = Math.round((data.loaded / data.total) * 70)
       }
     }
 
-    pdfDoc = await loadingTask.promise
+    pdfDoc = await pdfLoadingTask.promise
+    if (disposed) return
     totalPages.value = pdfDoc.numPages
-    progress.value = 50
+    progress.value = 70
 
     const firstPage = await pdfDoc.getPage(1)
     const nativeView = firstPage.getViewport({ scale: 1 })
     const layout = calcBookLayout(nativeView.width, nativeView.height, isMobile.value)
+    currentRenderScale = layout.renderScale
+    resetPageRendering(1)
 
-    const total = pdfDoc.numPages
-    const canvases = await renderAllPages(layout.renderScale, (done) => {
-      progress.value = 50 + Math.round((done / total) * 50)
-    })
+    await ensurePageRendered(1)
+    if (disposed) return
 
     progress.value = 100
 
     loading.value = false
     await nextTick()
 
-    initTurn(layout.bookWidth, layout.bookHeight, canvases, isMobile.value, 1)
+    initTurn(layout.bookWidth, layout.bookHeight, isMobile.value, 1)
+    schedulePagesAround(1)
   } catch (err) {
+    if (disposed || err?.name === 'RenderingCancelledException') return
     console.error('FlipBook: 加载失败', err)
     error.value = err.message || '未知错误'
     loading.value = false
@@ -268,12 +420,15 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  document.removeEventListener('keydown', onKeyDown)
+  disposed = true
   window.removeEventListener('resize', onResize)
   clearTimeout(resizeTimer)
   if ($) {
     try { $('#flipbook').turn('destroy') } catch (_) { /* ignore */ }
   }
+  resetPageRendering(currentPage.value)
+  const loadingDestroy = pdfLoadingTask?.destroy()
+  loadingDestroy?.catch?.(() => {})
   delete window.jQuery
   delete window.$
 })

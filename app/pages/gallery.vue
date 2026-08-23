@@ -2,9 +2,15 @@
   <div class="gallery-page">
     <SubpageHero :title="$t('gallery.hero')" :subtitle="$t('gallery.heroSub')" icon='<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' />
 
-    <!-- viewerjs 全量图片容器（不可见，仅用于查看器导航） -->
+    <!-- viewerjs 导航容器使用内联占位图，避免预先下载全部原图 -->
     <div ref="viewerContainer" class="viewer-storage">
-      <img v-for="(item, i) in items" :key="i" :src="item.src" :data-original="item.src">
+      <img
+        v-for="item in items"
+        :key="item.src"
+        :src="VIEWER_PLACEHOLDER"
+        :data-original="item.src"
+        :alt="item.name"
+      >
     </div>
 
     <section class="gallery-section">
@@ -52,11 +58,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import 'viewerjs/dist/viewer.css'
 const { t } = useI18n()
 useHead({ title: computed(() => t('pageTitle.gallery')) })
+
+const VIEWER_PLACEHOLDER = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
 
 const items = [
   { src: '/img/gallery/1.webp',  name: '马迷巴士',   author: '摄影：Ryazen' },
@@ -98,10 +106,14 @@ function nextPage() {
 
 const viewerContainer = ref(null)
 let viewerInstance = null
+let viewerDisposed = false
 
 onMounted(async () => {
+  viewerDisposed = false
   const Viewer = (await import('viewerjs')).default
+  if (viewerDisposed || !viewerContainer.value) return
   viewerInstance = new Viewer(viewerContainer.value, {
+    url: 'data-original',
     zIndex: 9999,
     navbar: false,
     title: false,
@@ -122,6 +134,12 @@ onMounted(async () => {
 function openViewer(index) {
   viewerInstance?.view(index)
 }
+
+onUnmounted(() => {
+  viewerDisposed = true
+  viewerInstance?.destroy()
+  viewerInstance = null
+})
 </script>
 
 <style scoped>
