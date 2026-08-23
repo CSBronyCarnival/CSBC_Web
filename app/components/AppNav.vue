@@ -11,7 +11,9 @@
             class="nav-link"
             :class="{ active: activeSection === item.id }"
           >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <use :href="`${item.icon}#icon`" />
+            </svg>
             <span>{{ item.label }}</span>
           </NuxtLink>
         </ClickTilt>
@@ -36,8 +38,7 @@
 
       <button class="hamburger" @click="mobileOpen = !mobileOpen" aria-label="菜单">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-          <path v-if="!mobileOpen" d="M4 6h16M4 12h16M4 18h16" />
-          <path v-else d="M6 6l12 12M18 6L6 18" />
+          <use :href="`/img/page/${mobileOpen ? 'close' : 'menu'}.svg#icon`" />
         </svg>
       </button>
     </div>
@@ -46,7 +47,7 @@
       <div v-if="mobileOpen" class="mobile-drawer" @click.self="mobileOpen = false">
         <button class="mobile-close" @click="mobileOpen = false" aria-label="关闭菜单">
           <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 6l12 12M18 6L6 18" />
+            <use href="/img/page/close.svg#icon" />
           </svg>
         </button>
 
@@ -62,7 +63,9 @@
               :style="{ '--i': index }"
               @click="mobileOpen = false"
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" v-html="item.icon"></svg>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <use :href="`${item.icon}#icon`" />
+              </svg>
               <span>{{ item.label }}</span>
             </NuxtLink>
           </ClickTilt>
@@ -156,25 +159,25 @@ onUnmounted(() => {
 const items = computed(() => [
   { id: 'home', href: '/',
     label: t('nav.home'),
-    icon: '<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>' },
+    icon: '/img/page/home.svg' },
   { id: 'navigation', href: '/navigation',
     label: t('nav.venue'),
-    icon: '<path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>' },
+    icon: '/img/page/navigation.svg' },
   { id: 'ticket', href: '/ticket',
     label: t('nav.ticket'),
-    icon: '<path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>' },
+    icon: '/img/page/ticket.svg' },
   { id: 'gallery', href: '/gallery',
     label: t('nav.gallery'),
-    icon: '<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' },
+    icon: '/img/page/gallery.svg' },
   { id: 'conbook', href: '/conbook',
     label: t('nav.conbook'),
-    icon: '<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>' },
+    icon: '/img/page/conbook.svg' },
   { id: 'news', href: '/news',
     label: t('nav.news'),
-    icon: '<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>' },
+    icon: '/img/page/news.svg' },
   { id: 'night', href: '/night',
     label: t('nav.night'),
-    icon: '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>' },
+    icon: '/img/page/night.svg' },
 ])
 
 const activeSection = computed(() => {
