@@ -6,6 +6,20 @@
 
 </div>
 
-### 这是什么？
+### 部署
 
-这是CSBC华南马聚官网的仓库，欢迎大家来提交PR，共同完善这个网站
+!!需要安装bun
+
+首先，Clone项目后在项目根目录运行:
+
+```bash
+bun install
+```
+
+稍等片刻，依赖安装完成后运行:
+
+```bash
+bun run dev
+```
+
+最后访问 [http://localhost:3200](http://localhost:3200) 即可
