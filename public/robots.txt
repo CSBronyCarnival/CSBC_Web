@@ -1,9 +1,4 @@
-# 允许所有搜索引擎访问
-User-agent: *
-Disallow: /*?
-# 屏蔽后台目录
 User-agent: *
 Disallow: /admin/
-# 禁止抓取所有 JPG 图片
-User-agent: *
-Disallow: /*.jpg$
+
+Sitemap: https://csbronycarnival.com/sitemap.xml

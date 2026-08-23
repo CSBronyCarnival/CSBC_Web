@@ -24,17 +24,17 @@
       <div class="footer-right">
         <div class="footer-links-title"><p>{{ $t('footer.friendLinks') }}</p></div>
         <ul class="footer-links">
-          <li><a target="_blank" href="https://malangpony.com/"><img :src="nightSrc('/img/link/exchange/malang_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/malang.png"></a></li>
-          <li><a target="_blank" href="https://brony.scot/"><img :src="nightSrc('/img/link/exchange/bs_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/bs.png"></a></li>
-          <li><a target="_blank" href="https://www.norsehorsecon.eu/"><img :src="nightSrc('/img/link/exchange/norse_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/norse.webp"></a></li>
-          <li><a target="_blank" href="https://galacon.eu/"><img :src="nightSrc('/img/link/exchange/gala_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/gala.webp"></a></li>
-          <li><a target="_blank" href="http://suncelebration.butterpony.com/"><img :src="nightSrc('/img/link/exchange/ssc_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/ssc.webp"></a></li>
-          <li><a target="_blank" href="https://x.com/Poniko_MLP/"><img :src="nightSrc('/img/link/exchange/ponikon_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/ponikon.webp"></a></li>
-          <li><a target="_blank" href="https://sunshine.horse/"><img :src="nightSrc('/img/link/exchange/spc_b.webp')" class="friend-link-img" data-hover-src="/img/link/exchange/spc.webp"></a></li>
-          <li><a target="_blank" href="https://derpfest.ru/"><img :src="nightSrc('/img/link/exchange/derpfest_b.svg')" class="friend-link-img" data-hover-src="/img/link/exchange/derpfest.svg"></a></li>
-          <li><a target="_blank" href="https://twbronycon.org/"><img :src="nightSrc('/img/link/exchange/twbc_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/twbc.png"></a></li>
-          <li><a target="_blank" href="https://dreamlandcon.top/"><img :src="nightSrc('/img/link/exchange/dlc_b.svg')" class="friend-link-img" data-hover-src="/img/link/exchange/dlc.svg"></a></li>
-          <li><a target="_blank" href="https://www.equestriacn.com/"><img :src="nightSrc('/img/link/exchange/eqcn_b.png')" class="friend-link-img" data-hover-src="/img/link/exchange/eqcn.png"></a></li>
+          <li v-for="link in friendLinks" :key="link.id">
+            <a target="_blank" :href="link.href">
+              <img
+                :src="friendImageSrc(link)"
+                class="friend-link-img"
+                :class="{ 'is-fading': isFriendImageFading(link) }"
+                @mouseenter="scheduleFriendImageSwap(link, true)"
+                @mouseleave="scheduleFriendImageSwap(link, false)"
+              >
+            </a>
+          </li>
         </ul>
         <div class="footer-record">
           <p><a href="https://beian.miit.gov.cn/" target="_blank">闽ICP备2024035737号</a></p>
@@ -45,11 +45,26 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 
 const route = useRoute()
 const footerImgRef = ref(null)
-const preloadedFriendLinkImages = []
+const friendImageStates = ref({})
+const friendImageTimers = new Map()
+
+const friendLinks = [
+  { id: 'malang', href: 'https://malangpony.com/', src: '/img/link/exchange/malang_b.png', hoverSrc: '/img/link/exchange/malang.png' },
+  { id: 'bs', href: 'https://brony.scot/', src: '/img/link/exchange/bs_b.png', hoverSrc: '/img/link/exchange/bs.png' },
+  { id: 'norse', href: 'https://www.norsehorsecon.eu/', src: '/img/link/exchange/norse_b.webp', hoverSrc: '/img/link/exchange/norse.webp' },
+  { id: 'gala', href: 'https://galacon.eu/', src: '/img/link/exchange/gala_b.webp', hoverSrc: '/img/link/exchange/gala.webp' },
+  { id: 'ssc', href: 'http://suncelebration.butterpony.com/', src: '/img/link/exchange/ssc_b.webp', hoverSrc: '/img/link/exchange/ssc.webp' },
+  { id: 'ponikon', href: 'https://x.com/Poniko_MLP/', src: '/img/link/exchange/ponikon_b.webp', hoverSrc: '/img/link/exchange/ponikon.webp' },
+  { id: 'spc', href: 'https://sunshine.horse/', src: '/img/link/exchange/spc_b.webp', hoverSrc: '/img/link/exchange/spc.webp' },
+  { id: 'derpfest', href: 'https://derpfest.ru/', src: '/img/link/exchange/derpfest_b.svg', hoverSrc: '/img/link/exchange/derpfest.svg' },
+  { id: 'twbc', href: 'https://twbronycon.org/', src: '/img/link/exchange/twbc_b.png', hoverSrc: '/img/link/exchange/twbc.png' },
+  { id: 'dlc', href: 'https://dreamlandcon.top/', src: '/img/link/exchange/dlc_b.svg', hoverSrc: '/img/link/exchange/dlc.svg' },
+  { id: 'eqcn', href: 'https://www.equestriacn.com/', src: '/img/link/exchange/eqcn_b.png', hoverSrc: '/img/link/exchange/eqcn.png' },
+]
 
 const isNight = computed(() => route.path.startsWith('/night'))
 
@@ -60,18 +75,40 @@ function nightSrc(src) {
   return src.replace(/\.([^.]+)$/, '_w.$1')
 }
 
-function preloadFriendLinkVariants(src) {
-  const variants = [
-    src,
-    src.replace(/\.([^.]+)$/, '_b.$1'),
-    src.replace(/\.([^.]+)$/, '_w.$1'),
-  ]
+function friendImageSrc(link) {
+  return friendImageStates.value[link.id]?.src ?? nightSrc(link.src)
+}
 
-  variants.forEach((variantSrc) => {
-    const image = new Image()
-    image.src = variantSrc
-    preloadedFriendLinkImages.push(image)
-  })
+function isFriendImageFading(link) {
+  return friendImageStates.value[link.id]?.fading ?? false
+}
+
+function clearFriendImageTimers() {
+  friendImageTimers.forEach(timer => window.clearTimeout(timer))
+  friendImageTimers.clear()
+}
+
+function scheduleFriendImageSwap(link, hovered) {
+  const currentTimer = friendImageTimers.get(link.id)
+  if (currentTimer) window.clearTimeout(currentTimer)
+
+  friendImageStates.value = {
+    ...friendImageStates.value,
+    [link.id]: { src: friendImageSrc(link), fading: true },
+  }
+
+  const timer = window.setTimeout(() => {
+    friendImageStates.value = {
+      ...friendImageStates.value,
+      [link.id]: {
+        src: hovered ? link.hoverSrc : nightSrc(link.src),
+        fading: false,
+      },
+    }
+    friendImageTimers.delete(link.id)
+  }, 150)
+
+  friendImageTimers.set(link.id, timer)
 }
 
 function handleFooterMove(e) {
@@ -90,35 +127,16 @@ function handleFooterMove(e) {
 
 onMounted(() => {
   document.addEventListener('mousemove', handleFooterMove)
+})
 
-  document.querySelectorAll('.friend-link-img').forEach(img => {
-    const originalSrc = img.src
-    const hoverSrc = img.getAttribute('data-hover-src')
-    if (!hoverSrc || hoverSrc === originalSrc) return
-
-    preloadFriendLinkVariants(hoverSrc)
-
-    img.addEventListener('mouseenter', () => {
-      img.style.transition = 'opacity 0.3s ease'
-      img.style.opacity = '0'
-      setTimeout(() => {
-        img.src = hoverSrc
-        img.style.opacity = '1'
-      }, 150)
-    })
-
-    img.addEventListener('mouseleave', () => {
-      img.style.opacity = '0'
-      setTimeout(() => {
-        img.src = originalSrc
-        img.style.opacity = '0.7'
-      }, 150)
-    })
-  })
+watch(isNight, () => {
+  clearFriendImageTimers()
+  friendImageStates.value = {}
 })
 
 onUnmounted(() => {
   document.removeEventListener('mousemove', handleFooterMove)
+  clearFriendImageTimers()
 })
 </script>
 
@@ -245,6 +263,10 @@ onUnmounted(() => {
   width: auto;
   display: block;
   opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+.friend-link-img.is-fading {
+  opacity: 0;
 }
 .footer-record {
   margin-top: 15px;

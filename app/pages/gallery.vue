@@ -54,6 +54,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import 'viewerjs/dist/viewer.css'
 const { t } = useI18n()
 useHead({ title: computed(() => t('pageTitle.gallery')) })
 

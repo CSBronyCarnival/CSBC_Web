@@ -40,6 +40,11 @@ import { newsList } from '~/data/news'
 const route = useRoute()
 const article = computed(() => newsList.find(n => n.id === route.params.id))
 
+if (!article.value) {
+  const event = useRequestEvent()
+  if (event) setResponseStatus(event, 404, 'Article Not Found')
+}
+
 const { t } = useI18n()
 const pageTitle = computed(() =>
   article.value ? `${article.value.title} - ${t('site.name')}` : t('pageTitle.notFound')

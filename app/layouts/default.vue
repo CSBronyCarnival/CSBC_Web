@@ -2,7 +2,7 @@
   <div>
     <AppNav />
     <slot />
-    <AppFooter :key="$route.path" />
+    <AppFooter />
     <CornerPony />
   </div>
 </template>
