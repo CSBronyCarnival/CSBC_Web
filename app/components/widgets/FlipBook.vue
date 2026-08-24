@@ -30,9 +30,6 @@
               @click="goPrev"
               :aria-label="$t('conbook.prev')"
             >
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 19l-7-7 7-7"/>
-              </svg>
               {{ $t('conbook.prev') }}
             </button>
           </ClickTilt>
@@ -47,9 +44,6 @@
               :aria-label="$t('conbook.next')"
             >
               {{ $t('conbook.next') }}
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 5l7 7-7 7"/>
-              </svg>
             </button>
           </ClickTilt>
         </div>
@@ -497,9 +491,6 @@ onUnmounted(() => {
   margin-top: 24px;
 }
 .flipbook-btn {
-  display: flex;
-  align-items: center;
-  gap: 4px;
   padding: 8px 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
