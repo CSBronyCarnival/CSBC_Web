@@ -53,7 +53,7 @@ if (!article.value) {
 
 const { t } = useI18n()
 const pageTitle = computed(() =>
-  article.value ? `${article.value.title} - ${t('site.name')}` : t('pageTitle.notFound')
+  article.value ? article.value.title : t('pageTitle.notFound')
 )
 useHead({ title: pageTitle })
 </script>
