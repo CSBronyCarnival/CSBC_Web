@@ -5,16 +5,24 @@
     </div>
     <div class="hero-image-scroll">
       <div class="hero-image" ref="heroImageRef">
-        <img ref="heroImgElRef" src="/img/csbc-line-w.svg" alt="">
+        <img
+          ref="heroImgElRef"
+          src="/img/csbc-line-w.svg"
+          alt=""
+          :class="{ 'is-initialized': isInitialized }"
+        >
       </div>
     </div>
     <div class="hero-content" ref="heroContentRef">
       <div class="hero-content-scroll">
-        <div class="hero-content-inner hero-animation">
+        <div
+          class="hero-content-inner hero-animation"
+          :class="{ 'is-initialized': isInitialized }"
+        >
           <div class="hero-subtitle">
-            <span class="line-left line-show"></span>
+            <span class="line-left" :class="{ 'line-show': isInitialized }"></span>
             <span class="subtitle-text">GuangZhou China</span>
-            <span class="line-right line-show"></span>
+            <span class="line-right" :class="{ 'line-show': isInitialized }"></span>
           </div>
           <h1>{{ $t('hero.title') }}</h1>
           <p class="hero-poem">{{ $t('hero.poem') }}</p>
@@ -31,7 +39,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { nextTick, ref, onMounted, onUnmounted } from 'vue'
 
 const heroBgRef = ref(null)
 const heroRef = ref(null)
@@ -40,9 +48,11 @@ const heroContentRef = ref(null)
 const heroImgElRef = ref(null)
 const isScrolled = ref(false)
 const showScrollIndicator = ref(false)
+const isInitialized = ref(false)
 const SCROLL_INDICATOR_DELAY = 3000
 let scrollFrame = 0
 let scrollIndicatorTimer = 0
+let titleAnimationFrame = 0
 
 function handleMouseMove(e) {
   const isMobile = window.innerWidth < 768
@@ -101,7 +111,7 @@ function updateScrollProgress() {
   })
 }
 
-onMounted(() => {
+onMounted(async () => {
   document.addEventListener('mousemove', handleMouseMove)
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
   updateScrollProgress()
@@ -109,6 +119,11 @@ onMounted(() => {
   scrollIndicatorTimer = window.setTimeout(() => {
     showScrollIndicator.value = true
   }, SCROLL_INDICATOR_DELAY)
+
+  await nextTick()
+  titleAnimationFrame = window.requestAnimationFrame(() => {
+    isInitialized.value = true
+  })
 })
 
 onUnmounted(() => {
@@ -116,6 +131,7 @@ onUnmounted(() => {
   window.removeEventListener('scroll', updateScrollProgress)
   if (scrollFrame) window.cancelAnimationFrame(scrollFrame)
   if (scrollIndicatorTimer) window.clearTimeout(scrollIndicatorTimer)
+  if (titleAnimationFrame) window.cancelAnimationFrame(titleAnimationFrame)
 })
 </script>
 
@@ -177,9 +193,13 @@ onUnmounted(() => {
 .hero-image img {
   width: 100%; height: auto;
   object-fit: contain;
+  opacity: 0;
+  transform: scale(0.95);
   filter: brightness(1.2) drop-shadow(0 0 20px rgba(0,0,0,0.5));
   -webkit-mask-image: radial-gradient(circle 300px at var(--x, 50%) var(--y, 50%), black 20%, rgba(0,0,0,0.25) 100%);
   mask-image: radial-gradient(circle 300px at var(--x, 50%) var(--y, 50%), black 20%, rgba(0,0,0,0.25) 100%);
+}
+.hero-image img.is-initialized {
   animation: imageAnimation 8s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 @keyframes imageAnimation {
@@ -202,6 +222,10 @@ onUnmounted(() => {
   will-change: transform, opacity;
 }
 .hero-content-inner {
+  opacity: 0;
+  transform: scale(1.1);
+}
+.hero-content-inner.is-initialized {
   animation: titleAnimation 2s cubic-bezier(0.00, 0.00, 0.00, 1.00) forwards;
 }
 @keyframes titleAnimation {
@@ -228,7 +252,7 @@ onUnmounted(() => {
   width: 0;
   background: #fff;
   margin: 0 15px;
-  transition: width 1s cubic-bezier(0.00, 0.00, 0.00, 1.00);
+  transition: width 2s cubic-bezier(0.00, 0.00, 0.00, 1.00);
 }
 .line-show {
   width: 60px;
