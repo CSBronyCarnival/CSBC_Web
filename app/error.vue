@@ -8,6 +8,7 @@
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import * as THREE from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import * as CANNON from 'cannon-es'
@@ -17,6 +18,11 @@ const props = defineProps({
     type: Object,
     default: () => ({})
   }
+})
+
+const { t } = useI18n()
+useHead({
+  title: computed(() => `${t('site.name')} - ${t('pageTitle.error')}`)
 })
 
 const sceneHostRef = ref(null)

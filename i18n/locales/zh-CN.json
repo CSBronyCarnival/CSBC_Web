@@ -11,7 +11,8 @@
     "conbook": "场刊",
     "news": "展会消息",
     "night": "夜下扬蹄",
-    "notFound": "未找到文章"
+    "notFound": "未找到文章",
+    "error": "出错了"
   },
   "nav": {
     "home": "首页",

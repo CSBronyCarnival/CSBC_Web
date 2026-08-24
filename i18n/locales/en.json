@@ -11,7 +11,8 @@
     "conbook": "Conbook",
     "news": "News",
     "night": "Prance The Night",
-    "notFound": "Article not found"
+    "notFound": "Article not found",
+    "error": "Something went wrong"
   },
   "nav": {
     "home": "Home",
