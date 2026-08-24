@@ -17,12 +17,11 @@ logs
 .DS_Store
 .fleet
 .idea
+.workbuddy
+.vscode
+.claude
 
 # Local env files
 .env
 .env.*
 !.env.example
-
-/.idea
-.workbuddy
-.vscode
