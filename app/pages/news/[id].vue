@@ -1,7 +1,10 @@
 <template>
   <div class="news-article-page">
     <div v-if="article" class="article-container">
-      <NuxtLink to="/news" class="back-link">&larr; {{ $t('news.back') }}</NuxtLink>
+      <NuxtLink to="/news" class="back-link">
+        <img src="/img/page/back.svg" alt="" aria-hidden="true">
+        <span>{{ $t('news.back') }}</span>
+      </NuxtLink>
       <article class="news-article">
         <div class="news-hero-image">
           <ImgLazy :src="article.hero" :alt="article.title" class="hero-img" />
@@ -26,7 +29,10 @@
 
     <div v-else class="not-found">
       <p>{{ $t('news.notFound') }}</p>
-      <NuxtLink to="/news" class="back-link not-found-link">&larr; {{ $t('news.back') }}</NuxtLink>
+      <NuxtLink to="/news" class="back-link not-found-link">
+        <img src="/img/page/back.svg" alt="" aria-hidden="true">
+        <span>{{ $t('news.back') }}</span>
+      </NuxtLink>
     </div>
 
   </div>
@@ -128,16 +134,23 @@ useHead({ title: pageTitle })
 }
 
 .back-link {
-  display: inline-block;
-  color: #3498db;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #434343;
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
   padding: 20px 0 0;
-  transition: color 0.2s ease;
+  transition: opacity 0.2s ease;
+}
+.back-link img {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
 }
 .back-link:hover {
-  color: #2176a9;
+  opacity: 0.7;
 }
 .not-found-link {
   padding: 0;
