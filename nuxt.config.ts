@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     dirs: [
       { path: '~/components/layouts', pathPrefix: false },
       { path: '~/components/sections', pathPrefix: false },
-      { path: '~/components/pages', pathPrefix: false },
       { path: '~/components/widgets', pathPrefix: false }
     ]
   },
