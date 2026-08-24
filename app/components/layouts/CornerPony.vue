@@ -19,7 +19,7 @@
 
     <div class="pony-buttons">
       <div class="pony-btn switch-btn" @click.stop="switchPony">
-        <img src="/img/pony/button/switch.svg" alt="切换" />
+        <img src="/img/page/switch.svg" alt="切换" />
       </div>
     </div>
   </div>
