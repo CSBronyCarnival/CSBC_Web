@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppLoadingOverlay />
     <NuxtRouteAnnouncer />
     <NuxtLayout>
       <NuxtPage />

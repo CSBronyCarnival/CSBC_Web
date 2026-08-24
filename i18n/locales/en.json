@@ -92,6 +92,7 @@
     "switchTo": "中文",
     "loading": "Switching language"
   },
+  "loading": "Loading...",
   "footer": {
     "sourceCode": "View source on GitHub",
     "friendLinks": "Friends & Partners"
