@@ -1,5 +1,9 @@
 <template>
-  <main ref="sceneHostRef" class="error-page" :aria-label="`Error ${errorCode}`" />
+  <main ref="sceneHostRef" class="error-page" :aria-label="`Error ${errorCode}`">
+    <p class="error-message" role="status">
+      {{ errorCode }}: {{ errorMessage }}
+    </p>
+  </main>
 </template>
 
 <script setup>
@@ -17,6 +21,9 @@ const props = defineProps({
 
 const sceneHostRef = ref(null)
 const errorCode = computed(() => String(props.error?.statusCode ?? 500))
+const errorMessage = computed(() => String(
+  props.error?.statusMessage || props.error?.message || 'Unknown error'
+))
 
 const FONT_URL = 'https://www.oppo.com/content/dam/statics/fonts/cn/OPPOSans3.0cn-Bold.woff2'
 const FONT_FAMILY = 'CSBCOPPOSansError'
@@ -728,5 +735,24 @@ onUnmounted(() => {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.error-message {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 2;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 8px 12px;
+  overflow-wrap: anywhere;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #34495e;
+  font-size: clamp(0.72rem, 1.4vw, 0.9rem);
+  line-height: 1.35;
+  pointer-events: none;
 }
 </style>
