@@ -18,6 +18,8 @@ const props = defineProps({
 
 const sceneHostRef = ref(null)
 const sceneReady = ref(false)
+const SCATTER_EASE_IN_SPEED = 3.5
+const SCATTER_EASE_OUT_SPEED = 6
 
 const STAR_VERTEX_SHADER = `
   attribute float aSize;
@@ -202,9 +204,12 @@ function animateScene() {
   animationFrame = window.requestAnimationFrame(animateScene)
   const delta = Math.min(clock.getDelta(), 0.1)
   const time = clock.elapsedTime
-  const follow = prefersReducedMotion ? 1 : 1 - Math.exp(-7 * delta)
 
   updateScrollTarget()
+  const easingSpeed = targetScrollProgress > scrollProgress
+    ? SCATTER_EASE_IN_SPEED
+    : SCATTER_EASE_OUT_SPEED
+  const follow = prefersReducedMotion ? 1 : 1 - Math.exp(-easingSpeed * delta)
   scrollProgress += (targetScrollProgress - scrollProgress) * follow
   updateStarPositions(time)
   renderer.render(scene, camera)

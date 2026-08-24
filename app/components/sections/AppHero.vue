@@ -40,6 +40,7 @@
 
 <script setup>
 import { nextTick, ref, onMounted, onUnmounted } from 'vue'
+import { onNuxtReady } from '#app'
 
 const heroBgRef = ref(null)
 const heroRef = ref(null)
@@ -116,14 +117,16 @@ onMounted(async () => {
   window.addEventListener('scroll', updateScrollProgress, { passive: true })
   updateScrollProgress()
 
-  scrollIndicatorTimer = window.setTimeout(() => {
-    showScrollIndicator.value = true
-  }, SCROLL_INDICATOR_DELAY)
-
   await nextTick()
   titleAnimationFrame = window.requestAnimationFrame(() => {
     isInitialized.value = true
   })
+})
+
+onNuxtReady(() => {
+  scrollIndicatorTimer = window.setTimeout(() => {
+    showScrollIndicator.value = true
+  }, SCROLL_INDICATOR_DELAY)
 })
 
 onUnmounted(() => {
