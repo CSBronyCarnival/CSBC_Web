@@ -92,6 +92,9 @@
     "switchTo": "中文",
     "loading": "Switching language"
   },
+  "loading": {
+    "slow": "Loading may take longer than expected. Please wait patiently."
+  },
   "footer": {
     "sourceCode": "View source on GitHub",
     "friendLinks": "Friends & Partners"

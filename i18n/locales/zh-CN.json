@@ -92,6 +92,9 @@
     "switchTo": "EN",
     "loading": "正在切换语言"
   },
+  "loading": {
+    "slow": "加载耗时可能较长，请耐心等待。"
+  },
   "footer": {
     "sourceCode": "在 GitHub 上查看源代码",
     "friendLinks": "友情链接"
