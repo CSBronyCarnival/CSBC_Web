@@ -94,22 +94,6 @@
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-useHead({
-  style: [
-    {
-      innerHTML: `
-        .top-nav .nav-inner{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-        .top-nav.night .nav-inner{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-        .mobile-drawer{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-        @media(max-width:768px){
-          .top-nav .nav-inner{backdrop-filter:none;-webkit-backdrop-filter:none}
-          .top-nav .hamburger{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-        }
-      `
-    }
-  ]
-})
-
 const route = useRoute()
 const { t, locale, setLocale } = useI18n()
 
@@ -217,6 +201,8 @@ watch(() => route.path, () => {
   justify-content: center;
   height: 52px;
   background: rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   pointer-events: auto;
@@ -306,6 +292,8 @@ watch(() => route.path, () => {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -399,6 +387,8 @@ watch(() => route.path, () => {
     margin: 10px 10px 0 0;
     padding: 0;
     background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border-radius: 0;
     box-shadow: none;
   }
@@ -411,6 +401,8 @@ watch(() => route.path, () => {
     height: 40px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   .hamburger:hover {
@@ -498,6 +490,7 @@ watch(() => route.path, () => {
   border: none;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   color: rgba(255, 255, 255, 0.95);
   font-size: 1rem;
