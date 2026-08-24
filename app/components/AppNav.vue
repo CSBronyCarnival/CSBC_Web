@@ -38,7 +38,7 @@
 
       <button class="hamburger" @click="mobileOpen = !mobileOpen" aria-label="菜单">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-          <use :href="`/img/page/${mobileOpen ? 'close' : 'menu'}.svg#icon`" />
+          <use href="/img/page/menu.svg#icon" />
         </svg>
       </button>
     </div>
