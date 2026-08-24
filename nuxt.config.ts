@@ -2,6 +2,14 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  components: {
+    dirs: [
+      { path: '~/components/layouts', pathPrefix: false },
+      { path: '~/components/sections', pathPrefix: false },
+      { path: '~/components/pages', pathPrefix: false },
+      { path: '~/components/widgets', pathPrefix: false }
+    ]
+  },
   devServer: {
     port: 3200
   },
