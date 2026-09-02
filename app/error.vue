@@ -1,6 +1,15 @@
 <template>
-  <main ref="sceneHostRef" class="error-page" :aria-label="`Error ${errorCode}`">
-    <p class="error-message" role="status">
+  <main
+    ref="sceneHostRef"
+    class="error-page"
+    :aria-label="`Error ${errorCode}`"
+    style="position: fixed; inset: 0; display: block; width: 100vw; height: 100vh; max-height: 100vh; overflow: hidden; touch-action: none; background: #fff; contain: layout paint size;"
+  >
+    <p
+      class="error-message"
+      role="status"
+      style="position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 2; max-width: calc(100vw - 32px); margin: 0; padding: 8px 12px; overflow-wrap: anywhere; border-radius: 14px; background: rgba(255, 255, 255, 0.78); color: #34495e; font-size: 0.9rem; line-height: 1.35; pointer-events: none;"
+    >
       {{ errorCode }}: {{ errorMessage }}
     </p>
   </main>
@@ -25,6 +34,14 @@ useHead({
   title: computed(() => `${t('site.name')} - ${t('pageTitle.error')}`)
 })
 
+const runtimeConfig = useRuntimeConfig()
+const appBaseURL = runtimeConfig.app?.baseURL || '/'
+
+function resolveAssetURL(path) {
+  const baseURL = appBaseURL.endsWith('/') ? appBaseURL : `${appBaseURL}/`
+  return `${baseURL}${path.replace(/^\/+/, '')}`
+}
+
 const sceneHostRef = ref(null)
 const errorCode = computed(() => String(props.error?.statusCode ?? 500))
 const errorMessage = computed(() => String(
@@ -44,9 +61,10 @@ const DRAG_MAX_FORCE = 850
 const RASTER_FONT_SIZE = 256
 const RASTER_STEP = 2
 const CUBE_COUNT = 5
-const CUBE_TEXTURE_URLS = [
-  '/img/fun/1.webp',
-  '/img/fun/2.webp'
+const CUBE_SPAWN_MIN_Y = 8
+const CUBE_TEXTURE_PATHS = [
+  'img/fun/1.webp',
+  'img/fun/2.webp'
 ]
 
 let renderer = null
@@ -56,9 +74,7 @@ let keyLight = null
 let digitRoot = null
 let world = null
 let groundBody = null
-let resizeObserver = null
 let animationFrame = 0
-let cubeDropTimer = 0
 let clock = null
 let raycaster = null
 let pointer = null
@@ -107,7 +123,7 @@ async function loadCubeTextures() {
   const loader = new THREE.TextureLoader()
   try {
     cubeTextures = await Promise.all(
-      CUBE_TEXTURE_URLS.map((url) => loader.loadAsync(url))
+      CUBE_TEXTURE_PATHS.map((path) => loader.loadAsync(resolveAssetURL(path)))
     )
     cubeTextures.forEach((texture) => {
       texture.colorSpace = THREE.SRGBColorSpace
@@ -300,10 +316,10 @@ function createCubeBody(position, rotation) {
 }
 
 function createCubes() {
-  const requiredTextureIndexes = CUBE_TEXTURE_URLS.map((_, index) => index)
+  const requiredTextureIndexes = CUBE_TEXTURE_PATHS.map((_, index) => index)
   const randomTextureIndexes = Array.from(
     { length: Math.max(0, CUBE_COUNT - requiredTextureIndexes.length) },
-    () => Math.floor(Math.random() * CUBE_TEXTURE_URLS.length)
+    () => Math.floor(Math.random() * CUBE_TEXTURE_PATHS.length)
   )
   const textureIndexes = shuffle([...requiredTextureIndexes, ...randomTextureIndexes])
   const spawnLanes = shuffle([-4.2, -2.7, 0, 2.7, 4.2])
@@ -317,7 +333,7 @@ function createCubes() {
     )
     group.position.set(
       spawnLanes[index] + (Math.random() - 0.5) * 0.65,
-      5.8 + Math.random() * 3,
+      CUBE_SPAWN_MIN_Y + Math.random() * 2.5,
       (Math.random() - 0.5) * 1.5
     )
     group.rotation.copy(rotation)
@@ -426,8 +442,10 @@ function enforceDraggedGroundClearance() {
 function resizeScene() {
   const host = sceneHostRef.value
   if (!host || !renderer || !camera) return
-  const width = host.clientWidth
-  const height = host.clientHeight
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 1
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1
+  const width = Math.min(host.clientWidth, viewportWidth)
+  const height = Math.min(host.clientHeight, viewportHeight)
   if (!width || !height) return
   const aspect = width / height
   const worldAspect = WORLD_WIDTH / WORLD_HEIGHT
@@ -589,6 +607,7 @@ function onPointerUp(event) {
 function animateScene() {
   if (disposed || !renderer || !scene || !camera || !clock || !world) return
   animationFrame = window.requestAnimationFrame(animateScene)
+  clock.update()
   const delta = Math.min(clock.getDelta(), 0.05)
   updateDragAnchor(delta)
   world.step(1 / 60, delta, 5)
@@ -611,8 +630,11 @@ function createScene() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.05
     renderer.shadowMap.enabled = true
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    renderer.shadowMap.type = THREE.PCFShadowMap
     renderer.domElement.setAttribute('aria-hidden', 'true')
+    renderer.domElement.style.display = 'block'
+    renderer.domElement.style.width = '100%'
+    renderer.domElement.style.height = '100%'
     renderer.domElement.style.cursor = 'grab'
     host.appendChild(renderer.domElement)
 
@@ -661,29 +683,36 @@ function createScene() {
 }
 
 onMounted(async () => {
+  if (!import.meta.client) return
   disposed = false
-  await Promise.all([loadFont(), loadCubeTextures()])
+  // The scene must not depend on remote assets completing successfully. Static
+  // hosts can delay or block those requests while the local fallback remains usable.
+  const fontPromise = loadFont().catch(() => false)
+  const texturePromise = loadCubeTextures().catch(() => false)
+
+  await Promise.race([
+    fontPromise,
+    new Promise((resolve) => window.setTimeout(resolve, 1200))
+  ])
+  if (disposed) return
   if (!createScene()) return
   const canvas = renderer.domElement
   canvas.addEventListener('pointerdown', onPointerDown)
   canvas.addEventListener('pointermove', onPointerMove)
   canvas.addEventListener('pointerup', onPointerUp)
   canvas.addEventListener('pointercancel', onPointerUp)
-  resizeObserver = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(resizeScene) : null
-  resizeObserver?.observe(sceneHostRef.value)
   window.addEventListener('resize', resizeScene)
-  clock = new THREE.Clock()
+  window.requestAnimationFrame(resizeScene)
+  clock = new THREE.Timer()
   animationFrame = window.requestAnimationFrame(animateScene)
-  cubeDropTimer = window.setTimeout(() => {
-    if (!disposed && world && digitRoot && cubeTextures.length) createCubes()
-  }, 1000)
+  texturePromise.then((loaded) => {
+    if (loaded && !disposed && world && digitRoot && !cubes.length) createCubes()
+  })
 })
 
 onUnmounted(() => {
   disposed = true
   if (animationFrame) window.cancelAnimationFrame(animationFrame)
-  if (cubeDropTimer) window.clearTimeout(cubeDropTimer)
-  resizeObserver?.disconnect()
   window.removeEventListener('resize', resizeScene)
   const canvas = renderer?.domElement
   canvas?.removeEventListener('pointerdown', onPointerDown)
@@ -721,23 +750,28 @@ onUnmounted(() => {
   floorGeometry = null
   roomMaterial = null
   floorMesh = null
+  clock?.dispose?.()
   clock = null
-  cubeDropTimer = 0
 })
 </script>
 
-<style scoped>
+<style>
 .error-page {
   position: fixed;
   inset: 0;
+  display: block;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  max-height: 100vh;
   overflow: hidden;
   touch-action: none;
   background: #fff;
+  contain: layout paint size;
 }
 
-.error-page :deep(canvas) {
+.error-page canvas {
   display: block;
   width: 100%;
   height: 100%;
