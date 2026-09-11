@@ -85,6 +85,21 @@ const pageCanvases = new Map()
 const pageRenderPromises = new Map()
 const activeRenderTasks = new Map()
 
+let workerObjectUrl = ''
+
+async function createWorkerObjectUrl(url) {
+  try {
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const code = await res.text()
+    workerObjectUrl = URL.createObjectURL(new Blob([code], { type: 'application/javascript' }))
+    return workerObjectUrl
+  } catch (err) {
+    console.warn('FlipBook: PDF worker 预取失败，回退为直接引用', err)
+    return url
+  }
+}
+
 function loadTurnJs() {
   return new Promise((resolve, reject) => {
     if (turnReady || $?.fn?.turn) {
@@ -369,12 +384,13 @@ onMounted(async () => {
     $ = jqModule.default
     window.jQuery = window.$ = $
 
-    const [_, pdfjsLib] = await Promise.all([
+    const [_, pdfjsLib, workerUrl] = await Promise.all([
       loadTurnJs(),
-      import('pdfjs-dist')
+      import('pdfjs-dist'),
+      createWorkerObjectUrl(pdfWorkerUrl)
     ])
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl
+    pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
 
     pdfLoadingTask = pdfjsLib.getDocument({ url: props.pdfUrl })
 
@@ -423,6 +439,10 @@ onUnmounted(() => {
   resetPageRendering(currentPage.value)
   const loadingDestroy = pdfLoadingTask?.destroy()
   loadingDestroy?.catch?.(() => {})
+  if (workerObjectUrl) {
+    URL.revokeObjectURL(workerObjectUrl)
+    workerObjectUrl = ''
+  }
   delete window.jQuery
   delete window.$
 })
