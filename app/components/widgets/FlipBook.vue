@@ -54,7 +54,6 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
-import pdfWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
 const props = defineProps({
   pdfUrl: { type: String, required: true }
@@ -87,17 +86,10 @@ const activeRenderTasks = new Map()
 
 let workerObjectUrl = ''
 
-async function createWorkerObjectUrl(url) {
-  try {
-    const res = await fetch(url)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const code = await res.text()
-    workerObjectUrl = URL.createObjectURL(new Blob([code], { type: 'application/javascript' }))
-    return workerObjectUrl
-  } catch (err) {
-    console.warn('FlipBook: PDF worker 预取失败，回退为直接引用', err)
-    return url
-  }
+async function createWorkerObjectUrl() {
+  const { default: code } = await import('pdfjs-dist/build/pdf.worker.min.mjs?raw')
+  workerObjectUrl = URL.createObjectURL(new Blob([code], { type: 'application/javascript' }))
+  return workerObjectUrl
 }
 
 function loadTurnJs() {
@@ -387,7 +379,7 @@ onMounted(async () => {
     const [_, pdfjsLib, workerUrl] = await Promise.all([
       loadTurnJs(),
       import('pdfjs-dist'),
-      createWorkerObjectUrl(pdfWorkerUrl)
+      createWorkerObjectUrl()
     ])
 
     pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
