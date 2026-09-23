@@ -8,10 +8,10 @@
       </div>
 
       <div class="nav-images">
-        <div class="nav-image-item">
+        <div class="nav-image-item nav-image-hotel">
           <ImgLazy src="/img/navigation/switzerland.jpg" :alt="$t('navPage.hotel')" class="nav-img" />
         </div>
-        <div class="nav-image-item">
+        <div class="nav-image-item nav-image-traffic">
           <ImgLazy src="/img/navigation/transport.jpg" :alt="$t('navPage.transportation')" class="nav-img" />
         </div>
       </div>
@@ -141,6 +141,13 @@
   width: 100%;
   border-radius: 15px;
   display: block;
+}
+/* 图片加载完成前按原始比例预留占位空间，避免占位塌陷 */
+.nav-image-hotel :deep(.lazy-img) {
+  aspect-ratio: 3027 / 1861;
+}
+.nav-image-traffic :deep(.lazy-img) {
+  aspect-ratio: 1877 / 1596;
 }
 .nav-image-item :deep(.lazy-img-el) {
   border-radius: 15px;

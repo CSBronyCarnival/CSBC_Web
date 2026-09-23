@@ -43,9 +43,10 @@
   margin: 0 auto;
   border-radius: 8px;
 }
-/* 覆盖 ImgLazy 内部浅色背景 */
+/* 覆盖 ImgLazy 内部浅色背景，并按原图比例在加载完成前预留占位空间，避免占位塌陷 */
 .about-img :deep(.lazy-img) {
   background: #1e1e1e;
+  aspect-ratio: 2821 / 1763;
 }
 .credit {
   font-size: 12px;
