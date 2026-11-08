@@ -1,27 +1,64 @@
 <template>
-  <div
-    ref="rootRef"
-    class="corner-pony"
-    @click="onClick"
-  >
-    <img
-      ref="imgRef"
-      class="pony-img"
-      :src="ponyImages[currentIndex]"
-      alt="咩咩本尊"
-    />
+  <div v-if="isReady" class="corner-pony-widget">
+    <div
+      id="corner-pony"
+      class="corner-pony"
+      :class="{ 'is-collapsed': isCollapsed }"
+      :inert="isCollapsed"
+      :aria-hidden="isCollapsed"
+      @click="onClick"
+    >
+      <img
+        ref="imgRef"
+        class="pony-img"
+        :src="ponyImages[currentIndex]"
+        alt="咩咩本尊"
+      />
 
-    <Transition name="bubble">
-      <div v-if="bubbleVisible" class="pony-bubble">
-        {{ bubbleText }}
-      </div>
-    </Transition>
+      <Transition name="bubble">
+        <div v-if="bubbleVisible" class="pony-bubble">
+          {{ bubbleText }}
+        </div>
+      </Transition>
 
-    <div class="pony-buttons">
-      <div class="pony-btn switch-btn" @click.stop="switchPony">
-        <img src="/img/page/switch.svg" alt="切换" />
+      <div class="pony-buttons">
+        <button
+          type="button"
+          class="pony-btn switch-btn"
+          title="切换外观"
+          aria-label="切换外观"
+          @click.stop="switchPony"
+        >
+          <img src="/img/page/switch.svg" alt="" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          class="pony-btn collapse-btn"
+          title="收起吉祥物"
+          aria-label="收起吉祥物"
+          aria-controls="corner-pony"
+          aria-expanded="true"
+          @click.stop="collapsePony"
+        >
+          <img src="/img/page/collapse.svg" alt="" aria-hidden="true" />
+        </button>
       </div>
     </div>
+
+    <Transition name="pony-expand">
+      <button
+        v-if="isCollapsed"
+        type="button"
+        class="pony-btn pony-expand-btn"
+        title="展开吉祥物"
+        aria-label="展开吉祥物"
+        aria-controls="corner-pony"
+        aria-expanded="false"
+        @click.stop="setCollapsed(false)"
+      >
+        <img src="/img/page/collapse.svg" alt="" aria-hidden="true" />
+      </button>
+    </Transition>
   </div>
 </template>
 
@@ -35,12 +72,15 @@ const ponyImages = [
   '/img/pony/4.webp',
 ]
 
-const rootRef = ref(null)
 const imgRef = ref(null)
 const currentIndex = ref(-1)
+const isReady = ref(false)
+const isCollapsed = ref(false)
+const collapsedStorageKey = 'csbc:corner-pony:collapsed'
 const bubbleVisible = ref(false)
 const bubbleText = ref('')
 let bubbleTimer = null
+let welcomeTimer = null
 
 const messages = {
   welcome: {
@@ -91,6 +131,8 @@ function pick(arr) {
 }
 
 function showBubble(text) {
+  if (isCollapsed.value) return
+
   bubbleText.value = text
   bubbleVisible.value = true
   clearTimeout(bubbleTimer)
@@ -101,6 +143,22 @@ function showBubble(text) {
 
 function onClick() {
   showBubble(pick(messages.click))
+}
+
+function setCollapsed(collapsed) {
+  isCollapsed.value = collapsed
+  try {
+    window.localStorage.setItem(collapsedStorageKey, String(collapsed))
+  } catch {
+    // 本地存储不可用时，仍可在当前页面正常收起和展开。
+  }
+}
+
+function collapsePony() {
+  setCollapsed(true)
+  bubbleVisible.value = false
+  clearTimeout(bubbleTimer)
+  clearTimeout(welcomeTimer)
 }
 
 function switchPony() {
@@ -122,26 +180,53 @@ function switchPony() {
 }
 
 onMounted(() => {
+  try {
+    isCollapsed.value = window.localStorage.getItem(collapsedStorageKey) === 'true'
+  } catch {
+    // 本地存储不可用时，默认展开。
+  }
   currentIndex.value = Math.floor(Math.random() * ponyImages.length)
-  setTimeout(() => {
-    showBubble(pick(messages.welcome[getTimeType()]))
-  }, 1000)
+  isReady.value = true
+  if (!isCollapsed.value) {
+    welcomeTimer = setTimeout(() => {
+      showBubble(pick(messages.welcome[getTimeType()]))
+    }, 1000)
+  }
 })
 
 onUnmounted(() => {
   clearTimeout(bubbleTimer)
+  clearTimeout(welcomeTimer)
 })
 </script>
 
 <style scoped>
-.corner-pony {
+.corner-pony-widget {
+  --pony-slide-duration: 0.3s;
   position: fixed;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.corner-pony {
+  --pony-right-offset: 100px;
+  position: absolute;
   bottom: 140px;
-  right: 100px;
+  right: var(--pony-right-offset);
   width: 120px;
   height: 120px;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  pointer-events: auto;
+  transition: transform var(--pony-slide-duration) ease, visibility 0s;
+}
+
+.corner-pony.is-collapsed {
+  transform: translateX(calc(100% + var(--pony-right-offset) + 24px));
+  visibility: hidden;
+  pointer-events: none;
+  transition-delay: 0s, var(--pony-slide-duration);
 }
 
 .pony-img {
@@ -209,7 +294,8 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   z-index: 1002;
 }
-.corner-pony:hover .pony-buttons {
+.corner-pony:hover .pony-buttons,
+.corner-pony:focus-within .pony-buttons {
   opacity: 1;
   visibility: visible;
   left: 0px;
@@ -222,6 +308,7 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.7);
   border: 2px solid rgba(230, 230, 230, 0.7);
   border-radius: 50%;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,6 +318,10 @@ onUnmounted(() => {
 .pony-btn:hover {
   border-color: #999;
 }
+.pony-btn:focus-visible {
+  outline: 2px solid #2c2c2c;
+  outline-offset: 3px;
+}
 .pony-btn:active {
   transform: scale(0.9);
 }
@@ -239,13 +330,49 @@ onUnmounted(() => {
   height: 20px;
   object-fit: contain;
 }
-.switch-btn {
+.switch-btn,
+.collapse-btn {
   background: #ffffffcb;
 }
 
+.pony-expand-btn {
+  position: absolute;
+  right: 0;
+  bottom: 160px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px 0 0 22px;
+  background: #ffffffcb;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+.pony-expand-btn img {
+  transform: rotate(180deg);
+}
+.pony-expand-enter-active,
+.pony-expand-leave-active {
+  transition: transform var(--pony-slide-duration) ease, opacity var(--pony-slide-duration) ease;
+}
+.pony-expand-enter-active {
+  transition-delay: var(--pony-slide-duration);
+}
+.pony-expand-btn.pony-expand-enter-from,
+.pony-expand-btn.pony-expand-leave-to {
+  transform: translateX(calc(100% + 12px));
+  opacity: 0;
+  pointer-events: none;
+}
+
 @media (max-width: 768px) {
-  .corner-pony {
+  .corner-pony-widget {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corner-pony-widget {
+    --pony-slide-duration: 0s;
   }
 }
 </style>
